@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1581941516998515120}
   - component: {fileID: 9069182159484728071}
   - component: {fileID: 1271131692190162405}
+  - component: {fileID: 7637330489050394921}
   m_Layer: 6
   m_Name: HexTile
   m_TagString: Untagged
@@ -73,6 +74,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b0e951ec3c8a64c831e879cb59644b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlight: {fileID: 7637330489050394921}
+--- !u!114 &7637330489050394921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1581941516998515134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 293e3d0efd83c7744bbc12304ea6b51d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  glowMaterial: {fileID: 2100000, guid: a0e7da6e08202a24190d6200307f4b8c, type: 2}
 --- !u!1001 &6479648242037315219
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -127,7 +142,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 654b119643fb79345a05119c7447d465, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 11df6aa61f65be74b82dbde3f096d910, type: 2}
+      objectReference: {fileID: 2100000, guid: 2ac79b1b614dd184682efa8f9db66e31, type: 2}
     - target: {fileID: 919132149155446097, guid: 654b119643fb79345a05119c7447d465, type: 3}
       propertyPath: m_Name
       value: tile1

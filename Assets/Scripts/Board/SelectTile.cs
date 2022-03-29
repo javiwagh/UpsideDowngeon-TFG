@@ -8,6 +8,7 @@ public class SelectTile : MonoBehaviour
     private Camera mainCamera;
     public LayerMask selectionMask;
     public HexGrid hexGrid;
+    private List<Vector3Int> neighbours = new List<Vector3Int>();
 
     private void Awake() {
         if(mainCamera == null)
@@ -21,11 +22,16 @@ public class SelectTile : MonoBehaviour
         if (findRayTarget(mousePosition, out result)) {
             HexagonTile selectedTile = result.GetComponent<HexagonTile>();
 
-            List<Vector3Int> originNeighbours = hexGrid.getNeightbours(selectedTile.HexagonCoordinates);
-            Debug.Log($"Neighbours for {selectedTile.HexagonCoordinates} are:");
-            foreach (Vector3Int neighbourPosition in originNeighbours) {
-                Debug.Log(neighbourPosition);
+            selectedTile.DisableHighlight();
+            foreach(Vector3Int neighbour in neighbours) {
+                hexGrid.getTileAt(neighbour).DisableHighlight();
             }
+
+            neighbours = hexGrid.getNeightbours(selectedTile.HexagonCoordinates);
+            foreach(Vector3Int neighbour in neighbours) {
+                hexGrid.getTileAt(neighbour).EnableHighlight();
+            }
+            
         }
     }
 

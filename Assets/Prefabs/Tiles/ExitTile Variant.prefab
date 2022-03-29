@@ -17,7 +17,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1581941516998515134, guid: b68a9aaf8070a0946b5b3081df1288e6, type: 3}
       propertyPath: m_Name
-      value: ExitTile
+      value: ExitTile Variant
       objectReference: {fileID: 0}
     - target: {fileID: 1581941516998515135, guid: b68a9aaf8070a0946b5b3081df1288e6, type: 3}
       propertyPath: m_RootOrder
@@ -66,6 +66,6 @@ PrefabInstance:
     - target: {fileID: 5633369948467022359, guid: b68a9aaf8070a0946b5b3081df1288e6, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: ce26477026acb894bae5b380a4cc0234, type: 2}
+      objectReference: {fileID: 2100000, guid: 65664a462dc1de14f900bcbcfbf5adc9, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b68a9aaf8070a0946b5b3081df1288e6, type: 3}
