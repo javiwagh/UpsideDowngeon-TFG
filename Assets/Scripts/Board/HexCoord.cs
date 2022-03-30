@@ -13,7 +13,7 @@ public class HexCoord : MonoBehaviour
         offsetCoordinates = calculateConvertPosition(transform.position);
     }
 
-    private Vector3Int calculateConvertPosition(Vector3 position) {
+    public static Vector3Int calculateConvertPosition(Vector3 position) {
         int x = Mathf.CeilToInt(position.x / xOffset);
         int y = Mathf.RoundToInt(position.y / yOffset);
         int z = Mathf.RoundToInt(position.z / zOffset);

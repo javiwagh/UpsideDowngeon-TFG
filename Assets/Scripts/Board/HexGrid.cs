@@ -51,6 +51,11 @@ public class HexGrid : MonoBehaviour
         }
         return hexagonTileNeighboursDictionary[coords];
     }
+
+    public Vector3Int GetClosestTile(Vector3 worldPosition) {
+        worldPosition.y = 0;
+        return HexCoord.calculateConvertPosition(worldPosition);
+    }
 }
 
 public static class Direction {
