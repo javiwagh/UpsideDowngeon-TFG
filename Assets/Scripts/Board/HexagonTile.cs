@@ -1,0 +1,68 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[SelectionBase]
+public class HexagonTile : MonoBehaviour
+{
+    [SerializeField]
+    private GlowHighlight highlight;
+
+    [SerializeField]
+    private TileType tileType;
+
+    private HexCoord hexCoord;
+    public Vector3Int HexagonCoordinates => hexCoord.getHexCoordinates();
+
+    private void Awake(){
+        hexCoord = GetComponent<HexCoord>();
+        highlight = GetComponent<GlowHighlight>();
+    }
+
+    public int getCost() {
+        int cost = 0;
+        switch (tileType)
+        {
+            case TileType.Default:
+                cost = 1;
+                break;
+            case TileType.Door:
+                cost = 2;
+                break;
+            default:
+                cost = 2;
+                Debug.Log($"Not suppoted tile type ({tileType})");
+                break;            
+        }
+        return cost;
+    }
+
+    public bool isWalkable() {
+        return this.tileType != TileType.Obstacle && this.tileType != TileType.Start;
+    }
+
+    public void EnableHighlight() {
+        highlight.ToggleGlow(true);
+    }
+
+    public void DisableHighlight() {
+        highlight.ToggleGlow(false);
+    }
+
+    public void ResetHighlight() {
+        highlight.ResetHighlight();
+    }
+
+    public void HighlightPath() {
+        highlight.HighlightPath();
+    }
+}
+
+public enum TileType {
+    None,
+    Default,
+    Door,
+    Start,
+    End, 
+    Obstacle
+}
