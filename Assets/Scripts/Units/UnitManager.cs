@@ -65,7 +65,7 @@ public class UnitManager : MonoBehaviour
         }
         else {
             movementManager.moveUnit(selectedUnit, this.hexGrid);
-            PlayersTurn = false;
+            //PlayersTurn = false;
             //selectedUnit.MovementFinished += ResetTurn;
             ClearSelection();
         }
