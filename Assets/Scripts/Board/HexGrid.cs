@@ -7,7 +7,7 @@ public class HexGrid : MonoBehaviour
     Dictionary<Vector3Int, HexagonTile> hexagonTileDictionary = new Dictionary<Vector3Int, HexagonTile>();
     Dictionary<Vector3Int, List<Vector3Int>> hexagonTileNeighboursDictionary = new Dictionary<Vector3Int, List<Vector3Int>>();
 
-    private void Start() {
+    private void Awake() {
         foreach (HexagonTile hex in FindObjectsOfType<HexagonTile>()) {
             hexagonTileDictionary[hex.HexagonCoordinates] = hex;
         }

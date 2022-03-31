@@ -10,6 +10,7 @@ public class Movement : MonoBehaviour{
     public void HideRange(HexGrid hexGrid) {
         foreach (Vector3Int tilePosition in movementRange.getRangePositions())
         {
+            hexGrid.getTileAt(tilePosition).ResetHighlight();
             hexGrid.getTileAt(tilePosition).DisableHighlight();
         }
         movementRange = new BFSearch();
@@ -18,8 +19,12 @@ public class Movement : MonoBehaviour{
     public void ShowRange (Unit selectedUnit, HexGrid hexGrid) {
         CalculateRange(selectedUnit, hexGrid);
 
+        Vector3Int unitPosition = hexGrid.GetClosestTile(selectedUnit.transform.position);
+
         foreach(Vector3Int tilePosition in movementRange.getRangePositions()) {
-            hexGrid.getTileAt(tilePosition).EnableHighlight();
+            if (unitPosition != tilePosition) {
+                hexGrid.getTileAt(tilePosition).EnableHighlight();
+            }            
         }
     }
 

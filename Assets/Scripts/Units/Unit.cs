@@ -5,19 +5,21 @@ using UnityEngine;
 [SelectionBase]
 public class Unit : MonoBehaviour
 {
-    [SerializeField]
-    private int movementPoints = 2;
+    private int movementPoints;
     public int MovementPoints {get => movementPoints;}
 
     [SerializeField]
     private float movementDuration = 0.5f, rotationDuration = 0.1f;
 
     private GlowHighlight glowHighlight;
+    private Character character;
     private Queue<Vector3> pathPositions = new Queue<Vector3>();
     public event System.Action<Unit> MovementFinished;
 
     private void Awake() {
         glowHighlight = GetComponent<GlowHighlight>();
+        character = GetComponent<Character>();
+        movementPoints = character.speed;
     }
 
     internal void Deselect() {

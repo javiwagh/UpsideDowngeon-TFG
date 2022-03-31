@@ -6,7 +6,7 @@
             "id": "bc355cff-be7b-4412-8f7a-856a062cbfee",
             "actions": [
                 {
-                    "name": "Click Tile",
+                    "name": "Click",
                     "type": "Button",
                     "id": "695ded14-4d49-40b3-86b1-24bbd1f0e102",
                     "expectedControlType": "Button",
@@ -23,7 +23,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Click Tile",
+                    "action": "Click",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

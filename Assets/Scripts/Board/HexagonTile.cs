@@ -10,6 +10,7 @@ public class HexagonTile : MonoBehaviour
 
     [SerializeField]
     private TileType tileType;
+    private TileType originalTileType;
 
     private HexCoord hexCoord;
     public Vector3Int HexagonCoordinates => hexCoord.getHexCoordinates();
@@ -17,6 +18,7 @@ public class HexagonTile : MonoBehaviour
     private void Awake(){
         hexCoord = GetComponent<HexCoord>();
         highlight = GetComponent<GlowHighlight>();
+        originalTileType = tileType;
     }
 
     public int getCost() {
@@ -38,7 +40,19 @@ public class HexagonTile : MonoBehaviour
     }
 
     public bool isWalkable() {
-        return this.tileType != TileType.Obstacle && this.tileType != TileType.Start;
+        return this.tileType != TileType.Obstacle && this.tileType != TileType.Occupied;
+    }
+
+    public bool isOccupied() {
+        return this.tileType == TileType.Occupied;
+    }
+
+    public void stepOnTile() {
+        tileType = TileType.Occupied;
+    }
+
+    public void resetTileType() {
+        tileType = originalTileType;
     }
 
     public void EnableHighlight() {
@@ -64,5 +78,6 @@ public enum TileType {
     Door,
     Start,
     End, 
-    Obstacle
+    Obstacle,
+    Occupied
 }
