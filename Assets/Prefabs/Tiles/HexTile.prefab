@@ -76,6 +76,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highlight: {fileID: 7637330489050394921}
   tileType: 1
+  unitOn: {fileID: 0}
 --- !u!114 &7637330489050394921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88,7 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 293e3d0efd83c7744bbc12304ea6b51d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  glowMaterial: {fileID: 2100000, guid: 91444f806cac6ca4aa7bf47e404d38b9, type: 2}
+  glowMaterial: {fileID: 2100000, guid: 79ca2ec99babdaf40aa8328ea4a27044, type: 2}
 --- !u!1001 &6479648242037315219
 PrefabInstance:
   m_ObjectHideFlags: 0

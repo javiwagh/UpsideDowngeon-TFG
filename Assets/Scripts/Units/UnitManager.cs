@@ -139,6 +139,7 @@ public class UnitManager : MonoBehaviour
     }
 
     public void endTurn() {
+        ClearSelection();
         MonstersTurn = !MonstersTurn;
         if(MonstersTurn) Debug.Log("It's monster's turn!");
         else Debug.Log("It's adventurer's turn!");

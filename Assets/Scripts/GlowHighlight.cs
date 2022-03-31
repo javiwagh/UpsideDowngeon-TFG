@@ -12,12 +12,14 @@ public class GlowHighlight : MonoBehaviour
     public Material glowMaterial;
     private bool isGlowing = false;
 
-    private UnityEngine.Color greenColor = UnityEngine.Color.green;
+    private UnityEngine.Color yellowColor = UnityEngine.Color.yellow;
     private UnityEngine.Color originalGlowColor;
+    private float originalGlowPower;
 
     private void Awake() {
         SetMaterialDictionaries();
         originalGlowColor = glowMaterial.GetColor("_GlowColor");
+        originalGlowPower = glowMaterial.GetFloat("_GlowPower");
     }
 
     private void SetMaterialDictionaries() {
@@ -62,6 +64,7 @@ public class GlowHighlight : MonoBehaviour
         foreach(Renderer renderer in glowMaterialDictionary.Keys) {
             foreach(Material item in glowMaterialDictionary[renderer]) {
                 item.SetColor("_GlowColor", originalGlowColor);
+                item.SetFloat("_GlowPower", originalGlowPower);
             }
             renderer.materials = glowMaterialDictionary[renderer];
         }
@@ -71,7 +74,8 @@ public class GlowHighlight : MonoBehaviour
         if (isGlowing == false) return;
         foreach(Renderer renderer in glowMaterialDictionary.Keys) {
             foreach(Material item in glowMaterialDictionary[renderer]) {
-                item.SetColor("_GlowColor", greenColor);
+                item.SetColor("_GlowColor", yellowColor);
+                item.SetFloat("_GlowPower", 1.0f);
             }
             renderer.materials = glowMaterialDictionary[renderer];
         }

@@ -14,6 +14,7 @@ public class Character : MonoBehaviour
     public AdventurerType? adventurerType;
     public int healthPoints = 10;
     public int speed = 2;
+    public int meleeDamage = 2;
 
     private void Awake() {
         asignTypes();

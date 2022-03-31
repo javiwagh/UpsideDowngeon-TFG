@@ -50,6 +50,7 @@ public class HexagonTile : MonoBehaviour
 
     public void stepOnTile(Unit unit) {
         this.unitOn = unit;
+        unit.onTile = this;
         tileType = TileType.Occupied;
     }
 
