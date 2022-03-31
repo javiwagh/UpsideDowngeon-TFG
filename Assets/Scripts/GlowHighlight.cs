@@ -12,7 +12,7 @@ public class GlowHighlight : MonoBehaviour
     public Material glowMaterial;
     private bool isGlowing = false;
 
-    private UnityEngine.Color validColorSpace = UnityEngine.Color.green;
+    private UnityEngine.Color greenColor = UnityEngine.Color.green;
     private UnityEngine.Color originalGlowColor;
 
     private void Awake() {
@@ -71,7 +71,7 @@ public class GlowHighlight : MonoBehaviour
         if (isGlowing == false) return;
         foreach(Renderer renderer in glowMaterialDictionary.Keys) {
             foreach(Material item in glowMaterialDictionary[renderer]) {
-                item.SetColor("_GlowColor", validColorSpace);
+                item.SetColor("_GlowColor", greenColor);
             }
             renderer.materials = glowMaterialDictionary[renderer];
         }

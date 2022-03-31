@@ -13,6 +13,7 @@ public class HexagonTile : MonoBehaviour
     private TileType originalTileType;
 
     private HexCoord hexCoord;
+    public Unit unitOn;
     public Vector3Int HexagonCoordinates => hexCoord.getHexCoordinates();
 
     private void Awake(){
@@ -47,11 +48,13 @@ public class HexagonTile : MonoBehaviour
         return this.tileType == TileType.Occupied;
     }
 
-    public void stepOnTile() {
+    public void stepOnTile(Unit unit) {
+        this.unitOn = unit;
         tileType = TileType.Occupied;
     }
 
     public void resetTileType() {
+        this.unitOn = null;
         tileType = originalTileType;
     }
 

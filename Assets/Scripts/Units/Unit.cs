@@ -36,6 +36,10 @@ public class Unit : MonoBehaviour
         StartCoroutine(RotationCoroutine(firstTarget, rotationDuration));
     }
 
+    public void Attack(Unit target) {
+        Debug.Log($"Attacking {target.GetComponent<Character>().characterName}");
+    }
+
     private IEnumerator RotationCoroutine(Vector3 endPosition, float rotationDuration) {
         Quaternion startRotation = transform.rotation;
         endPosition.y = transform.position.y;

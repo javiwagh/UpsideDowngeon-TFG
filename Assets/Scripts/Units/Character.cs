@@ -5,9 +5,10 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     [SerializeField]
-    private CharacterName characterName;
+    public CharacterName characterName;
     [HideInInspector]
     public UnitType unitType;
+    public Side side;
     public MonsterType? monsterType;
     public NestType? nestType;
     public AdventurerType? adventurerType;
@@ -23,12 +24,14 @@ public class Character : MonoBehaviour
             case CharacterName.Goblin:
                 unitType = UnitType.Monster;
                 monsterType = MonsterType.Goblin;
+                side = Side.Monsters;
                 nestType = null;
                 adventurerType = null;
             break;
             case CharacterName.Troll:
                 unitType = UnitType.Monster;
                 monsterType = MonsterType.Troll;
+                side = Side.Monsters;
                 nestType = null;
                 adventurerType = null;
             break;
@@ -40,36 +43,42 @@ public class Character : MonoBehaviour
             break;
             case CharacterName.Rat:
                 unitType = UnitType.Monster;
+                side = Side.Monsters;
                 monsterType = MonsterType.Rat;
                 nestType = null;
                 adventurerType = null;
             break;
             case CharacterName.Spiders_nest:
                 unitType = UnitType.Nest;
+                side = Side.Monsters;
                 monsterType = null;
                 nestType = NestType.Spiders;
                 adventurerType = null;
             break;
             case CharacterName.Rats_nest:
                 unitType = UnitType.Nest;
+                side = Side.Monsters;
                 monsterType = null;
                 nestType = NestType.Rats;
                 adventurerType = null;
             break;
             case CharacterName.Rogue:
                 unitType = UnitType.Adventurer;
+                side = Side.Adventurers;
                 monsterType = null;
                 nestType = null;
                 adventurerType = AdventurerType.Rogue;
             break;
             case CharacterName.Warrior:
                 unitType = UnitType.Adventurer;
+                side = Side.Adventurers;
                 monsterType = null;
                 nestType = null;
                 adventurerType = AdventurerType.Warrior;
             break;
             case CharacterName.Bard:
                 unitType = UnitType.Adventurer;
+                side = Side.Adventurers;
                 monsterType = null;
                 nestType = null;
                 adventurerType = AdventurerType.Bard;
@@ -104,6 +113,11 @@ public enum UnitType {
     Monster,
     Nest,
     Adventurer
+}
+
+public enum Side {
+    Monsters,
+    Adventurers
 }
 
 public enum MonsterType {
