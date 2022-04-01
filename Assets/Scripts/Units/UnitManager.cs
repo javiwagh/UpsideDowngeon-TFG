@@ -127,6 +127,8 @@ public class UnitManager : MonoBehaviour
 
         this.selectedUnit = unit;
         this.selectedUnit.Select();
+        if (selectedUnit.hasKey) gameManager.canEndStage();
+        else gameManager.disableEndStage();
         movementManager.ShowRange(this.selectedUnit, this.hexGrid);
     }
 
@@ -158,7 +160,6 @@ public class UnitManager : MonoBehaviour
             hexGrid.getTileAt(unitPosition).resetTileType();
             selectedTile.stepOnTile(selectedUnit);
             movementManager.moveUnit(selectedUnit, this.hexGrid);
-            
             ClearSelection();
         }      
     }

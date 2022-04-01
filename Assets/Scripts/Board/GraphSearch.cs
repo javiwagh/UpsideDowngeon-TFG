@@ -71,4 +71,8 @@ public struct BFSearch {
         if (visitedNodes == null) return null;
         return visitedNodes.Keys;
     } 
+
+    public void RemoveFromRange(Vector3Int tilePosition) {
+        visitedNodes.Remove(tilePosition);
+    }
 }

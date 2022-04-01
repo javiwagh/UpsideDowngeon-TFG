@@ -32,8 +32,11 @@ public class HexagonTile : MonoBehaviour
             case TileType.Door:
                 cost = 2;
                 break;
+            case TileType.EndAvailable:
+                cost = 3;
+                break;
             default:
-                cost = 2;
+                cost = 10;
                 Debug.Log($"Not suppoted tile type ({tileType})");
                 break;            
         }
@@ -41,11 +44,15 @@ public class HexagonTile : MonoBehaviour
     }
 
     public bool isWalkable() {
-        return this.tileType == TileType.Default || this.tileType == TileType.Door;
+        return !(this.tileType == TileType.Obstacle || this.tileType == TileType.Occupied || this.tileType == TileType.Key || this.tileType == TileType.End);
     }
 
     public bool isOccupied() {
         return this.tileType == TileType.Occupied;
+    }
+
+    public bool isStageEnd() {
+        return this.tileType == TileType.End;
     }
 
     public bool hasPickUp() {
@@ -61,6 +68,14 @@ public class HexagonTile : MonoBehaviour
     public void resetTileType() {
         this.unitOn = null;
         tileType = originalTileType;
+    }
+
+    public void enableEnd() {
+        if (tileType == TileType.End) tileType = TileType.EndAvailable;
+    }
+
+    public bool isEnd() {
+        return originalTileType == TileType.End;
     }
 
     public void EnableHighlight() {
@@ -85,7 +100,8 @@ public enum TileType {
     Default,
     Door,
     Start,
-    End, 
+    End,
+    EndAvailable, 
     Obstacle,
     Occupied,
     Key

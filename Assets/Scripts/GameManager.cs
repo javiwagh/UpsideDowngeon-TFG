@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private HexGrid hexGrid;
     [SerializeField]
+    private HexagonTile endTile;
+    [SerializeField]
     private GameObject keyTilePrefab;
     public bool monstersTurn {get; private set;} = true;
     private void Awake() {
@@ -32,6 +34,19 @@ public class GameManager : MonoBehaviour
         key.transform.SetParent(hexGrid.transform, false);
         key.GetComponent<Key>().setTile(tile.gameObject);
         hexGrid.UpdateTiles();
+    }
+
+    public void canEndStage() {
+        endTile.enableEnd();
+    }
+
+    public void disableEndStage() {
+        endTile.resetTileType();
+    }
+
+    public void AdventurersWin() {
+        gameState = GameState.AdventurersWin;
+        Debug.Log("*ominous* Adventurers have won ò^ó");
     }
 
     public enum GameState {

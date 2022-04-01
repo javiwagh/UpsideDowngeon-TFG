@@ -50,9 +50,9 @@ MonoBehaviour:
   characterName: 0
   unitType: 0
   side: 0
-  healthPoints: 3
-  speed: 3
-  meleeDamage: 2
+  healthPoints: 4
+  speed: 4
+  meleeDamage: 3
 --- !u!114 &3325981499527651419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,11 +65,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d29c635825eb85341b5dca812f89789c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
   movementDuration: 0.5
   rotationDuration: 0.1
   character: {fileID: 0}
   onTile: {fileID: 0}
-  keyTilePrefab: {fileID: 0}
+  hasKey: 0
 --- !u!114 &3325981499527651418
 MonoBehaviour:
   m_ObjectHideFlags: 0

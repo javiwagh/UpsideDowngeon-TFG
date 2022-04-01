@@ -1677,6 +1677,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameState: 0
   hexGrid: {fileID: 366540810}
+  endTile: {fileID: 798346467}
   keyTilePrefab: {fileID: 8428897718366608426, guid: 944c44b9b13218842af2fe844a843f85, type: 3}
 --- !u!1001 &797892686
 PrefabInstance:
@@ -1748,6 +1749,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1581941516998515135, guid: b68a9aaf8070a0946b5b3081df1288e6, type: 3}
   m_PrefabInstance: {fileID: 797892686}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &798346467 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8219685875870174688, guid: 0d3eba22631bb11438aea57b41ec92e5, type: 3}
+  m_PrefabInstance: {fileID: 7183742006124157630}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b0e951ec3c8a64c831e879cb59644b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &834163915
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4791,10 +4803,6 @@ PrefabInstance:
       propertyPath: onKeyPickedTile
       value: 
       objectReference: {fileID: 1859707143}
-    - target: {fileID: 8119617628332906609, guid: 944c44b9b13218842af2fe844a843f85, type: 3}
-      propertyPath: tileType
-      value: 7
-      objectReference: {fileID: 0}
     - target: {fileID: 8428897718366608426, guid: 944c44b9b13218842af2fe844a843f85, type: 3}
       propertyPath: m_Name
       value: Key Tile
