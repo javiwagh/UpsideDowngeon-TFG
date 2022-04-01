@@ -57,7 +57,9 @@ public struct BFSearch {
     public Dictionary<Vector3Int, Vector3Int?> visitedNodes;
 
     public List<Vector3Int> getPathTo(Vector3Int destination) {
-        if (!visitedNodes.ContainsKey(destination)) return new List<Vector3Int>();
+        if (!visitedNodes.ContainsKey(destination)) {
+            return new List<Vector3Int>();
+        } 
         return GraphSearch.GeneratePathBFS(destination, visitedNodes);
     }
 
@@ -66,6 +68,11 @@ public struct BFSearch {
     }
 
     public IEnumerable<Vector3Int> getRangePositions() {
+        if (visitedNodes == null) return null;
         return visitedNodes.Keys;
     } 
+
+    public void RemoveFromRange(Vector3Int tilePosition) {
+        visitedNodes.Remove(tilePosition);
+    }
 }

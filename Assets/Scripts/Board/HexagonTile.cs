@@ -11,12 +11,21 @@ public class HexagonTile : MonoBehaviour
     [SerializeField]
     private TileType tileType;
 
+    [SerializeField]
+    private TileType originalTileType;
+
     private HexCoord hexCoord;
+    public Unit unitOn;
     public Vector3Int HexagonCoordinates => hexCoord.getHexCoordinates();
 
     private void Awake(){
         hexCoord = GetComponent<HexCoord>();
         highlight = GetComponent<GlowHighlight>();
+    }
+
+    public void setOriginalType() {
+        Debug.Log("Gettin my type set");
+        tileType = originalTileType;
     }
 
     public int getCost() {
@@ -26,11 +35,17 @@ public class HexagonTile : MonoBehaviour
             case TileType.Default:
                 cost = 1;
                 break;
+            case TileType.Start:
+                cost = 1;
+                break;
             case TileType.Door:
                 cost = 2;
                 break;
+            case TileType.EndAvailable:
+                cost = 3;
+                break;
             default:
-                cost = 2;
+                cost = 10;
                 Debug.Log($"Not suppoted tile type ({tileType})");
                 break;            
         }
@@ -38,7 +53,38 @@ public class HexagonTile : MonoBehaviour
     }
 
     public bool isWalkable() {
-        return this.tileType != TileType.Obstacle && this.tileType != TileType.Start;
+        return !(this.tileType == TileType.Obstacle || this.tileType == TileType.Occupied || this.tileType == TileType.Key || this.tileType == TileType.End);
+    }
+
+    public bool isOccupied() {
+        return this.tileType == TileType.Occupied;
+    }
+
+    public bool isStageEnd() {
+        return this.tileType == TileType.End;
+    }
+
+    public bool hasPickUp() {
+        return this.tileType == TileType.Key;
+    }
+
+    public void stepOnTile(Unit unit) {
+        this.unitOn = unit;
+        unit.onTile = this;
+        tileType = TileType.Occupied;
+    }
+
+    public void resetTileType() {
+        this.unitOn = null;
+        this.tileType = originalTileType;
+    }
+
+    public void enableEnd() {
+        if (tileType == TileType.End) tileType = TileType.EndAvailable;
+    }
+
+    public bool isEnd() {
+        return originalTileType == TileType.End;
     }
 
     public void EnableHighlight() {
@@ -63,6 +109,9 @@ public enum TileType {
     Default,
     Door,
     Start,
-    End, 
-    Obstacle
+    End,
+    EndAvailable, 
+    Obstacle,
+    Occupied,
+    Key
 }

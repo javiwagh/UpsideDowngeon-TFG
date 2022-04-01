@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 using UnityEngine;
 
 public class SelectionManager : MonoBehaviour
 {
     [SerializeField]
-    private Camera mainCamera;
+    private PlayerInput playerInput;
+    private Camera cam;
     public LayerMask selectionMask;
     public HexGrid hexGrid;
     private List<Vector3Int> neighbours = new List<Vector3Int>();
@@ -15,44 +17,23 @@ public class SelectionManager : MonoBehaviour
     public UnityEvent<GameObject> TileSelected;
 
     private void Awake() {
-        if(mainCamera == null)
-            mainCamera = Camera.main;
+        cam = playerInput.camera;
     }
 
-    public void HandleClick() {
-        /*Vector3 mousePosition = Input.mousePosition;
-        GameObject result;
-        //Debug.Log(findRayTarget(mousePosition, out result));
-        if (findRayTarget(mousePosition, out result)) {
-            HexagonTile selectedTile = result.GetComponent<HexagonTile>();
-
-            selectedTile.DisableHighlight();
-            foreach(Vector3Int neighbour in neighbours) {
-                hexGrid.getTileAt(neighbour).DisableHighlight();
+    public void HandleClick(InputAction.CallbackContext context) {
+        if (context.canceled) {
+            Vector3 mousePosition = Input.mousePosition;
+            GameObject result;
+            if (findRayTarget(mousePosition, out result)) {
+                if (UnitSelected(result)) {
+                    onUnitSelected?.Invoke(result);
+                }
+                else {
+                    TileSelected?.Invoke(result);
+                }
+                
             }
-
-            //neighbours = hexGrid.getNeightbours(selectedTile.HexagonCoordinates);
-            BFSearch bfSearch = GraphSearch.BFSGetRange(hexGrid, selectedTile.HexagonCoordinates, 2);
-            neighbours= new List<Vector3Int>(bfSearch.getRangePositions());
-
-            foreach(Vector3Int neighbour in neighbours) {
-                hexGrid.getTileAt(neighbour).EnableHighlight();
-            }
-            
-        }*/
-
-        Vector3 mousePosition = Input.mousePosition;
-        GameObject result;
-        //Debug.Log(findRayTarget(mousePosition, out result));
-        if (findRayTarget(mousePosition, out result)) {
-            if (UnitSelected(result)) {
-                onUnitSelected?.Invoke(result);
-            }
-            else {
-                TileSelected?.Invoke(result);
-            }
-            
-        }
+        }        
     }
 
     private bool UnitSelected(GameObject result) {
@@ -61,7 +42,7 @@ public class SelectionManager : MonoBehaviour
 
     private bool findRayTarget(Vector3 mousePosition, out GameObject result) {
         RaycastHit hit;
-        Ray ray = mainCamera.ScreenPointToRay(mousePosition);
+        Ray ray = cam.ScreenPointToRay(mousePosition);
         if (Physics.Raycast(ray, out hit, selectionMask)) {
             result = hit.collider.gameObject;
             return true;

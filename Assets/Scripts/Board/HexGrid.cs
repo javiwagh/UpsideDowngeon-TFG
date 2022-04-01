@@ -7,9 +7,10 @@ public class HexGrid : MonoBehaviour
     Dictionary<Vector3Int, HexagonTile> hexagonTileDictionary = new Dictionary<Vector3Int, HexagonTile>();
     Dictionary<Vector3Int, List<Vector3Int>> hexagonTileNeighboursDictionary = new Dictionary<Vector3Int, List<Vector3Int>>();
 
-    private void Start() {
+    private void Awake() {
         foreach (HexagonTile hex in FindObjectsOfType<HexagonTile>()) {
             hexagonTileDictionary[hex.HexagonCoordinates] = hex;
+            hex.setOriginalType();
         }
 
         /*List<Vector3Int> originNeighbours = getNeightbours(new Vector3Int(0, 0, 0));
@@ -28,6 +29,12 @@ public class HexGrid : MonoBehaviour
         foreach (Vector3Int neighbourPosition in originNeighbours) {
             Debug.Log(neighbourPosition);
         }*/
+    }
+
+    public void UpdateTiles() {
+        foreach (HexagonTile hex in FindObjectsOfType<HexagonTile>()) {
+            hexagonTileDictionary[hex.HexagonCoordinates] = hex;
+        }
     }
 
     public HexagonTile getTileAt(Vector3Int coords){

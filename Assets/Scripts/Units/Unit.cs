@@ -5,19 +5,27 @@ using UnityEngine;
 [SelectionBase]
 public class Unit : MonoBehaviour
 {
-    [SerializeField]
-    private int movementPoints = 2;
+    private int movementPoints;
     public int MovementPoints {get => movementPoints;}
+
+    [SerializeField]
+    private GameManager gameManager;
 
     [SerializeField]
     private float movementDuration = 0.5f, rotationDuration = 0.1f;
 
     private GlowHighlight glowHighlight;
+    public Character character;
+    public HexagonTile onTile;
     private Queue<Vector3> pathPositions = new Queue<Vector3>();
     public event System.Action<Unit> MovementFinished;
+    public bool hasKey = false;
 
     private void Awake() {
         glowHighlight = GetComponent<GlowHighlight>();
+        character = GetComponent<Character>();
+        gameManager = FindObjectOfType<GameManager>();
+        movementPoints = character.speed;
     }
 
     internal void Deselect() {
@@ -31,10 +39,41 @@ public class Unit : MonoBehaviour
     public void moveThroughPath(List<Vector3> currentPath){
         pathPositions = new Queue<Vector3>(currentPath);
         Vector3 firstTarget = pathPositions.Dequeue();
-        StartCoroutine(RotationCoroutine(firstTarget, rotationDuration));
+        StartCoroutine(movingRotationCoroutine(firstTarget, rotationDuration));
     }
 
-    private IEnumerator RotationCoroutine(Vector3 endPosition, float rotationDuration) {
+    public void Attack(Unit target) {
+        Debug.Log($"Attacking {target.GetComponent<Character>().characterName}!");
+        StartCoroutine(attackingRotationCoroutine(target.transform.position, rotationDuration));
+        target.recieveDamage(this.character.meleeDamage);
+    }
+
+    public void PickKey() {
+        hasKey = true;
+        gameManager.KeyPicked();
+        Debug.Log("YAY! Got the key!");
+    }
+
+    public void DropKey() {
+        if (hasKey) {
+            hasKey = false;
+            gameManager.keyDropped(this.onTile);
+        }
+    }
+
+    public void recieveDamage(int damage){
+        this.character.healthPoints -= damage;
+        if (this.character.healthPoints <= 0) {
+            this.character.healthPoints = 0;
+            onTile.resetTileType();
+            Debug.Log($"My health is 0! I'm fainting!");
+            DropKey();
+            this.gameObject.SetActive(false);
+        }
+        Debug.Log($"Ouch! My current health is {this.character.healthPoints}. That hurt!");
+    }
+
+    private IEnumerator movingRotationCoroutine(Vector3 endPosition, float rotationDuration) {
         Quaternion startRotation = transform.rotation;
         endPosition.y = transform.position.y;
         Vector3 direction = endPosition - transform.position;
@@ -53,6 +92,24 @@ public class Unit : MonoBehaviour
         StartCoroutine(MovementCoroutine(endPosition));
     }
 
+    private IEnumerator attackingRotationCoroutine(Vector3 target, float rotationDuration) {
+        Quaternion startRotation = transform.rotation;
+        target.y = transform.position.y;
+        Vector3 direction = target - transform.position;
+        Quaternion endRotation = Quaternion.LookRotation(direction, Vector3.up);
+
+        if (Mathf.Approximately(Mathf.Abs(Quaternion.Dot(startRotation, endRotation)), 1.0f) == false) {
+            float timeElapsed = 0;
+            while (timeElapsed < rotationDuration) {
+                timeElapsed += Time.deltaTime;
+                float lerpstep = timeElapsed / rotationDuration;
+                transform.rotation = Quaternion.Lerp(startRotation, endRotation, lerpstep);
+                yield return null;
+            }
+            transform.rotation = endRotation;
+        }
+    }
+
     private IEnumerator MovementCoroutine(Vector3 endPosition) {
         Vector3 startPosition = transform.position;
         endPosition.y = startPosition.y;
@@ -68,11 +125,13 @@ public class Unit : MonoBehaviour
 
         if (pathPositions.Count > 0) {
             Debug.Log("Looking for my next position ...");
-            StartCoroutine(RotationCoroutine(pathPositions.Dequeue(), rotationDuration));
+            StartCoroutine(movingRotationCoroutine(pathPositions.Dequeue(), rotationDuration));
         }
         else {
             Debug.Log("I have reached my end position òwó");
             MovementFinished?.Invoke(this);
+            Debug.Log(this.onTile.isEnd());
+            if (this.hasKey && this.onTile.isEnd()) gameManager.AdventurersWin();
         }
     }    
 }
