@@ -42,7 +42,7 @@ public class HexagonTile : MonoBehaviour
                 cost = 2;
                 break;
             case TileType.EndAvailable:
-                cost = 3;
+                cost = 2;
                 break;
             default:
                 cost = 10;
