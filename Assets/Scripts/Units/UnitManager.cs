@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class UnitManager : MonoBehaviour
 {
+    const float UNITPOSITION_Y = 0.5411864f;
     [SerializeField]
     private GameManager gameManager;
 
@@ -22,6 +23,7 @@ public class UnitManager : MonoBehaviour
     [SerializeField]
     private Unit selectedUnit;
     private HexagonTile previouslySelectedTile;
+    private GameObject unitToSpawn;
     List<Unit> availableMeleeTargets = new List<Unit>();
     List<HexagonTile> availablePickUps = new List<HexagonTile>();
 
@@ -42,6 +44,14 @@ public class UnitManager : MonoBehaviour
             hexGrid.getTileAt(hexGrid.GetClosestTile(unit.transform.position)).stepOnTile(unit.GetComponent<Unit>());
             if (unit.GetComponent<Character>().side == Side.Adventurers) adventurersOnBoard.Add(unit);
             else monstersOnBoard.Add(unit);
+        }
+    }
+
+    public void handleSpawnButtonClick(GameObject unit) {
+        if(gameManager.monstersTurn) {
+            Debug.Log($"Spawning a {unit.GetComponent<Character>().characterName}");
+            movementManager.ShowSpawnRange(hexGrid);
+            unitToSpawn = unit;
         }
     }
 
@@ -93,11 +103,12 @@ public class UnitManager : MonoBehaviour
     }
 
     public void handleTileSelection(GameObject tile) {
-        if (selectedUnit == null) return;
+        if (unitToSpawn == null && selectedUnit == null) return;
 
         HexagonTile logicalTile = tile.GetComponent<HexagonTile>();
 
-        if (!logicalTile.hasPickUp() && handleTileOutOfRange(logicalTile.HexagonCoordinates) || handleTileWithUnitOn(logicalTile.HexagonCoordinates)) return;
+        if (!logicalTile.hasPickUp() && handleTileOutOfRange(logicalTile.HexagonCoordinates) 
+            || handleTileWithUnitOn(logicalTile.HexagonCoordinates)) return;
 
         handleTileSelected(logicalTile);
     }
@@ -155,7 +166,14 @@ public class UnitManager : MonoBehaviour
         clearPickUps();
     }
 
-    private void handleTileSelected(HexagonTile selectedTile) {        
+    private void handleTileSelected(HexagonTile selectedTile) {  
+        if (unitToSpawn != null) {
+            if (!selectedTile.isWalkable()) return;
+            Instantiate(unitToSpawn, new Vector3 (selectedTile.transform.position.x, UNITPOSITION_Y, selectedTile.transform.position.z),
+             new Quaternion(selectedTile.transform.rotation.w, selectedTile.transform.rotation.x, 150f, selectedTile.transform.rotation.z));
+            unitToSpawn = null;
+            return;
+        }      
         if (availablePickUps.Contains(selectedTile)) {
             selectedTile.GetComponent<Key>().Pick();
             selectedUnit.PickKey();

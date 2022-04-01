@@ -27,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3325981499527651423}
-  m_LocalRotation: {x: -0, y: 0.9659258, z: -0, w: 0.2588191}
+  m_LocalRotation: {x: 0, y: 0.9659258, z: 0, w: 0.2588191}
   m_LocalPosition: {x: 0, y: 0.5411864, z: -10.38}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -50,9 +50,9 @@ MonoBehaviour:
   characterName: 0
   unitType: 0
   side: 0
-  healthPoints: 4
+  healthPoints: 3
   speed: 4
-  meleeDamage: 3
+  meleeDamage: 2
 --- !u!114 &3325981499527651419
 MonoBehaviour:
   m_ObjectHideFlags: 0

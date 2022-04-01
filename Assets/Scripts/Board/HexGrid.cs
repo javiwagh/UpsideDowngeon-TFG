@@ -12,23 +12,6 @@ public class HexGrid : MonoBehaviour
             hexagonTileDictionary[hex.HexagonCoordinates] = hex;
             hex.setOriginalType();
         }
-
-        /*List<Vector3Int> originNeighbours = getNeightbours(new Vector3Int(0, 0, 0));
-        Debug.Log("Neighbours for (0, 0, 0) are:");
-        foreach (Vector3Int neighbourPosition in originNeighbours) {
-            Debug.Log(neighbourPosition);
-        }
-
-        originNeighbours = getNeightbours(new Vector3Int(0, 0, -1));
-        Debug.Log("Neighbours for (0, 0, -1) are:");
-        foreach (Vector3Int neighbourPosition in originNeighbours) {
-            Debug.Log(neighbourPosition);
-        }
-        originNeighbours = getNeightbours(new Vector3Int(5, 2, -4));
-        Debug.Log("Neighbours for (5, 2, -4) are:");
-        foreach (Vector3Int neighbourPosition in originNeighbours) {
-            Debug.Log(neighbourPosition);
-        }*/
     }
 
     public void UpdateTiles() {
@@ -62,6 +45,15 @@ public class HexGrid : MonoBehaviour
     public Vector3Int GetClosestTile(Vector3 worldPosition) {
         worldPosition.y = 0;
         return HexCoord.calculateConvertPosition(worldPosition);
+    }
+
+    public List<HexagonTile> GetEveryWalkableTiles() {
+        List<HexagonTile> walkableTiles = new List<HexagonTile>();
+        foreach (Vector3Int tilePosition in hexagonTileDictionary.Keys) {
+            HexagonTile tile = getTileAt(tilePosition);
+            if (tile.isWalkable()) walkableTiles.Add(tile);
+        }
+        return walkableTiles;
     }
 }
 
