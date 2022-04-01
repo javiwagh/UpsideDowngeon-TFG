@@ -9,6 +9,9 @@ public class Unit : MonoBehaviour
     public int MovementPoints {get => movementPoints;}
 
     [SerializeField]
+    private GameManager gameManager;
+
+    [SerializeField]
     private float movementDuration = 0.5f, rotationDuration = 0.1f;
 
     private GlowHighlight glowHighlight;
@@ -16,10 +19,12 @@ public class Unit : MonoBehaviour
     public HexagonTile onTile;
     private Queue<Vector3> pathPositions = new Queue<Vector3>();
     public event System.Action<Unit> MovementFinished;
+    private bool hasKey = false;
 
     private void Awake() {
         glowHighlight = GetComponent<GlowHighlight>();
         character = GetComponent<Character>();
+        gameManager = FindObjectOfType<GameManager>();
         movementPoints = character.speed;
     }
 
@@ -40,7 +45,20 @@ public class Unit : MonoBehaviour
     public void Attack(Unit target) {
         Debug.Log($"Attacking {target.GetComponent<Character>().characterName}!");
         StartCoroutine(attackingRotationCoroutine(target.transform.position, rotationDuration));
-        target.recieveDamage(this.character.meleeDamage);        
+        target.recieveDamage(this.character.meleeDamage);
+    }
+
+    public void PickKey() {
+        hasKey = true;
+        gameManager.KeyPicked();
+        Debug.Log("YAY! Got the key!");
+    }
+
+    public void DropKey() {
+        if (hasKey) {
+            hasKey = false;
+            gameManager.keyDropped(this.onTile);
+        }
     }
 
     public void recieveDamage(int damage){
@@ -49,6 +67,7 @@ public class Unit : MonoBehaviour
             this.character.healthPoints = 0;
             onTile.resetTileType();
             Debug.Log($"My health is 0! I'm fainting!");
+            DropKey();
             this.gameObject.SetActive(false);
         }
         Debug.Log($"Ouch! My current health is {this.character.healthPoints}. That hurt!");

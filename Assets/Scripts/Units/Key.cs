@@ -6,11 +6,16 @@ public class Key : MonoBehaviour
 {
     [SerializeField]
     private GameObject onKeyPickedTile;
-    private void Awake() {
+    /*private void Awake() {
         onKeyPickedTile.SetActive(false);
-    }
+    }*/
     public void Pick() {
         onKeyPickedTile.SetActive(true);
         this.gameObject.SetActive(false);
+    }
+
+    public void setTile(GameObject tile) {
+        onKeyPickedTile = tile;
+        onKeyPickedTile.gameObject.SetActive(false);
     }
 }

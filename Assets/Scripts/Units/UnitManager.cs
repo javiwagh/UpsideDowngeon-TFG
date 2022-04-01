@@ -11,7 +11,7 @@ public class UnitManager : MonoBehaviour
     private HexGrid hexGrid;
 
     [SerializeField]
-    private GameObject[] unitsOnBoard;
+    private List<GameObject> unitsOnBoard = new List<GameObject>();
 
     [SerializeField]
     private Movement movementManager;
@@ -25,6 +25,10 @@ public class UnitManager : MonoBehaviour
     List<HexagonTile> availablePickUps = new List<HexagonTile>();
 
     private void Start() {
+        Unit[] units = FindObjectsOfType<Unit>();
+        foreach (Unit unit in units) {
+            unitsOnBoard.Add(unit.gameObject);
+        }
         foreach(GameObject unit in unitsOnBoard) {
             Debug.Log(hexGrid.GetClosestTile(unit.transform.position));
             hexGrid.getTileAt(hexGrid.GetClosestTile(unit.transform.position)).stepOnTile(unit.GetComponent<Unit>());
@@ -141,7 +145,7 @@ public class UnitManager : MonoBehaviour
     private void handleTileSelected(HexagonTile selectedTile) {        
         if (availablePickUps.Contains(selectedTile)) {
             selectedTile.GetComponent<Key>().Pick();
-            hexGrid.UpdateTiles();
+            selectedUnit.PickKey();
             ClearSelection();
             return;
         }
