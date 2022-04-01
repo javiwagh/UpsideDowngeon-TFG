@@ -41,11 +41,15 @@ public class HexagonTile : MonoBehaviour
     }
 
     public bool isWalkable() {
-        return this.tileType != TileType.Obstacle && this.tileType != TileType.Occupied;
+        return this.tileType == TileType.Default || this.tileType == TileType.Door;
     }
 
     public bool isOccupied() {
         return this.tileType == TileType.Occupied;
+    }
+
+    public bool hasPickUp() {
+        return this.tileType == TileType.Key;
     }
 
     public void stepOnTile(Unit unit) {
@@ -83,5 +87,6 @@ public enum TileType {
     Start,
     End, 
     Obstacle,
-    Occupied
+    Occupied,
+    Key
 }

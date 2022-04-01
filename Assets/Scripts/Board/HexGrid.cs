@@ -30,6 +30,12 @@ public class HexGrid : MonoBehaviour
         }*/
     }
 
+    public void UpdateTiles() {
+        foreach (HexagonTile hex in FindObjectsOfType<HexagonTile>()) {
+            hexagonTileDictionary[hex.HexagonCoordinates] = hex;
+        }
+    }
+
     public HexagonTile getTileAt(Vector3Int coords){
         HexagonTile tile = null;
         hexagonTileDictionary.TryGetValue(coords, out tile);

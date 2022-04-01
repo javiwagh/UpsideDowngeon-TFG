@@ -12,7 +12,7 @@ public class Unit : MonoBehaviour
     private float movementDuration = 0.5f, rotationDuration = 0.1f;
 
     private GlowHighlight glowHighlight;
-    private Character character;
+    public Character character;
     public HexagonTile onTile;
     private Queue<Vector3> pathPositions = new Queue<Vector3>();
     public event System.Action<Unit> MovementFinished;
