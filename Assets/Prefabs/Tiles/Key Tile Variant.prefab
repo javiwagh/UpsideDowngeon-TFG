@@ -76,6 +76,10 @@ PrefabInstance:
       propertyPath: tileType
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 1271131692190162405, guid: b68a9aaf8070a0946b5b3081df1288e6, type: 3}
+      propertyPath: originalTileType
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 1581941516998515120, guid: b68a9aaf8070a0946b5b3081df1288e6, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -86,7 +90,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1581941516998515134, guid: b68a9aaf8070a0946b5b3081df1288e6, type: 3}
       propertyPath: m_Name
-      value: Key Tile
+      value: Key Tile Variant
       objectReference: {fileID: 0}
     - target: {fileID: 1581941516998515135, guid: b68a9aaf8070a0946b5b3081df1288e6, type: 3}
       propertyPath: m_RootOrder

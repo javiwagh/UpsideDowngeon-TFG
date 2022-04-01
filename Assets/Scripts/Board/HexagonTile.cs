@@ -10,6 +10,8 @@ public class HexagonTile : MonoBehaviour
 
     [SerializeField]
     private TileType tileType;
+
+    [SerializeField]
     private TileType originalTileType;
 
     private HexCoord hexCoord;
@@ -19,7 +21,11 @@ public class HexagonTile : MonoBehaviour
     private void Awake(){
         hexCoord = GetComponent<HexCoord>();
         highlight = GetComponent<GlowHighlight>();
-        originalTileType = tileType;
+    }
+
+    public void setOriginalType() {
+        Debug.Log("Gettin my type set");
+        tileType = originalTileType;
     }
 
     public int getCost() {
@@ -67,7 +73,7 @@ public class HexagonTile : MonoBehaviour
 
     public void resetTileType() {
         this.unitOn = null;
-        tileType = originalTileType;
+        this.tileType = originalTileType;
     }
 
     public void enableEnd() {

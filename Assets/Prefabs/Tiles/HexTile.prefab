@@ -76,6 +76,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highlight: {fileID: 7637330489050394921}
   tileType: 1
+  originalTileType: 1
   unitOn: {fileID: 0}
 --- !u!114 &7637330489050394921
 MonoBehaviour:

@@ -49,6 +49,11 @@ public class GameManager : MonoBehaviour
         Debug.Log("*ominous* Adventurers have won ò^ó");
     }
 
+    public void MonstersWin() {
+        gameState = GameState.MonstersWin;
+        Debug.Log("*ominous* Monsters have won O·O");
+    }
+
     public enum GameState {
         KeyOnBoard,
         KeyPicked,

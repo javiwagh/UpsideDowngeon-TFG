@@ -10,6 +10,7 @@ public class HexGrid : MonoBehaviour
     private void Awake() {
         foreach (HexagonTile hex in FindObjectsOfType<HexagonTile>()) {
             hexagonTileDictionary[hex.HexagonCoordinates] = hex;
+            hex.setOriginalType();
         }
 
         /*List<Vector3Int> originNeighbours = getNeightbours(new Vector3Int(0, 0, 0));

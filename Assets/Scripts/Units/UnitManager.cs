@@ -12,6 +12,8 @@ public class UnitManager : MonoBehaviour
 
     [SerializeField]
     private List<GameObject> unitsOnBoard = new List<GameObject>();
+    private List<GameObject> monstersOnBoard = new List<GameObject>();
+    private List<GameObject> adventurersOnBoard = new List<GameObject>();
 
     [SerializeField]
     private Movement movementManager;
@@ -26,14 +28,23 @@ public class UnitManager : MonoBehaviour
 
     private void Start() {
         Unit[] units = FindObjectsOfType<Unit>();
+        updateUnits();
+        monstersTurn = gameManager.monstersTurn;
+    }
+
+    private void updateUnits() {
+        Unit[] units = FindObjectsOfType<Unit>();
+        unitsOnBoard = new List<GameObject>();
+        adventurersOnBoard = new List<GameObject>();
+        monstersOnBoard = new List<GameObject>();
         foreach (Unit unit in units) {
-            unitsOnBoard.Add(unit.gameObject);
+            if (unit.gameObject.activeInHierarchy) unitsOnBoard.Add(unit.gameObject);
         }
         foreach(GameObject unit in unitsOnBoard) {
-            Debug.Log(hexGrid.GetClosestTile(unit.transform.position));
             hexGrid.getTileAt(hexGrid.GetClosestTile(unit.transform.position)).stepOnTile(unit.GetComponent<Unit>());
+            if (unit.GetComponent<Character>().side == Side.Adventurers) adventurersOnBoard.Add(unit);
+            else monstersOnBoard.Add(unit);
         }
-        monstersTurn = gameManager.monstersTurn;
     }
 
     public void handleUnitSelection(GameObject unit) {
@@ -62,6 +73,8 @@ public class UnitManager : MonoBehaviour
         if (this.selectedUnit != unit && availableMeleeTargets.Contains(unit)) {
             this.selectedUnit.Attack(unit.GetComponent<Unit>());
             ClearSelection();
+            updateUnits();
+            if (adventurersOnBoard.Count == 0) gameManager.MonstersWin();
             return true;
         }
         return false;
