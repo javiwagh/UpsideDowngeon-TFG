@@ -24,7 +24,6 @@ public class SelectionManager : MonoBehaviour
         if (context.canceled) {
             Vector3 mousePosition = Input.mousePosition;
             GameObject result;
-            //Debug.Log(findRayTarget(mousePosition, out result));
             if (findRayTarget(mousePosition, out result)) {
                 if (UnitSelected(result)) {
                     onUnitSelected?.Invoke(result);

@@ -35,6 +35,9 @@ public class HexagonTile : MonoBehaviour
             case TileType.Default:
                 cost = 1;
                 break;
+            case TileType.Start:
+                cost = 1;
+                break;
             case TileType.Door:
                 cost = 2;
                 break;

@@ -11,7 +11,11 @@ public class GameManager : MonoBehaviour
     private HexagonTile endTile;
     [SerializeField]
     private GameObject keyTilePrefab;
+
+    [SerializeField]
+    private Animator blackFadeAnimator;
     public bool monstersTurn {get; private set;} = true;
+    public bool endedStage {get; private set;} = false;
     private void Awake() {
         gameState = GameState.KeyOnBoard;
         monstersTurn = true;
@@ -46,12 +50,26 @@ public class GameManager : MonoBehaviour
 
     public void AdventurersWin() {
         gameState = GameState.AdventurersWin;
+        endStage(false);
         Debug.Log("*ominous* Adventurers have won ò^ó");
     }
 
     public void MonstersWin() {
         gameState = GameState.MonstersWin;
+        endStage(true);
         Debug.Log("*ominous* Monsters have won O·O");
+    }
+
+    public void endStage(bool monstersWin) {
+        Debug.Log("ENDING STAGE");
+        endedStage = true;
+        blackFadeAnimator.SetTrigger("EndStage");
+        if (monstersWin) blackFadeAnimator.SetTrigger("MonsterWin");
+        else blackFadeAnimator.SetTrigger("AdventurerWin");
+    }
+
+    public bool isStageEnded() {
+        return endedStage;
     }
 
     public enum GameState {

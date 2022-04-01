@@ -18,7 +18,6 @@ public class UnitManager : MonoBehaviour
     [SerializeField]
     private Movement movementManager;
 
-    public bool monstersTurn; //Player turn
 
     [SerializeField]
     private Unit selectedUnit;
@@ -29,7 +28,6 @@ public class UnitManager : MonoBehaviour
     private void Start() {
         Unit[] units = FindObjectsOfType<Unit>();
         updateUnits();
-        monstersTurn = gameManager.monstersTurn;
     }
 
     private void updateUnits() {
@@ -50,8 +48,8 @@ public class UnitManager : MonoBehaviour
     public void handleUnitSelection(GameObject unit) {
         Unit logicalUnit = unit.GetComponent<Unit>();
 
-        if (monstersTurn && unit.GetComponent<Character>().unitType == UnitType.Monster || 
-            !monstersTurn && unit.GetComponent<Character>().unitType == UnitType.Adventurer) {
+        if (!gameManager.isStageEnded() && (gameManager.monstersTurn && unit.GetComponent<Character>().unitType == UnitType.Monster || 
+            !gameManager.monstersTurn && unit.GetComponent<Character>().unitType == UnitType.Adventurer)) {
             
             if(checkIfSelectedTheSameUnit(logicalUnit)) return;
             
@@ -197,6 +195,5 @@ public class UnitManager : MonoBehaviour
     public void endTurn() {
         ClearSelection();
         gameManager.endTurn();
-        monstersTurn = gameManager.monstersTurn;
     }
 }
