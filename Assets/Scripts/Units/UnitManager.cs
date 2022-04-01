@@ -5,6 +5,9 @@ using UnityEngine;
 public class UnitManager : MonoBehaviour
 {
     [SerializeField]
+    private GameManager gameManager;
+
+    [SerializeField]
     private HexGrid hexGrid;
 
     [SerializeField]
@@ -13,7 +16,7 @@ public class UnitManager : MonoBehaviour
     [SerializeField]
     private Movement movementManager;
 
-    public bool MonstersTurn {get; private set;} = true; //Player turn
+    public bool monstersTurn; //Player turn
 
     [SerializeField]
     private Unit selectedUnit;
@@ -25,13 +28,14 @@ public class UnitManager : MonoBehaviour
             Debug.Log(hexGrid.GetClosestTile(unit.transform.position));
             hexGrid.getTileAt(hexGrid.GetClosestTile(unit.transform.position)).stepOnTile(unit.GetComponent<Unit>());
         }
+        monstersTurn = gameManager.monstersTurn;
     }
 
     public void handleUnitSelection(GameObject unit) {
         Unit logicalUnit = unit.GetComponent<Unit>();
 
-        if (MonstersTurn && unit.GetComponent<Character>().unitType == UnitType.Monster || 
-            !MonstersTurn && unit.GetComponent<Character>().unitType == UnitType.Adventurer) {
+        if (monstersTurn && unit.GetComponent<Character>().unitType == UnitType.Monster || 
+            !monstersTurn && unit.GetComponent<Character>().unitType == UnitType.Adventurer) {
             
             if(checkIfSelectedTheSameUnit(logicalUnit)) return;
             
@@ -101,9 +105,12 @@ public class UnitManager : MonoBehaviour
 
     private void ClearSelection() {
         previouslySelectedTile = null;
-        this.selectedUnit.Deselect();
+        if (this.selectedUnit != null) {
+            this.selectedUnit.Deselect();
+            this.selectedUnit = null;
+        }
         movementManager.HideRange(this.hexGrid);
-        this.selectedUnit = null;
+        
         clearTargets();
     }
 
@@ -140,8 +147,7 @@ public class UnitManager : MonoBehaviour
 
     public void endTurn() {
         ClearSelection();
-        MonstersTurn = !MonstersTurn;
-        if(MonstersTurn) Debug.Log("It's monster's turn!");
-        else Debug.Log("It's adventurer's turn!");
+        gameManager.endTurn();
+        monstersTurn = gameManager.monstersTurn;
     }
 }

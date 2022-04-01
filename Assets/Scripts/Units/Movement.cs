@@ -8,10 +8,13 @@ public class Movement : MonoBehaviour{
     private List<Vector3Int> currentPath = new List<Vector3Int>();
 
     public void HideRange(HexGrid hexGrid) {
-        foreach (Vector3Int tilePosition in movementRange.getRangePositions())
-        {
-            hexGrid.getTileAt(tilePosition).ResetHighlight();
-            hexGrid.getTileAt(tilePosition).DisableHighlight();
+        IEnumerable<Vector3Int> rangePositions = movementRange.getRangePositions();
+        if (rangePositions != null) {
+            foreach (Vector3Int tilePosition in rangePositions)
+            {
+                hexGrid.getTileAt(tilePosition).ResetHighlight();
+                hexGrid.getTileAt(tilePosition).DisableHighlight();
+            }
         }
         movementRange = new BFSearch();
     }

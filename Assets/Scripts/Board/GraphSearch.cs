@@ -68,6 +68,7 @@ public struct BFSearch {
     }
 
     public IEnumerable<Vector3Int> getRangePositions() {
+        if (visitedNodes == null) return null;
         return visitedNodes.Keys;
     } 
 }
