@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public GameState gameState;
+    public Player player;
     [SerializeField]
     private HexGrid hexGrid;
     [SerializeField]
@@ -23,8 +24,16 @@ public class GameManager : MonoBehaviour
     }
     public void endTurn() {
         monstersTurn = !monstersTurn;
-        if(monstersTurn) Debug.Log("It's monster's turn!");
-        else Debug.Log("It's adventurer's turn!");
+        if(monstersTurn) {
+            Debug.Log("It's monster's turn!");
+            player.manaPoints = 10;
+            player.updateMana();
+        }
+        else {
+            Debug.Log("It's adventurer's turn!");
+            player.manaPoints = 10;
+            player.updateMana();
+        }
     }
 
     public void KeyPicked() {

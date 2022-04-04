@@ -12,6 +12,7 @@ public class Character : MonoBehaviour
     public MonsterType? monsterType;
     public NestType? nestType;
     public AdventurerType? adventurerType;
+    public int cost = 0;
     public int healthPoints = 10;
     public int speed = 2;
     public int meleeDamage = 2;

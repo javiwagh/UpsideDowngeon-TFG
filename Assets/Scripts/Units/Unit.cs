@@ -20,6 +20,7 @@ public class Unit : MonoBehaviour
     private Queue<Vector3> pathPositions = new Queue<Vector3>();
     public event System.Action<Unit> MovementFinished;
     public bool hasKey = false;
+    public bool isMoving = false;
 
     private void Awake() {
         glowHighlight = GetComponent<GlowHighlight>();
@@ -74,6 +75,7 @@ public class Unit : MonoBehaviour
     }
 
     private IEnumerator movingRotationCoroutine(Vector3 endPosition, float rotationDuration) {
+        this.isMoving = true;
         Quaternion startRotation = transform.rotation;
         endPosition.y = transform.position.y;
         Vector3 direction = endPosition - transform.position;
@@ -130,8 +132,8 @@ public class Unit : MonoBehaviour
         else {
             Debug.Log("I have reached my end position òwó");
             MovementFinished?.Invoke(this);
-            Debug.Log(this.onTile.isEnd());
             if (this.hasKey && this.onTile.isEnd()) gameManager.AdventurersWin();
+            this.isMoving = false;
         }
     }    
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class UnitManager : MonoBehaviour
 {
     const float UNITPOSITION_Y = 0.5411864f;
+    
     [SerializeField]
     private GameManager gameManager;
 
@@ -48,7 +49,7 @@ public class UnitManager : MonoBehaviour
     }
 
     public void handleSpawnButtonClick(GameObject unit) {
-        if(gameManager.monstersTurn) {
+        if(gameManager.monstersTurn && checkEnoughMana(unit.GetComponent<Character>().cost)) {
             Debug.Log($"Spawning a {unit.GetComponent<Character>().characterName}");
             ClearSelection();
             movementManager.ShowSpawnRange(hexGrid);
@@ -59,16 +60,15 @@ public class UnitManager : MonoBehaviour
     public void handleUnitSelection(GameObject unit) {
         if(unitToSpawn != null) ClearSelection();
         Unit logicalUnit = unit.GetComponent<Unit>();
+        if(checkIfSelectedTheSameUnit(logicalUnit) || logicalUnit.isMoving) return;
 
         if (!gameManager.isStageEnded() && (gameManager.monstersTurn && unit.GetComponent<Character>().unitType == UnitType.Monster || 
-            !gameManager.monstersTurn && unit.GetComponent<Character>().unitType == UnitType.Adventurer)) {
-            
-            if(checkIfSelectedTheSameUnit(logicalUnit)) return;
-            
+            !gameManager.monstersTurn && unit.GetComponent<Character>().unitType == UnitType.Adventurer)) {           
             prepareUnitForMovement(logicalUnit);
             checkAvailableActions(logicalUnit);
+            return;
         }
-        else if (this.selectedUnit != null && checkIfSelectedTargetUnit(logicalUnit)) return;
+        if (this.selectedUnit != null) checkIfSelectedTargetUnit(logicalUnit);
     }
 
     private bool checkIfSelectedTheSameUnit(Unit unit) {
@@ -79,15 +79,31 @@ public class UnitManager : MonoBehaviour
         return false;
     }
 
-    private bool checkIfSelectedTargetUnit(Unit unit) {
+    private void checkIfSelectedTargetUnit(Unit unit) {
         if (this.selectedUnit != unit && availableMeleeTargets.Contains(unit)) {
             this.selectedUnit.Attack(unit.GetComponent<Unit>());
             ClearSelection();
-            updateUnits();
-            if (adventurersOnBoard.Count == 0) gameManager.MonstersWin();
-            return true;
+            spendMana(1);
+            if (unit.GetComponent<Character>().healthPoints == 0) RemoveUnit(unit.gameObject);
         }
-        return false;
+    }
+
+    private void RemoveUnit(GameObject unit) {
+        unitsOnBoard.Remove(unit.gameObject);
+        if (unit.GetComponent<Character>().side == Side.Adventurers) {                    
+            adventurersOnBoard.Remove(unit.gameObject);
+            if (adventurersOnBoard.Count == 0) gameManager.MonstersWin();
+        }
+        else monstersOnBoard.Remove(unit.gameObject);
+    }
+
+    private void addUnit(GameObject unit) {
+        hexGrid.getTileAt(hexGrid.GetClosestTile(unit.transform.position)).stepOnTile(unit.GetComponent<Unit>());
+
+        unitsOnBoard.Add(unit);
+        if (unit.GetComponent<Character>().side == Side.Adventurers) adventurersOnBoard.Add(unit);
+        else monstersOnBoard.Add(unit);
+        
     }
 
     private void clearTargets() {
@@ -112,8 +128,7 @@ public class UnitManager : MonoBehaviour
 
             if (!logicalTile.hasPickUp() && handleTileOutOfRange(logicalTile.HexagonCoordinates) 
                 || handleTileWithUnitOn(logicalTile.HexagonCoordinates)) return;
-        }
-        
+        }        
 
         handleTileSelected(tile.GetComponent<HexagonTile>());
     }
@@ -182,13 +197,15 @@ public class UnitManager : MonoBehaviour
              new Quaternion(selectedTile.transform.rotation.x, selectedTile.transform.rotation.y, selectedTile.transform.rotation.z, selectedTile.transform.rotation.w));
             newUnit.transform.RotateAround(newUnit.transform.position, Vector3.up, 150f);
             ClearSelection();
-            updateUnits();
+            addUnit(newUnit);
+            spendMana(newUnit.GetComponent<Character>().cost);
             return;
         }      
         if (availablePickUps.Contains(selectedTile)) {
             selectedTile.GetComponent<Key>().Pick();
             selectedUnit.PickKey();
             ClearSelection();
+            spendMana(1);
             return;
         }
         if (previouslySelectedTile == null || previouslySelectedTile != selectedTile) {
@@ -201,7 +218,19 @@ public class UnitManager : MonoBehaviour
             selectedTile.stepOnTile(selectedUnit);
             movementManager.moveUnit(selectedUnit, this.hexGrid);
             ClearSelection();
+            spendMana(1);
         }      
+    }
+
+    private void spendMana(int cost) {
+        gameManager.player.manaPoints -= cost;
+        gameManager.player.updateMana();
+        if (gameManager.player.manaPoints == 0) endTurn();
+    }
+
+    private bool checkEnoughMana(int cost) {
+        if (gameManager.player.manaPoints - cost >= 0) return true;
+        return false;
     }
 
     private bool handleTileWithUnitOn(Vector3Int tilePosition) {

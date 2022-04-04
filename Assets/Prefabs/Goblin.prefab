@@ -50,6 +50,7 @@ MonoBehaviour:
   characterName: 0
   unitType: 0
   side: 0
+  cost: 3
   healthPoints: 3
   speed: 4
   meleeDamage: 2

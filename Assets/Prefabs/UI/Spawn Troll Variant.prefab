@@ -13,7 +13,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3965902693781005800, guid: 6b9502a92f3f4c342b9f4e1f83f20885, type: 3}
       propertyPath: m_Name
-      value: Spawn Troll
+      value: Spawn Troll Variant
       objectReference: {fileID: 0}
     - target: {fileID: 3965902693781005806, guid: 6b9502a92f3f4c342b9f4e1f83f20885, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -105,7 +105,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7552486277267208069, guid: 6b9502a92f3f4c342b9f4e1f83f20885, type: 3}
       propertyPath: m_text
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b9502a92f3f4c342b9f4e1f83f20885, type: 3}
