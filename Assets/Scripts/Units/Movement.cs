@@ -33,8 +33,13 @@ public class Movement : MonoBehaviour{
     public void ShowSpawnRange (HexGrid hexGrid) {
         foreach(HexagonTile tile in hexGrid.GetEveryWalkableTiles()) {
             tile.EnableHighlight();
-        }
-        
+        }        
+    }
+
+    public void HideSpawnRange (HexGrid hexGrid) {
+        foreach(HexagonTile tile in hexGrid.GetEveryWalkableTiles()) {
+            tile.DisableHighlight();
+        }        
     }
 
     public void CalculateRange(Unit selectedUnit, HexGrid hexGrid) {

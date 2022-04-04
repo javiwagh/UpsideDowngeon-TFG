@@ -8,15 +8,13 @@ public class HexGrid : MonoBehaviour
     Dictionary<Vector3Int, List<Vector3Int>> hexagonTileNeighboursDictionary = new Dictionary<Vector3Int, List<Vector3Int>>();
 
     private void Awake() {
-        foreach (HexagonTile hex in FindObjectsOfType<HexagonTile>()) {
-            hexagonTileDictionary[hex.HexagonCoordinates] = hex;
-            hex.setOriginalType();
-        }
+        UpdateTiles();
     }
 
     public void UpdateTiles() {
-        foreach (HexagonTile hex in FindObjectsOfType<HexagonTile>()) {
-            hexagonTileDictionary[hex.HexagonCoordinates] = hex;
+        foreach (HexagonTile tile in FindObjectsOfType<HexagonTile>()) {
+            //Debug.Log(tile.gameObject.name);
+            hexagonTileDictionary[tile.HexagonCoordinates] = tile;
         }
     }
 

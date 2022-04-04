@@ -50,12 +50,14 @@ public class UnitManager : MonoBehaviour
     public void handleSpawnButtonClick(GameObject unit) {
         if(gameManager.monstersTurn) {
             Debug.Log($"Spawning a {unit.GetComponent<Character>().characterName}");
+            ClearSelection();
             movementManager.ShowSpawnRange(hexGrid);
             unitToSpawn = unit;
         }
     }
 
     public void handleUnitSelection(GameObject unit) {
+        if(unitToSpawn != null) ClearSelection();
         Unit logicalUnit = unit.GetComponent<Unit>();
 
         if (!gameManager.isStageEnded() && (gameManager.monstersTurn && unit.GetComponent<Character>().unitType == UnitType.Monster || 
@@ -103,14 +105,17 @@ public class UnitManager : MonoBehaviour
     }
 
     public void handleTileSelection(GameObject tile) {
-        if (unitToSpawn == null && selectedUnit == null) return;
+        if (unitToSpawn == null) {
+            if (selectedUnit == null) return;
 
-        HexagonTile logicalTile = tile.GetComponent<HexagonTile>();
+            HexagonTile logicalTile = tile.GetComponent<HexagonTile>();
 
-        if (!logicalTile.hasPickUp() && handleTileOutOfRange(logicalTile.HexagonCoordinates) 
-            || handleTileWithUnitOn(logicalTile.HexagonCoordinates)) return;
+            if (!logicalTile.hasPickUp() && handleTileOutOfRange(logicalTile.HexagonCoordinates) 
+                || handleTileWithUnitOn(logicalTile.HexagonCoordinates)) return;
+        }
+        
 
-        handleTileSelected(logicalTile);
+        handleTileSelected(tile.GetComponent<HexagonTile>());
     }
     
     public void checkAvailableActions (Unit unit) {
@@ -156,6 +161,10 @@ public class UnitManager : MonoBehaviour
 
     private void ClearSelection() {
         previouslySelectedTile = null;
+        if (unitToSpawn != null) {
+            movementManager.HideSpawnRange(hexGrid);
+            this.unitToSpawn = null;
+        }
         if (this.selectedUnit != null) {
             this.selectedUnit.Deselect();
             this.selectedUnit = null;
@@ -169,9 +178,11 @@ public class UnitManager : MonoBehaviour
     private void handleTileSelected(HexagonTile selectedTile) {  
         if (unitToSpawn != null) {
             if (!selectedTile.isWalkable()) return;
-            Instantiate(unitToSpawn, new Vector3 (selectedTile.transform.position.x, UNITPOSITION_Y, selectedTile.transform.position.z),
-             new Quaternion(selectedTile.transform.rotation.w, selectedTile.transform.rotation.x, 150f, selectedTile.transform.rotation.z));
-            unitToSpawn = null;
+            GameObject newUnit = Instantiate(unitToSpawn, new Vector3 (selectedTile.transform.position.x, UNITPOSITION_Y, selectedTile.transform.position.z),
+             new Quaternion(selectedTile.transform.rotation.x, selectedTile.transform.rotation.y, selectedTile.transform.rotation.z, selectedTile.transform.rotation.w));
+            newUnit.transform.RotateAround(newUnit.transform.position, Vector3.up, 150f);
+            ClearSelection();
+            updateUnits();
             return;
         }      
         if (availablePickUps.Contains(selectedTile)) {
