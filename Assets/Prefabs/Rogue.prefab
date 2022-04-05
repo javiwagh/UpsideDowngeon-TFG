@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4319466905522402842}
   - component: {fileID: 4319466905522402841}
   - component: {fileID: 4319466905522402843}
+  - component: {fileID: 3897509227356340217}
   m_Layer: 7
   m_Name: Rogue
   m_TagString: Untagged
@@ -50,6 +51,7 @@ MonoBehaviour:
   characterName: 6
   unitType: 0
   side: 1
+  cost: 0
   healthPoints: 10
   speed: 3
   meleeDamage: 3
@@ -71,6 +73,7 @@ MonoBehaviour:
   character: {fileID: 0}
   onTile: {fileID: 0}
   hasKey: 0
+  isMoving: 0
 --- !u!114 &4319466905522402841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,6 +101,20 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3897509227356340217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4319466905522402847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59e00f5ab882a5749bc94e99666fc015, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitName: Rogue
+  side: Adventurer
 --- !u!1001 &4319466904730909201
 PrefabInstance:
   m_ObjectHideFlags: 0

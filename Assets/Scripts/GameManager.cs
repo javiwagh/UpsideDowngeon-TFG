@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private HexGrid hexGrid;
     [SerializeField]
+     private UnitManager unitManager;
+    [SerializeField]
     private HexagonTile endTile;
     [SerializeField]
     private GameObject keyTilePrefab;
@@ -17,10 +19,13 @@ public class GameManager : MonoBehaviour
     private Animator blackFadeAnimator;
     public bool monstersTurn {get; private set;} = true;
     public bool endedStage {get; private set;} = false;
-    private void Awake() {
+    private void Start() {
         gameState = GameState.KeyOnBoard;
         monstersTurn = true;
         hexGrid = FindObjectOfType<HexGrid>();
+        unitManager = FindObjectOfType<UnitManager>();
+
+        StartCoroutine(GameStartCoroutine());
     }
     public void endTurn() {
         monstersTurn = !monstersTurn;
@@ -31,7 +36,7 @@ public class GameManager : MonoBehaviour
         }
         else {
             Debug.Log("It's adventurer's turn!");
-            player.manaPoints = 10;
+            player.manaPoints = 6;
             player.updateMana();
         }
     }
@@ -80,6 +85,12 @@ public class GameManager : MonoBehaviour
     public bool isStageEnded() {
         return endedStage;
     }
+
+    private IEnumerator GameStartCoroutine() {
+        hexGrid.UpdateTiles();
+        unitManager.updateUnits();
+        yield return null;
+    } 
 
     public enum GameState {
         KeyOnBoard,

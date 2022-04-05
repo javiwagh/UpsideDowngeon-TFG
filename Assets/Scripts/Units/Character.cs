@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+    public ToolTip toolTip;
     [SerializeField]
     public CharacterName characterName;
     [HideInInspector]
@@ -19,6 +20,8 @@ public class Character : MonoBehaviour
 
     private void Awake() {
         asignTypes();
+        toolTip = this.gameObject.GetComponent<ToolTip>();
+        toolTip.setInfo(this);
     }
 
     private void asignTypes() {

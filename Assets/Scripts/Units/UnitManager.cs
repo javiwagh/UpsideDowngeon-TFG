@@ -28,12 +28,7 @@ public class UnitManager : MonoBehaviour
     List<Unit> availableMeleeTargets = new List<Unit>();
     List<HexagonTile> availablePickUps = new List<HexagonTile>();
 
-    private void Start() {
-        Unit[] units = FindObjectsOfType<Unit>();
-        updateUnits();
-    }
-
-    private void updateUnits() {
+    public void updateUnits() {
         Unit[] units = FindObjectsOfType<Unit>();
         unitsOnBoard = new List<GameObject>();
         adventurersOnBoard = new List<GameObject>();
@@ -81,7 +76,7 @@ public class UnitManager : MonoBehaviour
 
     private void checkIfSelectedTargetUnit(Unit unit) {
         if (this.selectedUnit != unit && availableMeleeTargets.Contains(unit)) {
-            this.selectedUnit.Attack(unit.GetComponent<Unit>());
+            this.selectedUnit.Attack(unit.GetComponent<Unit>(), true);
             ClearSelection();
             spendMana(1);
             if (unit.GetComponent<Character>().healthPoints == 0) RemoveUnit(unit.gameObject);

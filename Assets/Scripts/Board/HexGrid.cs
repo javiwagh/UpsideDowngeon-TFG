@@ -14,7 +14,7 @@ public class HexGrid : MonoBehaviour
     public void UpdateTiles() {
         foreach (HexagonTile tile in FindObjectsOfType<HexagonTile>()) {
             //Debug.Log(tile.gameObject.name);
-            hexagonTileDictionary[tile.HexagonCoordinates] = tile;
+            if (tile.isActiveAndEnabled) hexagonTileDictionary[tile.HexagonCoordinates] = tile;
         }
     }
 
