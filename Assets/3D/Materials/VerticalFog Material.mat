@@ -7,9 +7,9 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: OrthographicFogMaterial
+  m_Name: VerticalFog Material
   m_Shader: {fileID: -6465566751694194690, guid: 79f0d16cfdf2fbf4293b8b61be9cb584, type: 3}
-  m_ShaderKeywords: BOOLEAN_6C4164AC_ON
+  m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -32,9 +32,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - BOOLEAN_6C4164AC: 1
+    - BOOLEAN_6C4164AC: 0
     - Boolean_142b19edbb1f4345be2e9df6dd9e449d: 0
-    - Vector1_BF525535: 0.2
+    - Vector1_BF525535: 1
     m_Colors:
-    - Color_58E0201D: {r: 0.023314605, g: 0.02745098, b: 0.019607844, a: 1}
+    - Color_58E0201D: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
