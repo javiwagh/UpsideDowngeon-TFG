@@ -11,6 +11,7 @@ public class SelectionManager : MonoBehaviour
     private Camera cam;
     public LayerMask selectionMask;
     public HexGrid hexGrid;
+    public GameManager gameManager;
     private List<Vector3Int> neighbours = new List<Vector3Int>();
 
     public UnityEvent<GameObject> onUnitSelected;
@@ -21,7 +22,7 @@ public class SelectionManager : MonoBehaviour
     }
 
     public void HandleClick(InputAction.CallbackContext context) {
-        if (context.canceled) {
+        if (gameManager.monstersTurn && context.canceled) {
             Vector3 mousePosition = Input.mousePosition;
             GameObject result;
             if (findRayTarget(mousePosition, out result)) {

@@ -249,7 +249,8 @@ public class UnitManager : MonoBehaviour
     public void endTurn() {
         gameManager.endTurn();
         performTurnShiftUnitActions();
-        ClearSelection();        
+        ClearSelection();
+        if (!gameManager.monstersTurn) StartCoroutine(PerformAITurn());
     }
 
     private void performTurnShiftUnitActions() {
@@ -269,5 +270,15 @@ public class UnitManager : MonoBehaviour
         foreach (GameObject unit in units) {
             unit.GetComponent<Unit>().restoreActionPoints();
         } 
+    }
+
+    private IEnumerator PerformAITurn() {
+        foreach(GameObject unit in adventurersOnBoard) {
+            while (unit.GetComponent<Unit>().actionPoints > 0) {
+                unit.GetComponent<AdventurerBehavior>().executeAction();
+                yield return null;
+            }            
+        }
+        endTurn();
     }
 }
