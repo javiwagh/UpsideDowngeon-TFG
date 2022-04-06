@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3897509227356340217, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
+      propertyPath: unitName
+      value: Warrior
+      objectReference: {fileID: 0}
     - target: {fileID: 4319466905522402836, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
       propertyPath: speed
       value: 2

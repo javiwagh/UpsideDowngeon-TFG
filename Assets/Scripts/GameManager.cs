@@ -5,8 +5,11 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public GameState gameState;
+    public Player player;
     [SerializeField]
     private HexGrid hexGrid;
+    [SerializeField]
+     private UnitManager unitManager;
     [SerializeField]
     private HexagonTile endTile;
     [SerializeField]
@@ -16,15 +19,26 @@ public class GameManager : MonoBehaviour
     private Animator blackFadeAnimator;
     public bool monstersTurn {get; private set;} = true;
     public bool endedStage {get; private set;} = false;
-    private void Awake() {
+    private void Start() {
         gameState = GameState.KeyOnBoard;
         monstersTurn = true;
         hexGrid = FindObjectOfType<HexGrid>();
+        unitManager = FindObjectOfType<UnitManager>();
+
+        StartCoroutine(GameStartCoroutine());
     }
     public void endTurn() {
         monstersTurn = !monstersTurn;
-        if(monstersTurn) Debug.Log("It's monster's turn!");
-        else Debug.Log("It's adventurer's turn!");
+        if(monstersTurn) {
+            Debug.Log("It's monster's turn!");
+            player.manaPoints = 10;
+            player.updateMana();
+        }
+        else {
+            Debug.Log("It's adventurer's turn!");
+            player.manaPoints = 6;
+            player.updateMana();
+        }
     }
 
     public void KeyPicked() {
@@ -71,6 +85,12 @@ public class GameManager : MonoBehaviour
     public bool isStageEnded() {
         return endedStage;
     }
+
+    private IEnumerator GameStartCoroutine() {
+        hexGrid.UpdateTiles();
+        unitManager.updateUnits();
+        yield return null;
+    } 
 
     public enum GameState {
         KeyOnBoard,
