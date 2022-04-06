@@ -131,7 +131,7 @@ public class UnitManager : MonoBehaviour
     }
     
     public void checkAvailableActions (Unit unit) {
-        checkMeleeAttack(hexGrid.GetClosestTile(unit.transform.position), unit);
+        if (!unit.isBard()) checkMeleeAttack(hexGrid.GetClosestTile(unit.transform.position), unit);
         if (unit.character.side == Side.Adventurers) {
             checkPicking(hexGrid.GetClosestTile(unit.transform.position), unit);
         }

@@ -52,6 +52,10 @@ public class Unit : MonoBehaviour
         StartCoroutine(movingRotationCoroutine(firstTarget, rotationDuration));
     }
 
+    public bool isBard() {
+        return (this.character.unitType == UnitType.Adventurer && this.character.adventurerType == AdventurerType.Bard);
+    }
+
     public void Attack(Unit target) {
         if (!spendActionPoint()) return;
         Debug.Log($"Attacking {target.GetComponent<Character>().characterName}!");
@@ -59,7 +63,7 @@ public class Unit : MonoBehaviour
         if (this.character.unitType == UnitType.Monster) {
             switch (this.character.monsterType){
                 case MonsterType.Goblin:
-                    target.getStab(this.transform.rotation, this.character.meleeDamage);
+                    target.getStab(this.transform.rotation);
                 break;
                 case MonsterType.Troll:
                     target.recieveDamage(this.character.meleeDamage);
@@ -81,10 +85,7 @@ public class Unit : MonoBehaviour
                     target.recieveDamage(this.character.meleeDamage);
                 break;
                 case AdventurerType.Rogue:
-                    target.getStab(this.transform.rotation, this.character.meleeDamage);
-                break;
-                case AdventurerType.Bard:
-                    target.getStab(this.transform.rotation, this.character.meleeDamage);
+                    target.getStab(this.transform.rotation);
                 break;
                 default:
                     Debug.Log($"Adventurer type not supported: {this.character.monsterType}");
@@ -135,7 +136,8 @@ public class Unit : MonoBehaviour
         else character.toolTip.updateHealth(character.healthPoints);
     }
 
-    public void getStab(Quaternion attackerRotation, int damage){
+    public void getStab(Quaternion attackerRotation){
+        int damage = 2;
         float dotRotation = Quaternion.Dot(attackerRotation, this.transform.rotation);
         if (dotRotation > 0.6f || dotRotation < -0.6f) damage = damage * 2;
         
