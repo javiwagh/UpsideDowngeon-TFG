@@ -128,7 +128,7 @@ public class Unit : MonoBehaviour
     public void getSting(){
         //A paralysed adventurer will not to move a single tile the next turn
         paralysed = true;
-        paralysedTimer = 1;
+        paralysedTimer = PARALYSE_DURATION;
         int damage = 1;
         recieveDamage(damage);
     }
@@ -136,18 +136,24 @@ public class Unit : MonoBehaviour
     public void getPoisoningBite(){
         //A poisoned adventurer will receive low damage the next two turn shifts
         poisonCounter += 1;
-        poisonTimer = 2;
+        poisonTimer = POISON_DURATION;
         int damage = 1;     
         recieveDamage(damage);
     }
 
     public void TurnShiftUnitActions() {
+        //POISON
         recieveDamage(poisonCounter);
         poisonTimer -= 1;
         if (poisonTimer == 0) {
             poisonCounter -= 1;
             if (poisonCounter > 0) poisonTimer = POISON_DURATION;
         }
+        //PARALYSE
+        if (paralysed) movementPoints = 0;
+        else movementPoints = character.speed;
+        paralysedTimer -= 1;
+        if (paralysedTimer == 0) paralysed = false;
     }
 
     private IEnumerator movingRotationCoroutine(Vector3 endPosition, float rotationDuration) {
