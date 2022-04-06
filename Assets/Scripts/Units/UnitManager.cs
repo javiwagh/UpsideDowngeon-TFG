@@ -78,7 +78,7 @@ public class UnitManager : MonoBehaviour
 
     private void checkIfSelectedTargetUnit(Unit unit) {
         if (this.selectedUnit != unit && availableMeleeTargets.Contains(unit)) {
-            this.selectedUnit.Attack(unit.GetComponent<Unit>(), true);
+            this.selectedUnit.Attack(unit.GetComponent<Unit>());
             ClearSelection();
             //spendMana(1);
             if (unit.GetComponent<Character>().healthPoints == 0) RemoveUnit(unit.gameObject);

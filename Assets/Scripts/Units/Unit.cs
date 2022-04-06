@@ -52,14 +52,14 @@ public class Unit : MonoBehaviour
         StartCoroutine(movingRotationCoroutine(firstTarget, rotationDuration));
     }
 
-    public void Attack(Unit target, bool primaryAttack) {
+    public void Attack(Unit target) {
         if (!spendActionPoint()) return;
         Debug.Log($"Attacking {target.GetComponent<Character>().characterName}!");
         StartCoroutine(attackingRotationCoroutine(target.transform.position, rotationDuration));
         if (this.character.unitType == UnitType.Monster) {
             switch (this.character.monsterType){
                 case MonsterType.Goblin:
-                    target.getStab(this.transform.rotation);
+                    target.getStab(this.transform.rotation, this.character.meleeDamage);
                 break;
                 case MonsterType.Troll:
                     target.recieveDamage(this.character.meleeDamage);
@@ -70,9 +70,27 @@ public class Unit : MonoBehaviour
                 case MonsterType.Rat:
                     target.getPoisoningBite();
                 break;
+                default:
+                    Debug.Log($"Monster type not supported: {this.character.monsterType}");
+                break;
             }
         }
-        else target.recieveDamage(this.character.meleeDamage);
+        else {
+            switch (this.character.adventurerType){
+                case AdventurerType.Warrior:
+                    target.recieveDamage(this.character.meleeDamage);
+                break;
+                case AdventurerType.Rogue:
+                    target.getStab(this.transform.rotation, this.character.meleeDamage);
+                break;
+                case AdventurerType.Bard:
+                    target.getStab(this.transform.rotation, this.character.meleeDamage);
+                break;
+                default:
+                    Debug.Log($"Adventurer type not supported: {this.character.monsterType}");
+                break;
+            }
+        }
     }
 
     public void PickKey() {
@@ -117,8 +135,7 @@ public class Unit : MonoBehaviour
         else character.toolTip.updateHealth(character.healthPoints);
     }
 
-    public void getStab(Quaternion attackerRotation){
-        int damage = 2;
+    public void getStab(Quaternion attackerRotation, int damage){
         float dotRotation = Quaternion.Dot(attackerRotation, this.transform.rotation);
         if (dotRotation > 0.6f || dotRotation < -0.6f) damage = damage * 2;
         
