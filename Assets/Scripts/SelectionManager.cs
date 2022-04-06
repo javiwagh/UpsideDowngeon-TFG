@@ -14,7 +14,7 @@ public class SelectionManager : MonoBehaviour
     private List<Vector3Int> neighbours = new List<Vector3Int>();
 
     public UnityEvent<GameObject> onUnitSelected;
-    public UnityEvent<GameObject> TileSelected;
+    public UnityEvent<GameObject> onTileSelected;
 
     private void Awake() {
         cam = playerInput.camera;
@@ -28,8 +28,8 @@ public class SelectionManager : MonoBehaviour
                 if (UnitSelected(result)) {
                     onUnitSelected?.Invoke(result);
                 }
-                else {
-                    TileSelected?.Invoke(result);
+                else if (TileSelected(result)){
+                    onTileSelected?.Invoke(result);
                 }
                 
             }
@@ -38,6 +38,10 @@ public class SelectionManager : MonoBehaviour
 
     private bool UnitSelected(GameObject result) {
         return result.GetComponent<Unit>() != null;
+    }
+
+    private bool TileSelected(GameObject result) {
+        return result.GetComponent<HexagonTile>() != null;
     }
 
     private bool findRayTarget(Vector3 mousePosition, out GameObject result) {
