@@ -5,6 +5,8 @@ using UnityEngine;
 [SelectionBase]
 public class Unit : MonoBehaviour
 {
+    private const int POISON_DURATION = 2;
+    private const int PARALYSE_DURATION = 1;
     private int movementPoints;
     public int actionPoints;
     public int MovementPoints {get => movementPoints;}
@@ -22,6 +24,10 @@ public class Unit : MonoBehaviour
     public event System.Action<Unit> MovementFinished;
     public bool hasKey = false;
     public bool isMoving = false;
+    private int poisonCounter = 0;
+    private bool paralysed = false;
+    private int poisonTimer = 0;
+    private int paralysedTimer = 0;
 
     private void Awake() {
         glowHighlight = GetComponent<GlowHighlight>();
@@ -53,14 +59,16 @@ public class Unit : MonoBehaviour
         if (this.character.unitType == UnitType.Monster) {
             switch (this.character.monsterType){
                 case MonsterType.Goblin:
-                    target.getStab(this.character.meleeDamage, this.transform.rotation);
+                    target.getStab(this.transform.rotation);
                 break;
                 case MonsterType.Troll:
                     target.recieveDamage(this.character.meleeDamage);
                 break;
                 case MonsterType.Spider:
+                    target.getSting();
                 break;
                 case MonsterType.Rat:
+                    target.getPoisoningBite();
                 break;
             }
         }
@@ -109,11 +117,37 @@ public class Unit : MonoBehaviour
         else character.toolTip.updateHealth(character.healthPoints);
     }
 
-    public void getStab(int damage, Quaternion attackerRotation){
+    public void getStab(Quaternion attackerRotation){
+        int damage = 2;
         float dotRotation = Quaternion.Dot(attackerRotation, this.transform.rotation);
         if (dotRotation > 0.6f || dotRotation < -0.6f) damage = damage * 2;
         
         recieveDamage(damage);
+    }
+
+    public void getSting(){
+        //A paralysed adventurer will not to move a single tile the next turn
+        paralysed = true;
+        paralysedTimer = 1;
+        int damage = 1;
+        recieveDamage(damage);
+    }
+
+    public void getPoisoningBite(){
+        //A poisoned adventurer will receive low damage the next two turn shifts
+        poisonCounter += 1;
+        poisonTimer = 2;
+        int damage = 1;     
+        recieveDamage(damage);
+    }
+
+    public void TurnShiftUnitActions() {
+        recieveDamage(poisonCounter);
+        poisonTimer -= 1;
+        if (poisonTimer == 0) {
+            poisonCounter -= 1;
+            if (poisonCounter > 0) poisonTimer = POISON_DURATION;
+        }
     }
 
     private IEnumerator movingRotationCoroutine(Vector3 endPosition, float rotationDuration) {

@@ -247,14 +247,25 @@ public class UnitManager : MonoBehaviour
     }
 
     public void endTurn() {
-        if (gameManager.monstersTurn) restoreActions(adventurersOnBoard);
-        else restoreActions(monstersOnBoard);
-        ClearSelection();
         gameManager.endTurn();
+        performTurnShiftUnitActions();
+        ClearSelection();        
     }
 
-    private void restoreActions(List<GameObject> units) {
-        foreach (GameObject unit in unitsOnBoard) unit.GetComponent<Unit>().Exhaust();
+    private void performTurnShiftUnitActions() {
+        List<GameObject> died = new List<GameObject>();
+        foreach (GameObject unit in unitsOnBoard) {
+            Unit logicalUnit = unit.GetComponent<Unit>();
+            logicalUnit.TurnShiftUnitActions();
+            if (unit.GetComponent<Character>().healthPoints > 0) logicalUnit.Exhaust();
+            else died.Add(unit);
+        }
+
+        foreach (GameObject unit in died) RemoveUnit(unit);
+
+        List<GameObject> units;
+        if (gameManager.monstersTurn) units = monstersOnBoard;
+        else units = adventurersOnBoard;
         foreach (GameObject unit in units) {
             unit.GetComponent<Unit>().restoreActionPoints();
         } 
