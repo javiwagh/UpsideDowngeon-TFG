@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
         }
         else {
             Debug.Log("It's adventurer's turn!");
-            player.manaPoints = 6;
+            player.manaPoints = 0;
             player.updateMana();
         }
     }

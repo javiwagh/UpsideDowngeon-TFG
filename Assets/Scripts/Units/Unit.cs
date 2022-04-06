@@ -5,7 +5,10 @@ using UnityEngine;
 [SelectionBase]
 public class Unit : MonoBehaviour
 {
+    private const int POISON_DURATION = 2;
+    private const int PARALYSE_DURATION = 1;
     private int movementPoints;
+    public int actionPoints;
     public int MovementPoints {get => movementPoints;}
 
     [SerializeField]
@@ -21,12 +24,17 @@ public class Unit : MonoBehaviour
     public event System.Action<Unit> MovementFinished;
     public bool hasKey = false;
     public bool isMoving = false;
+    private int poisonCounter = 0;
+    private bool paralysed = false;
+    private int poisonTimer = 0;
+    private int paralysedTimer = 0;
 
     private void Awake() {
         glowHighlight = GetComponent<GlowHighlight>();
         character = GetComponent<Character>();
         gameManager = FindObjectOfType<GameManager>();
         movementPoints = character.speed;
+        actionPoints = 0;
     }
 
     internal void Deselect() {
@@ -38,32 +46,56 @@ public class Unit : MonoBehaviour
     }
 
     public void moveThroughPath(List<Vector3> currentPath){
+        if (!spendActionPoint()) return;
         pathPositions = new Queue<Vector3>(currentPath);
         Vector3 firstTarget = pathPositions.Dequeue();
         StartCoroutine(movingRotationCoroutine(firstTarget, rotationDuration));
     }
 
-    public void Attack(Unit target, bool primaryAttack) {
+    public bool isBard() {
+        return (this.character.unitType == UnitType.Adventurer && this.character.adventurerType == AdventurerType.Bard);
+    }
+
+    public void Attack(Unit target) {
+        if (!spendActionPoint()) return;
         Debug.Log($"Attacking {target.GetComponent<Character>().characterName}!");
         StartCoroutine(attackingRotationCoroutine(target.transform.position, rotationDuration));
         if (this.character.unitType == UnitType.Monster) {
             switch (this.character.monsterType){
                 case MonsterType.Goblin:
-                    target.getStab(this.character.meleeDamage, this.transform.rotation);
+                    target.getStab(this.transform.rotation);
                 break;
                 case MonsterType.Troll:
                     target.recieveDamage(this.character.meleeDamage);
                 break;
                 case MonsterType.Spider:
+                    target.getSting();
                 break;
                 case MonsterType.Rat:
+                    target.getPoisoningBite();
+                break;
+                default:
+                    Debug.Log($"Monster type not supported: {this.character.monsterType}");
                 break;
             }
         }
-        else target.recieveDamage(this.character.meleeDamage);
+        else {
+            switch (this.character.adventurerType){
+                case AdventurerType.Warrior:
+                    target.recieveDamage(this.character.meleeDamage);
+                break;
+                case AdventurerType.Rogue:
+                    target.getStab(this.transform.rotation);
+                break;
+                default:
+                    Debug.Log($"Adventurer type not supported: {this.character.monsterType}");
+                break;
+            }
+        }
     }
 
     public void PickKey() {
+        if (!spendActionPoint()) return;
         hasKey = true;
         gameManager.KeyPicked();
         Debug.Log("YAY! Got the key!");
@@ -74,6 +106,23 @@ public class Unit : MonoBehaviour
             hasKey = false;
             gameManager.keyDropped(this.onTile);
         }
+    }
+
+    private bool spendActionPoint() {
+        if (actionPoints > 0) actionPoints -= 1;
+        else return false;
+        character.toolTip.updateActionPoints(actionPoints);
+        return true;
+    }
+
+    public void restoreActionPoints() {
+        actionPoints = 2;
+        character.toolTip.updateActionPoints(actionPoints);
+    }
+
+    public void Exhaust() {
+        actionPoints = 0;
+        character.toolTip.updateActionPoints(actionPoints);
     }
 
     public void recieveDamage(int damage){
@@ -87,11 +136,43 @@ public class Unit : MonoBehaviour
         else character.toolTip.updateHealth(character.healthPoints);
     }
 
-    public void getStab(int damage, Quaternion attackerRotation){
+    public void getStab(Quaternion attackerRotation){
+        int damage = 2;
         float dotRotation = Quaternion.Dot(attackerRotation, this.transform.rotation);
         if (dotRotation > 0.6f || dotRotation < -0.6f) damage = damage * 2;
         
         recieveDamage(damage);
+    }
+
+    public void getSting(){
+        //A paralysed adventurer will not to move a single tile the next turn
+        paralysed = true;
+        paralysedTimer = PARALYSE_DURATION;
+        int damage = 1;
+        recieveDamage(damage);
+    }
+
+    public void getPoisoningBite(){
+        //A poisoned adventurer will receive low damage the next two turn shifts
+        poisonCounter += 1;
+        poisonTimer = POISON_DURATION;
+        int damage = 1;     
+        recieveDamage(damage);
+    }
+
+    public void TurnShiftUnitActions() {
+        //POISON
+        recieveDamage(poisonCounter);
+        poisonTimer -= 1;
+        if (poisonTimer == 0) {
+            poisonCounter -= 1;
+            if (poisonCounter > 0) poisonTimer = POISON_DURATION;
+        }
+        //PARALYSE
+        if (paralysed) movementPoints = 0;
+        else movementPoints = character.speed;
+        paralysedTimer -= 1;
+        if (paralysedTimer == 0) paralysed = false;
     }
 
     private IEnumerator movingRotationCoroutine(Vector3 endPosition, float rotationDuration) {

@@ -9,6 +9,7 @@ public class TooltipManager : MonoBehaviour
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI sideText;
     public TextMeshProUGUI statsText;
+    public TextMeshProUGUI actionsText;
     private void Awake() {
         Hide();
         if (_intance != null && _intance != this) 
@@ -25,10 +26,11 @@ public class TooltipManager : MonoBehaviour
         transform.position = Input.mousePosition;
     }
 
-    public void SetAndShow(string name, string side, List<string> stats) {
+    public void SetAndShow(string name, string side, List<string> stats, int actions) {
         gameObject.SetActive(true);
         nameText.text = name;
         sideText.text = side;
+        actionsText.text = actions.ToString();
         foreach(string stat in stats) {
             statsText.text += stat;
             statsText.text += "\n";

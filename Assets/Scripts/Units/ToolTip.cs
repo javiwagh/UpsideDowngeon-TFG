@@ -8,6 +8,7 @@ public class ToolTip : MonoBehaviour
     private string unitName;
     [SerializeField]
     private string side;
+    private int actions;
     List<string> stats = new List<string>();
     public void setInfo(Character character) {
         if (character.unitType != UnitType.Nest) {
@@ -16,6 +17,7 @@ public class ToolTip : MonoBehaviour
             stats.Add("Current Health: " + character.healthPoints);
             stats.Add("Speed: " + character.speed);
             stats.Add("Strength: " + character.meleeDamage);
+            actions = character.GetComponent<Unit>().actionPoints;
         }
         else {
             unitName = character.unitType.ToString();
@@ -26,11 +28,16 @@ public class ToolTip : MonoBehaviour
     public void updateHealth(int HP) {
         stats[0] = "Current Health: " + HP;
         TooltipManager._intance.Hide();
-        TooltipManager._intance.SetAndShow(unitName, side, stats);
+        TooltipManager._intance.SetAndShow(unitName, side, stats, actions);
+    }
+    public void updateActionPoints(int actionPoints) {
+        actions = actionPoints;
+        TooltipManager._intance.Hide();
+        TooltipManager._intance.SetAndShow(unitName, side, stats, actions);
     }
     private void OnMouseEnter() {
         TooltipManager._intance.Hide();
-        TooltipManager._intance.SetAndShow(unitName, side, stats);
+        TooltipManager._intance.SetAndShow(unitName, side, stats, actions);
     }
     private void OnMouseExit() {
         TooltipManager._intance.Hide();
