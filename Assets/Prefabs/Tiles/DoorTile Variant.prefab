@@ -8,6 +8,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1271131692190162405, guid: b68a9aaf8070a0946b5b3081df1288e6, type: 3}
+      propertyPath: isSpawn
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1271131692190162405, guid: b68a9aaf8070a0946b5b3081df1288e6, type: 3}
       propertyPath: tileType
       value: 2
       objectReference: {fileID: 0}

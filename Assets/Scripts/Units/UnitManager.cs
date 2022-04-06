@@ -56,9 +56,11 @@ public class UnitManager : MonoBehaviour
         if(unitToSpawn != null) ClearSelection();
         Unit logicalUnit = unit.GetComponent<Unit>();
         if(checkIfSelectedTheSameUnit(logicalUnit) || logicalUnit.isMoving) return;
+        if (selectedUnit != null && selectedUnit.actionPoints == 0) return;
 
-        if (!gameManager.isStageEnded() && (gameManager.monstersTurn && unit.GetComponent<Character>().unitType == UnitType.Monster || 
-            !gameManager.monstersTurn && unit.GetComponent<Character>().unitType == UnitType.Adventurer)) {           
+        if (logicalUnit.actionPoints > 0 && !gameManager.isStageEnded() 
+            && (gameManager.monstersTurn && unit.GetComponent<Character>().unitType == UnitType.Monster 
+            || !gameManager.monstersTurn && unit.GetComponent<Character>().unitType == UnitType.Adventurer)) {           
             prepareUnitForMovement(logicalUnit);
             checkAvailableActions(logicalUnit);
             return;
@@ -78,7 +80,7 @@ public class UnitManager : MonoBehaviour
         if (this.selectedUnit != unit && availableMeleeTargets.Contains(unit)) {
             this.selectedUnit.Attack(unit.GetComponent<Unit>(), true);
             ClearSelection();
-            spendMana(1);
+            //spendMana(1);
             if (unit.GetComponent<Character>().healthPoints == 0) RemoveUnit(unit.gameObject);
         }
     }
@@ -187,7 +189,7 @@ public class UnitManager : MonoBehaviour
 
     private void handleTileSelected(HexagonTile selectedTile) {  
         if (unitToSpawn != null) {
-            if (!selectedTile.isWalkable()) return;
+            if (!movementManager.spawnTiles.Contains(selectedTile)) return;
             GameObject newUnit = Instantiate(unitToSpawn, new Vector3 (selectedTile.transform.position.x, UNITPOSITION_Y, selectedTile.transform.position.z),
              new Quaternion(selectedTile.transform.rotation.x, selectedTile.transform.rotation.y, selectedTile.transform.rotation.z, selectedTile.transform.rotation.w));
             newUnit.transform.RotateAround(newUnit.transform.position, Vector3.up, 150f);
@@ -200,7 +202,7 @@ public class UnitManager : MonoBehaviour
             selectedTile.GetComponent<Key>().Pick();
             selectedUnit.PickKey();
             ClearSelection();
-            spendMana(1);
+            //spendMana(1);
             return;
         }
         if (previouslySelectedTile == null || previouslySelectedTile != selectedTile) {
@@ -213,14 +215,13 @@ public class UnitManager : MonoBehaviour
             selectedTile.stepOnTile(selectedUnit);
             movementManager.moveUnit(selectedUnit, this.hexGrid);
             ClearSelection();
-            spendMana(1);
+            //spendMana(1);
         }      
     }
 
     private void spendMana(int cost) {
         gameManager.player.manaPoints -= cost;
         gameManager.player.updateMana();
-        if (gameManager.player.manaPoints == 0) endTurn();
     }
 
     private bool checkEnoughMana(int cost) {
@@ -246,7 +247,16 @@ public class UnitManager : MonoBehaviour
     }
 
     public void endTurn() {
+        if (gameManager.monstersTurn) restoreActions(adventurersOnBoard);
+        else restoreActions(monstersOnBoard);
         ClearSelection();
         gameManager.endTurn();
+    }
+
+    private void restoreActions(List<GameObject> units) {
+        foreach (GameObject unit in unitsOnBoard) unit.GetComponent<Unit>().Exhaust();
+        foreach (GameObject unit in units) {
+            unit.GetComponent<Unit>().restoreActionPoints();
+        } 
     }
 }

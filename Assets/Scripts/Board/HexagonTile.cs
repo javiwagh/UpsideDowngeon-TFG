@@ -18,6 +18,9 @@ public class HexagonTile : MonoBehaviour
     public Unit unitOn;
     public Vector3Int HexagonCoordinates => hexCoord.getHexCoordinates();
 
+    [SerializeField]
+    private bool isSpawn;
+
     private void Awake(){
         hexCoord = GetComponent<HexCoord>();
         highlight = GetComponent<GlowHighlight>();
@@ -55,6 +58,10 @@ public class HexagonTile : MonoBehaviour
 
     public bool isWalkable() {
         return !(this.tileType == TileType.Obstacle || this.tileType == TileType.Occupied || this.tileType == TileType.Key || this.tileType == TileType.End);
+    }
+
+    public bool IsSpawn() {
+        return (isWalkable() && isSpawn);
     }
 
     public bool isOccupied() {

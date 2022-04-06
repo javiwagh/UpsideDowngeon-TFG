@@ -6,6 +6,7 @@ using UnityEngine;
 public class Unit : MonoBehaviour
 {
     private int movementPoints;
+    public int actionPoints;
     public int MovementPoints {get => movementPoints;}
 
     [SerializeField]
@@ -27,6 +28,7 @@ public class Unit : MonoBehaviour
         character = GetComponent<Character>();
         gameManager = FindObjectOfType<GameManager>();
         movementPoints = character.speed;
+        actionPoints = 0;
     }
 
     internal void Deselect() {
@@ -38,12 +40,14 @@ public class Unit : MonoBehaviour
     }
 
     public void moveThroughPath(List<Vector3> currentPath){
+        if (!spendActionPoint()) return;
         pathPositions = new Queue<Vector3>(currentPath);
         Vector3 firstTarget = pathPositions.Dequeue();
         StartCoroutine(movingRotationCoroutine(firstTarget, rotationDuration));
     }
 
     public void Attack(Unit target, bool primaryAttack) {
+        if (!spendActionPoint()) return;
         Debug.Log($"Attacking {target.GetComponent<Character>().characterName}!");
         StartCoroutine(attackingRotationCoroutine(target.transform.position, rotationDuration));
         if (this.character.unitType == UnitType.Monster) {
@@ -64,6 +68,7 @@ public class Unit : MonoBehaviour
     }
 
     public void PickKey() {
+        if (!spendActionPoint()) return;
         hasKey = true;
         gameManager.KeyPicked();
         Debug.Log("YAY! Got the key!");
@@ -74,6 +79,23 @@ public class Unit : MonoBehaviour
             hasKey = false;
             gameManager.keyDropped(this.onTile);
         }
+    }
+
+    private bool spendActionPoint() {
+        if (actionPoints > 0) actionPoints -= 1;
+        else return false;
+        character.toolTip.updateActionPoints(actionPoints);
+        return true;
+    }
+
+    public void restoreActionPoints() {
+        actionPoints = 2;
+        character.toolTip.updateActionPoints(actionPoints);
+    }
+
+    public void Exhaust() {
+        actionPoints = 0;
+        character.toolTip.updateActionPoints(actionPoints);
     }
 
     public void recieveDamage(int damage){

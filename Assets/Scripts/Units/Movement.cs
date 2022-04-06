@@ -6,6 +6,7 @@ using UnityEngine;
 public class Movement : MonoBehaviour{
     private BFSearch movementRange = new BFSearch();
     private List<Vector3Int> currentPath = new List<Vector3Int>();
+    public List<HexagonTile> spawnTiles = new List<HexagonTile>();
 
     public void HideRange(HexGrid hexGrid) {
         IEnumerable<Vector3Int> rangePositions = movementRange.getRangePositions();
@@ -31,13 +32,14 @@ public class Movement : MonoBehaviour{
     }
 
     public void ShowSpawnRange (HexGrid hexGrid) {
-        foreach(HexagonTile tile in hexGrid.GetEveryWalkableTiles()) {
+        spawnTiles = hexGrid.GetEverySpawnTiles();
+        foreach(HexagonTile tile in spawnTiles) {
             tile.EnableHighlight();
         }        
     }
 
     public void HideSpawnRange (HexGrid hexGrid) {
-        foreach(HexagonTile tile in hexGrid.GetEveryWalkableTiles()) {
+        foreach(HexagonTile tile in spawnTiles) {
             tile.DisableHighlight();
         }        
     }
