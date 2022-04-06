@@ -23,19 +23,23 @@ public class Movement : MonoBehaviour{
         CalculateRange(selectedUnit, hexGrid);
 
         Vector3Int unitPosition = hexGrid.GetClosestTile(selectedUnit.transform.position);
-        /*if (!selectedUnit.hasKey) {
-            foreach(Vector3Int tilePosition in movementRange.getRangePositions()) {
-                if (hexGrid.getTileAt(tilePosition).isStageEnd()) {
-                    movementRange.RemoveFromRange(tilePosition);
-                    break;
-                }     
-            }
-        }*/
         
         foreach(Vector3Int tilePosition in movementRange.getRangePositions()) {
             if (unitPosition != tilePosition)
                 hexGrid.getTileAt(tilePosition).EnableHighlight();
         }
+    }
+
+    public void ShowSpawnRange (HexGrid hexGrid) {
+        foreach(HexagonTile tile in hexGrid.GetEveryWalkableTiles()) {
+            tile.EnableHighlight();
+        }        
+    }
+
+    public void HideSpawnRange (HexGrid hexGrid) {
+        foreach(HexagonTile tile in hexGrid.GetEveryWalkableTiles()) {
+            tile.DisableHighlight();
+        }        
     }
 
     public void CalculateRange(Unit selectedUnit, HexGrid hexGrid) {

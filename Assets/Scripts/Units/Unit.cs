@@ -20,6 +20,7 @@ public class Unit : MonoBehaviour
     private Queue<Vector3> pathPositions = new Queue<Vector3>();
     public event System.Action<Unit> MovementFinished;
     public bool hasKey = false;
+    public bool isMoving = false;
 
     private void Awake() {
         glowHighlight = GetComponent<GlowHighlight>();
@@ -42,10 +43,24 @@ public class Unit : MonoBehaviour
         StartCoroutine(movingRotationCoroutine(firstTarget, rotationDuration));
     }
 
-    public void Attack(Unit target) {
+    public void Attack(Unit target, bool primaryAttack) {
         Debug.Log($"Attacking {target.GetComponent<Character>().characterName}!");
         StartCoroutine(attackingRotationCoroutine(target.transform.position, rotationDuration));
-        target.recieveDamage(this.character.meleeDamage);
+        if (this.character.unitType == UnitType.Monster) {
+            switch (this.character.monsterType){
+                case MonsterType.Goblin:
+                    target.getStab(this.character.meleeDamage, this.transform.rotation);
+                break;
+                case MonsterType.Troll:
+                    target.recieveDamage(this.character.meleeDamage);
+                break;
+                case MonsterType.Spider:
+                break;
+                case MonsterType.Rat:
+                break;
+            }
+        }
+        else target.recieveDamage(this.character.meleeDamage);
     }
 
     public void PickKey() {
@@ -66,14 +81,21 @@ public class Unit : MonoBehaviour
         if (this.character.healthPoints <= 0) {
             this.character.healthPoints = 0;
             onTile.resetTileType();
-            Debug.Log($"My health is 0! I'm fainting!");
             DropKey();
             this.gameObject.SetActive(false);
         }
-        Debug.Log($"Ouch! My current health is {this.character.healthPoints}. That hurt!");
+        else character.toolTip.updateHealth(character.healthPoints);
+    }
+
+    public void getStab(int damage, Quaternion attackerRotation){
+        float dotRotation = Quaternion.Dot(attackerRotation, this.transform.rotation);
+        if (dotRotation > 0.6f || dotRotation < -0.6f) damage = damage * 2;
+        
+        recieveDamage(damage);
     }
 
     private IEnumerator movingRotationCoroutine(Vector3 endPosition, float rotationDuration) {
+        this.isMoving = true;
         Quaternion startRotation = transform.rotation;
         endPosition.y = transform.position.y;
         Vector3 direction = endPosition - transform.position;
@@ -104,10 +126,10 @@ public class Unit : MonoBehaviour
                 timeElapsed += Time.deltaTime;
                 float lerpstep = timeElapsed / rotationDuration;
                 transform.rotation = Quaternion.Lerp(startRotation, endRotation, lerpstep);
-                yield return null;
             }
             transform.rotation = endRotation;
         }
+        yield return null;
     }
 
     private IEnumerator MovementCoroutine(Vector3 endPosition) {
@@ -130,8 +152,8 @@ public class Unit : MonoBehaviour
         else {
             Debug.Log("I have reached my end position òwó");
             MovementFinished?.Invoke(this);
-            Debug.Log(this.onTile.isEnd());
             if (this.hasKey && this.onTile.isEnd()) gameManager.AdventurersWin();
+            this.isMoving = false;
         }
     }    
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+    public ToolTip toolTip;
     [SerializeField]
     public CharacterName characterName;
     [HideInInspector]
@@ -12,12 +13,15 @@ public class Character : MonoBehaviour
     public MonsterType? monsterType;
     public NestType? nestType;
     public AdventurerType? adventurerType;
+    public int cost = 0;
     public int healthPoints = 10;
     public int speed = 2;
     public int meleeDamage = 2;
 
     private void Awake() {
         asignTypes();
+        toolTip = this.gameObject.GetComponent<ToolTip>();
+        toolTip.setInfo(this);
     }
 
     private void asignTypes() {

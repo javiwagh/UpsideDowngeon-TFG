@@ -21,6 +21,7 @@ public class HexagonTile : MonoBehaviour
     private void Awake(){
         hexCoord = GetComponent<HexCoord>();
         highlight = GetComponent<GlowHighlight>();
+        setOriginalType();
     }
 
     public void setOriginalType() {
