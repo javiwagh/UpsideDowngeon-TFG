@@ -14,12 +14,17 @@ public class CheckItemInRoomNode : BehaviorNode
 
     public override void Evaluate()
     {
+        Debug.Log($"Is there any {target} in this room?");
         //Figure out in which room am I
         //Every tile should be in a room
-        //Door rooms will be set in one or another room at convenience of the design
-        Room currentRoom = me.GetComponent<Unit>().onTile.GetComponentInParent<Room>();
+        List<Room> currentRooms = me.GetComponent<Unit>().onTile.rooms;
         //Check
-        if (currentRoom.checkTileTypeInRoom(target)) Yes();
-        else No();
+        foreach (Room room in currentRooms) {
+            if (room.checkTileTypeInRoom(target)) {
+                Yes();
+                return;
+            }
+        }
+        No();
     }
 }

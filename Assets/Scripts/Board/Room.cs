@@ -5,6 +5,7 @@ using UnityEngine;
 public class Room : MonoBehaviour
 {
     public HexagonTile[] tilesInRoom;
+    public List<HexagonTile> doors;
     private void Awake() {
         tilesInRoom = GetComponentsInChildren<HexagonTile>();
     }

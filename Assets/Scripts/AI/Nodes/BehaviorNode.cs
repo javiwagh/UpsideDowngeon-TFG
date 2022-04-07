@@ -12,10 +12,12 @@ public abstract class BehaviorNode {
     }
 
     public void Yes () {
+        Debug.Log("Yes!");
         children.Item1.Evaluate();
     }
 
     public void No () {
+        Debug.Log("Nope");
         children.Item2.Evaluate();
     }
 }

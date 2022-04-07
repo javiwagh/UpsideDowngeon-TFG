@@ -14,6 +14,7 @@ public class GoTowardsNode : BehaviorNode
 
     public override void Evaluate()
     {
+        me.currentTarget = target;
         me.GoTowards(target);
     }
 }

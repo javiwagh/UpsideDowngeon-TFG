@@ -69,7 +69,21 @@ public class Movement : MonoBehaviour{
         return movementRange.tileInRange(tilePosition);
     }
 
-    public Vector3Int findClosestTileInRange(HexGrid hexGrid, Vector3Int targetTilePosition) {
+    public Vector3Int findClosestTileInRange(HexGrid hexGrid, Vector3 origin, Vector3Int targetTilePosition) {
+        BFSearch fullBoardRange = new BFSearch();
+        Debug.Log("Looking for the full range");
+        fullBoardRange = GraphSearch.BFSGetRange(hexGrid, hexGrid.GetClosestTile(origin), 100);
+        Debug.Log("Looking for the full path");
+        List<Vector3Int> path = fullBoardRange.getPathTo(targetTilePosition);
+        Debug.Log("Reversing path");
+        path.Reverse();
+
+        foreach (Vector3Int tilePosition in path) {
+            if (tileInRange(tilePosition)) return tilePosition;
+            else Debug.Log("Oops! Too far");
+        }
+        return new Vector3Int();
+        /*
         float distance;
         float shortestDistance = float.PositiveInfinity;
         Vector3Int closestTileInRange = new Vector3Int();
@@ -82,6 +96,6 @@ public class Movement : MonoBehaviour{
             }
         }
         //ShowPath(closestTileInRange, hexGrid);
-        return closestTileInRange;
+        return closestTileInRange;*/
     }
 }

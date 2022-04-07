@@ -35,7 +35,6 @@ public class Unit : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         movementPoints = character.speed;
         actionPoints = 0;
-        this.GetComponent<AdventurerBehavior>().buildBehaviorTree();
     }
 
     internal void Deselect() {

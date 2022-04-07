@@ -133,17 +133,18 @@ public class UnitManager : MonoBehaviour
     public HexagonTile selectTileTowards(Vector3 origin, HexagonTile tile) {
         //GET CLOSEST AVAILABLE TILE
         HexagonTile target;
-        if (tile.hasPickUp()) target = hexGrid.findClosestNeighbor(origin, tile);
+        if (!tile.isWalkable()) target = hexGrid.findClosestNeighbor(origin, tile);
         else target = tile;
         
         Vector3Int tileSelectedPosition = new Vector3Int();
         if (target != null) {
-            tileSelectedPosition = movementManager.findClosestTileInRange(hexGrid, target.HexagonCoordinates);
+            tileSelectedPosition = movementManager.findClosestTileInRange(hexGrid, origin, target.HexagonCoordinates);
         }
         else {
             Debug.Log("oops! something went wrong. I did not chatch where I should go.");
         }
 
+        Debug.Log(tileSelectedPosition);
         HexagonTile selectedTile = hexGrid.getTileAt(tileSelectedPosition);
         handleTileSelection(selectedTile.gameObject);
         return selectedTile;

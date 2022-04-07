@@ -20,6 +20,8 @@ public class HexagonTile : MonoBehaviour
     [SerializeField]
     private bool isSpawn;
 
+    public List<Room> rooms;
+
     private void Awake(){
         hexCoord = GetComponent<HexCoord>();
         highlight = GetComponent<GlowHighlight>();
@@ -28,7 +30,11 @@ public class HexagonTile : MonoBehaviour
 
     public void setOriginalType() {
         Debug.Log("Gettin my type set");
-        tileType = originalTileType;
+        tileType = originalTileType; 
+        if (tileType != TileType.Door) {
+            rooms = new List<Room>();
+            rooms.Add(this.GetComponentInParent<Room>());
+        } 
     }
 
     public int getCost() {
