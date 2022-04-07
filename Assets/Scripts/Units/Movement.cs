@@ -68,4 +68,20 @@ public class Movement : MonoBehaviour{
     public bool tileInRange (Vector3Int tilePosition) {
         return movementRange.tileInRange(tilePosition);
     }
+
+    public Vector3Int findClosestTileInRange(HexGrid hexGrid, Vector3Int targetTilePosition) {
+        float distance;
+        float shortestDistance = float.PositiveInfinity;
+        Vector3Int closestTileInRange = new Vector3Int();
+
+        foreach (Vector3Int tilePosition in movementRange.getRangePositions()) {
+            distance = Vector3.Distance(tilePosition, targetTilePosition);
+            if (distance < shortestDistance) {
+                shortestDistance = distance;
+                closestTileInRange = tilePosition;
+            }
+        }
+        //ShowPath(closestTileInRange, hexGrid);
+        return closestTileInRange;
+    }
 }

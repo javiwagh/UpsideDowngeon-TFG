@@ -11,8 +11,7 @@ public class HexagonTile : MonoBehaviour
     [SerializeField]
     private TileType tileType;
 
-    [SerializeField]
-    private TileType originalTileType;
+    public TileType originalTileType;
 
     private HexCoord hexCoord;
     public Unit unitOn;

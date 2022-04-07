@@ -43,6 +43,26 @@ public class HexGrid : MonoBehaviour
         return hexagonTileNeighboursDictionary[coords];
     }
 
+    public HexagonTile findClosestNeighbor(Vector3 origin, HexagonTile tile) {
+        List<Vector3Int> neighbors = getNeightbours(tile.HexagonCoordinates);
+        
+        float distance;
+        float shortestDistance = float.PositiveInfinity;
+        HexagonTile closestNeighbor = null;
+
+        foreach (Vector3Int tilePosition in neighbors) {
+            HexagonTile neighbor = getTileAt(tilePosition);
+            if (neighbor.isWalkable()){
+                distance = Vector3.Distance(origin, neighbor.transform.position);
+                if (distance < shortestDistance) {
+                    shortestDistance = distance;
+                    closestNeighbor = neighbor;
+                }
+            }
+        }
+        return closestNeighbor;
+    }
+
     public Vector3Int GetClosestTile(Vector3 worldPosition) {
         worldPosition.y = 0;
         return HexCoord.calculateConvertPosition(worldPosition);

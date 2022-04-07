@@ -10,8 +10,8 @@ public class BinaryDecisionTree
         this.root = root;
     }
 
-    public void Insert(BehaviorNode node, bool isAffirmative) {
-        root.Insert(node, isAffirmative);
+    public void Insert(BehaviorNode node) {
+        root.Insert(node);
     }
 
     public void Evaluate() {

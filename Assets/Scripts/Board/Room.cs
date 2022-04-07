@@ -15,4 +15,11 @@ public class Room : MonoBehaviour
         }
         return true;
     }
+
+    public bool checkTileTypeInRoom(TileType target) {
+        foreach (HexagonTile tile in tilesInRoom) {
+            if (tile.originalTileType == target) return true;
+        }
+        return false;
+    }
 }

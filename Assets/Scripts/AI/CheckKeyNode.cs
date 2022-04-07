@@ -12,7 +12,7 @@ public class CheckKeyNode : BehaviorNode {
     public override void Evaluate()
     {
         Debug.Log("Do I have the Key?");
-        if (logicalUnit.hasKey) children.Item1.Evaluate();
-        else children.Item2.Evaluate();
+        if (logicalUnit.hasKey) Yes();
+        else No();
     }
 }

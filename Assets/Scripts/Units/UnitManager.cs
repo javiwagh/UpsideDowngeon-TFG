@@ -129,6 +129,25 @@ public class UnitManager : MonoBehaviour
 
         handleTileSelected(tile.GetComponent<HexagonTile>());
     }
+
+    public HexagonTile selectTileTowards(Vector3 origin, HexagonTile tile) {
+        //GET CLOSEST AVAILABLE TILE
+        HexagonTile target;
+        if (tile.hasPickUp()) target = hexGrid.findClosestNeighbor(origin, tile);
+        else target = tile;
+        
+        Vector3Int tileSelectedPosition = new Vector3Int();
+        if (target != null) {
+            tileSelectedPosition = movementManager.findClosestTileInRange(hexGrid, target.HexagonCoordinates);
+        }
+        else {
+            Debug.Log("oops! something went wrong. I did not chatch where I should go.");
+        }
+
+        HexagonTile selectedTile = hexGrid.getTileAt(tileSelectedPosition);
+        handleTileSelection(selectedTile.gameObject);
+        return selectedTile;
+    }
     
     public void checkAvailableActions (Unit unit) {
         if (!unit.isBard()) checkMeleeAttack(hexGrid.GetClosestTile(unit.transform.position), unit);
@@ -275,9 +294,10 @@ public class UnitManager : MonoBehaviour
     private IEnumerator PerformAITurn() {
         foreach(GameObject unit in adventurersOnBoard) {
             while (unit.GetComponent<Unit>().actionPoints > 0) {
-                unit.GetComponent<AdventurerBehavior>().executeAction();
-                yield return null;
-            }            
+                AdventurerBehavior behavior = unit.GetComponent<AdventurerBehavior>();
+                behavior.executeAction();
+                while(!behavior.actionEnded) yield return null;
+            }
         }
         endTurn();
     }
