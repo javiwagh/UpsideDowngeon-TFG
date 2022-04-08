@@ -72,7 +72,7 @@ public class Movement : MonoBehaviour{
     public Vector3Int findClosestTileInRange(HexGrid hexGrid, Vector3 origin, Vector3Int targetTilePosition) {
         BFSearch fullBoardRange = new BFSearch();
         Debug.Log("Looking for the full range");
-        fullBoardRange = GraphSearch.BFSGetRange(hexGrid, hexGrid.GetClosestTile(origin), 100);
+        fullBoardRange = GraphSearch.BFSGetFlyingRange(hexGrid, hexGrid.GetClosestTile(origin));
         Debug.Log("Looking for the full path");
         List<Vector3Int> path = fullBoardRange.getPathTo(targetTilePosition);
         Debug.Log("Reversing path");
@@ -83,19 +83,5 @@ public class Movement : MonoBehaviour{
             else Debug.Log("Oops! Too far");
         }
         return new Vector3Int();
-        /*
-        float distance;
-        float shortestDistance = float.PositiveInfinity;
-        Vector3Int closestTileInRange = new Vector3Int();
-
-        foreach (Vector3Int tilePosition in movementRange.getRangePositions()) {
-            distance = Vector3.Distance(tilePosition, targetTilePosition);
-            if (distance < shortestDistance) {
-                shortestDistance = distance;
-                closestTileInRange = tilePosition;
-            }
-        }
-        //ShowPath(closestTileInRange, hexGrid);
-        return closestTileInRange;*/
     }
 }

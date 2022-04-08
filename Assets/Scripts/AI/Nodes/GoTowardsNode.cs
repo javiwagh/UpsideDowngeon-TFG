@@ -5,16 +5,17 @@ using UnityEngine;
 public class GoTowardsNode : BehaviorNode
 {
     private AdventurerBehavior me;
-    HexagonTile target;
+    TileType target;
 
-    public GoTowardsNode(HexagonTile targetTile, AdventurerBehavior me) {
-        this.target = targetTile;
+    public GoTowardsNode(TileType targetType, AdventurerBehavior me) {
+        this.target = targetType;
         this.me = me;
     }
 
     public override void Evaluate()
     {
-        me.currentTarget = target;
-        me.GoTowards(target);
+        if (target == TileType.End) me.currentTarget = me.endTile;
+        else me.currentTarget = me.keyTile;
+        me.GoTowards();
     }
 }

@@ -130,26 +130,6 @@ public class UnitManager : MonoBehaviour
         handleTileSelected(tile.GetComponent<HexagonTile>());
     }
 
-    public HexagonTile selectTileTowards(Vector3 origin, HexagonTile tile) {
-        //GET CLOSEST AVAILABLE TILE
-        HexagonTile target;
-        if (!tile.isWalkable()) target = hexGrid.findClosestNeighbor(origin, tile);
-        else target = tile;
-        
-        Vector3Int tileSelectedPosition = new Vector3Int();
-        if (target != null) {
-            tileSelectedPosition = movementManager.findClosestTileInRange(hexGrid, origin, target.HexagonCoordinates);
-        }
-        else {
-            Debug.Log("oops! something went wrong. I did not chatch where I should go.");
-        }
-
-        Debug.Log(tileSelectedPosition);
-        HexagonTile selectedTile = hexGrid.getTileAt(tileSelectedPosition);
-        handleTileSelection(selectedTile.gameObject);
-        return selectedTile;
-    }
-    
     public void checkAvailableActions (Unit unit) {
         if (!unit.isBard()) checkMeleeAttack(hexGrid.GetClosestTile(unit.transform.position), unit);
         if (unit.character.side == Side.Adventurers) {
@@ -292,6 +272,7 @@ public class UnitManager : MonoBehaviour
         } 
     }
 
+    //AI METHODS
     private IEnumerator PerformAITurn() {
         foreach(GameObject unit in adventurersOnBoard) {
             while (unit.GetComponent<Unit>().actionPoints > 0) {
@@ -301,5 +282,35 @@ public class UnitManager : MonoBehaviour
             }
         }
         endTurn();
+    }
+
+    public bool checkNextToKey (Vector3Int origin) {
+        List<Vector3Int> neighbors = hexGrid.getNeightbours(origin);
+        availablePickUps = new List<HexagonTile>();
+        foreach (Vector3Int tilePosition in neighbors) {
+            HexagonTile neighbor = hexGrid.getTileAt(tilePosition);
+            if (neighbor.originalTileType == TileType.Key){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public HexagonTile correctTargetTile (Vector3 origin, HexagonTile target) {
+        if (!target.isWalkable()) return hexGrid.findClosestNeighbor(origin, target);
+        return target;
+    }
+
+    public HexagonTile selectTileTowards(Vector3 origin, HexagonTile target) {        
+        Vector3Int tileSelectedPosition = new Vector3Int();
+        tileSelectedPosition = movementManager.findClosestTileInRange(hexGrid, origin, target.HexagonCoordinates);
+
+        HexagonTile selectedTile = hexGrid.getTileAt(tileSelectedPosition);
+        handleTileSelection(selectedTile.gameObject);
+        return selectedTile;
+    }
+
+    public HexagonTile UpdateKey() {
+        return gameManager.keyTile;
     }
 }

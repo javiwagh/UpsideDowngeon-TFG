@@ -10,15 +10,22 @@ public class HexGrid : MonoBehaviour
     Room[] romsInBoard;
 
     private void Awake() {
-        UpdateTiles();
         romsInBoard = GetComponentsInChildren<Room>();
+        UpdateTiles();
     }
 
     public void UpdateTiles() {
         foreach (HexagonTile tile in FindObjectsOfType<HexagonTile>()) {
-            //Debug.Log(tile.gameObject.name);
             if (tile.isActiveAndEnabled) hexagonTileDictionary[tile.HexagonCoordinates] = tile;
         }
+        foreach (Room room in romsInBoard) {
+            room.UpdateTiles();
+        }
+    }
+
+    public void SetKeyRoom(GameObject key, HexagonTile tile) {
+        if (tile.rooms.Count > 1) key.transform.SetParent(this.transform, false);
+        else key.transform.SetParent(tile.rooms[0].transform, false);
     }
 
     public HexagonTile getTileAt(Vector3Int coords){

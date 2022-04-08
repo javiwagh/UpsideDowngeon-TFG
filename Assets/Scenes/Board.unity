@@ -2410,6 +2410,7 @@ MonoBehaviour:
   unitManager: {fileID: 0}
   endTile: {fileID: 1241291338}
   keyTilePrefab: {fileID: 8428897718366608426, guid: 944c44b9b13218842af2fe844a843f85, type: 3}
+  keyTile: {fileID: 6993345562183840132}
   blackFadeAnimator: {fileID: 452535537}
 --- !u!4 &794436220 stripped
 Transform:

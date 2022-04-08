@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     private HexagonTile endTile;
     [SerializeField]
     private GameObject keyTilePrefab;
+    public HexagonTile keyTile;
 
     [SerializeField]
     private Animator blackFadeAnimator;
@@ -44,14 +45,17 @@ public class GameManager : MonoBehaviour
     public void KeyPicked() {
         gameState = GameState.KeyPicked;
         hexGrid.UpdateTiles();
+        keyTile = null;
     }
 
     public void keyDropped(HexagonTile tile) {
         gameState = GameState.KeyOnBoard;
         GameObject key = Instantiate(keyTilePrefab, tile.transform.position, tile.transform.rotation);
-        key.transform.SetParent(hexGrid.transform, false);
+        hexGrid.SetKeyRoom(key, tile);
+        //key.transform.SetParent(hexGrid.transform, false);
         key.GetComponent<Key>().setTile(tile.gameObject);
         hexGrid.UpdateTiles();
+        keyTile = key.GetComponent<HexagonTile>();
     }
 
     public void canEndStage() {

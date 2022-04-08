@@ -5,14 +5,15 @@ using UnityEngine;
 public class AdventurerBehavior : MonoBehaviour
 {
     public HexagonTile currentTarget = null;
-    public Room lastKnownRoom = null;
+    public List<Room> lastKnownRoom = null;
     BinaryDecisionTree behaviorTree;
     [SerializeField]
-    private HexagonTile endTile;
+    public HexagonTile endTile;
     [SerializeField]
-    private HexagonTile keyTile;
+    public HexagonTile keyTile;
     [SerializeField]
     private UnitManager unitManager;
+    private Unit logicalUnit;
 
     private HexagonTile selectedTile;
     private bool treeBuilt = false;
@@ -20,8 +21,12 @@ public class AdventurerBehavior : MonoBehaviour
     private bool pathSelectionDone = false;
     public bool actionEnded = false;
 
+    private void Awake() {
+        logicalUnit = this.GetComponent<Unit>();
+    }
+
     public void buildBehaviorTree() {
-        Unit me = this.GetComponent<Unit>();
+        Unit me = logicalUnit;
         //LEVEL 0
             //Do I have the key?
             CheckKeyNode root = new CheckKeyNode(me);
@@ -37,8 +42,8 @@ public class AdventurerBehavior : MonoBehaviour
 
         //LEVEL 2
             //endTileRoom children
-            //Yes. Go to end tile
-            GoTowardsNode goToEnd = new GoTowardsNode(endTile, this);
+            //Yes. Go to end tile!
+            GoTowardsNode goToEnd = new GoTowardsNode(TileType.End, this);
             endRoomNode.Insert(goToEnd);
             //No. Explore towards another room
             ExploreNode goExplore = new ExploreNode(this);     
@@ -46,18 +51,27 @@ public class AdventurerBehavior : MonoBehaviour
 
             //keyRoomNode children
             //Yes. Am I next to the key?
-            GoTowardsNode goToKey = new GoTowardsNode(keyTile, this);
-            keyRoomNode.Insert(goToKey);
-            //No. Explore towards another room
+            NextToKeyNode nextToKey = new NextToKeyNode(this);
+            keyRoomNode.Insert(nextToKey);
+            //No. Explore towards another room!
             keyRoomNode.Insert(goExplore);
+
+        //LEVEL 3
+            //nextToKey children
+            //Yes. Take the key!
+            PickUpNode takeKey = new PickUpNode(this, keyTile);
+            nextToKey.Insert(takeKey);
+            //No. Go towards the key!
+            GoTowardsNode goToKey = new GoTowardsNode(TileType.Key, this);
+            nextToKey.Insert(goToKey);
     }
     public void executeAction() {
         unitSelectionDone = false;
         pathSelectionDone = false;
         actionEnded = false;
-
-        Unit logicalUnit = this.GetComponent<Unit>();
-        if (logicalUnit.onTile.originalTileType != TileType.Door) lastKnownRoom = logicalUnit.onTile.rooms[0];
+        updateKey();
+        
+        lastKnownRoom = logicalUnit.onTile.rooms;
 
         if (!treeBuilt) buildBehaviorTree();
         Debug.Log($"{logicalUnit.character.name} is executing an action");
@@ -65,26 +79,48 @@ public class AdventurerBehavior : MonoBehaviour
         behaviorTree.Evaluate();
     }
 
-    public void GoTowards(HexagonTile targetTile)
-    {
-        StartCoroutine(GoTowardsCoroutine(targetTile));
+    public void updateKey() {
+        keyTile = unitManager.UpdateKey();
     }
 
-    private IEnumerator GoTowardsCoroutine(HexagonTile targetTile) {
+    public void GoTowards()
+    {
+        StartCoroutine(GoTowardsCoroutine());
+    }
+
+    public void PickUp() {
+        StartCoroutine(PickUpCoroutine());
+    }
+
+    public bool NextToKey() {
+        return unitManager.checkNextToKey(logicalUnit.onTile.HexagonCoordinates);
+    }
+
+    private IEnumerator GoTowardsCoroutine() {
         StartCoroutine(selectUnit());
         while (!unitSelectionDone) yield return null;
-        StartCoroutine(selectPath(targetTile));
+        currentTarget = unitManager.correctTargetTile(this.transform.position, currentTarget);
+        StartCoroutine(selectPath());
         while (!pathSelectionDone) yield return null;
         StartCoroutine(followPath()); 
         while (!actionEnded) yield return null;
     }
+
+    private IEnumerator PickUpCoroutine() {
+        StartCoroutine(selectUnit());
+        while (!unitSelectionDone) yield return null;
+        StartCoroutine(selectTile());
+        while (!actionEnded) yield return null;
+    }
+
     private IEnumerator selectUnit() {
         unitManager.handleUnitSelection(this.gameObject);
         yield return new WaitForSeconds(1f);
         unitSelectionDone = true;
     }
-    private IEnumerator selectPath(HexagonTile targetTile) {
-        selectedTile = unitManager.selectTileTowards(this.transform.position, targetTile);
+    private IEnumerator selectPath() {
+        selectedTile = unitManager.selectTileTowards(this.transform.position, currentTarget);
+        if (selectedTile == currentTarget) currentTarget = null;
         yield return new WaitForSeconds(1f);
         pathSelectionDone = true;
     }
@@ -92,5 +128,12 @@ public class AdventurerBehavior : MonoBehaviour
         unitManager.handleTileSelection(selectedTile.gameObject);
         while (this.GetComponent<Unit>().isMoving) yield return null;
         actionEnded = true;
+    }
+
+    private IEnumerator selectTile() {
+        unitManager.handleTileSelection(currentTarget.gameObject);
+        actionEnded = true;
+        currentTarget = null;
+        yield return null;
     }
 }

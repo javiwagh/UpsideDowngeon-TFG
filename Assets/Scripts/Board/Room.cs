@@ -1,13 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Room : MonoBehaviour
 {
-    public HexagonTile[] tilesInRoom;
+    public List<HexagonTile> tilesInRoom;
     public List<HexagonTile> doors;
     private void Awake() {
-        tilesInRoom = GetComponentsInChildren<HexagonTile>();
+        tilesInRoom = GetComponentsInChildren<HexagonTile>().ToList();
+    }
+
+    public void UpdateTiles() {
+        tilesInRoom = GetComponentsInChildren<HexagonTile>().ToList();
     }
 
     public bool checkAvailableRoom() {

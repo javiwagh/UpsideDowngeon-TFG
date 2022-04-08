@@ -41,6 +41,42 @@ public class GraphSearch
         return new BFSearch {visitedNodes = VisitedNodes};
     }
 
+    public static BFSearch BFSGetFlyingRange(HexGrid hexGrid, Vector3Int startTile) {
+        Dictionary<Vector3Int, Vector3Int?> VisitedNodes = new Dictionary<Vector3Int, Vector3Int?>();
+        Dictionary<Vector3Int, int> costSoFar = new Dictionary<Vector3Int, int>();
+        Queue<Vector3Int> nodesToVisit = new Queue<Vector3Int>();
+
+        nodesToVisit.Enqueue(startTile);
+        costSoFar.Add(startTile, 0);
+        VisitedNodes.Add(startTile, null);
+
+        while (nodesToVisit.Count > 0) {
+            Vector3Int currentNode = nodesToVisit.Dequeue();
+            foreach(Vector3Int neihbourPosition in hexGrid.getNeightbours(currentNode)) {
+                if (hexGrid.getTileAt(neihbourPosition).isWalkable()) {
+                    int nodeCost = hexGrid.getTileAt(neihbourPosition).getCost();
+                    int currentCost = costSoFar[currentNode];
+                    int newCost = currentCost + nodeCost;
+
+                    //if(newCost <= points) {
+                        if (!VisitedNodes.ContainsKey(neihbourPosition)) {
+                            VisitedNodes[neihbourPosition] = currentNode;
+                            costSoFar[neihbourPosition] = newCost;
+                            nodesToVisit.Enqueue(neihbourPosition);
+                        }
+                        else if (costSoFar[neihbourPosition] > newCost) {
+                            costSoFar[neihbourPosition] = newCost;
+                            VisitedNodes [neihbourPosition] = currentNode;
+                        }
+                    //}
+                }
+                else continue;
+            }
+        }
+
+        return new BFSearch {visitedNodes = VisitedNodes};
+    }
+
     public static List<Vector3Int> GeneratePathBFS(Vector3Int currentPosition, Dictionary<Vector3Int, Vector3Int?> visitedNodes) {
         List<Vector3Int> path = new List<Vector3Int>();
         path.Add(currentPosition);
