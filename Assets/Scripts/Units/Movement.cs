@@ -84,4 +84,10 @@ public class Movement : MonoBehaviour{
         }
         return new Vector3Int();
     }
+
+    public Vector3Int RandomizeTarget() {
+        List<Vector3Int> rangePositions = movementRange.getRangePositions().ToList();
+        int random = Random.Range(0, rangePositions.Count);
+        return rangePositions[random];
+    }
 }

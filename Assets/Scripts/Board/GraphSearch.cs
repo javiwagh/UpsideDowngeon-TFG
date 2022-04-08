@@ -53,7 +53,7 @@ public class GraphSearch
         while (nodesToVisit.Count > 0) {
             Vector3Int currentNode = nodesToVisit.Dequeue();
             foreach(Vector3Int neihbourPosition in hexGrid.getNeightbours(currentNode)) {
-                if (hexGrid.getTileAt(neihbourPosition).isWalkable()) {
+                //if (hexGrid.getTileAt(neihbourPosition).isWalkable()) {
                     int nodeCost = hexGrid.getTileAt(neihbourPosition).getCost();
                     int currentCost = costSoFar[currentNode];
                     int newCost = currentCost + nodeCost;
@@ -69,8 +69,8 @@ public class GraphSearch
                             VisitedNodes [neihbourPosition] = currentNode;
                         }
                     //}
-                }
-                else continue;
+                //}
+                //else continue;
             }
         }
 

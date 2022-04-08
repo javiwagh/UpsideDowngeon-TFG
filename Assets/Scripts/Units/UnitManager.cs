@@ -118,16 +118,20 @@ public class UnitManager : MonoBehaviour
     }
 
     public void handleTileSelection(GameObject tile) {
+        HexagonTile logicalTile = tile.GetComponent<HexagonTile>();
         if (unitToSpawn == null) {
             if (selectedUnit == null) return;
 
-            HexagonTile logicalTile = tile.GetComponent<HexagonTile>();
-
             if (!logicalTile.hasPickUp() && handleTileOutOfRange(logicalTile.HexagonCoordinates) 
-                || handleTileWithUnitOn(logicalTile.HexagonCoordinates)) return;
+                || handleTileWithUnitOn(logicalTile.HexagonCoordinates)) {
+                    if (gameManager.monstersTurn) return;
+                    else {
+                        handleTileSelection(randomiseTargetTile());
+                    }
+                } 
         }        
 
-        handleTileSelected(tile.GetComponent<HexagonTile>());
+        handleTileSelected(logicalTile);
     }
 
     public void checkAvailableActions (Unit unit) {
@@ -297,8 +301,13 @@ public class UnitManager : MonoBehaviour
     }
 
     public HexagonTile correctTargetTile (Vector3 origin, HexagonTile target) {
+        if (target == null) return hexGrid.getTileAt(movementManager.RandomizeTarget());
         if (!target.isWalkable()) return hexGrid.findClosestNeighbor(origin, target);
         return target;
+    }
+
+    public GameObject randomiseTargetTile () {
+        return hexGrid.getTileAt(movementManager.RandomizeTarget()).gameObject;
     }
 
     public HexagonTile selectTileTowards(Vector3 origin, HexagonTile target) {        

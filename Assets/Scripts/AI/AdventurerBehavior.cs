@@ -20,9 +20,11 @@ public class AdventurerBehavior : MonoBehaviour
     private bool unitSelectionDone = false;
     private bool pathSelectionDone = false;
     public bool actionEnded = false;
+    public Dictionary<Room, TileType> roomsInfo;
 
     private void Awake() {
         logicalUnit = this.GetComponent<Unit>();
+        roomsInfo = new Dictionary<Room, TileType>();
     }
 
     public void buildBehaviorTree() {
@@ -41,20 +43,21 @@ public class AdventurerBehavior : MonoBehaviour
             root.Insert(keyRoomNode);
 
         //LEVEL 2
-            //endTileRoom children
+            //endRoomNode children
             //Yes. Go to end tile!
             GoTowardsNode goToEnd = new GoTowardsNode(TileType.End, this);
             endRoomNode.Insert(goToEnd);
-            //No. Explore towards another room
-            ExploreNode goExplore = new ExploreNode(this);     
-            endRoomNode.Insert(goExplore);
+            //No. Explore towards another room. Save empty. 
+            ExploreNode goExploreAfterEmpty = new ExploreNode(TileType.Default, this);     
+            endRoomNode.Insert(goExploreAfterEmpty);
 
             //keyRoomNode children
             //Yes. Am I next to the key?
             NextToKeyNode nextToKey = new NextToKeyNode(this);
             keyRoomNode.Insert(nextToKey);
-            //No. Explore towards another room!
-            keyRoomNode.Insert(goExplore);
+            //No. Is end in this room?
+            CheckItemInRoomNode endRoomNode2 = new CheckItemInRoomNode(TileType.End, me);
+            keyRoomNode.Insert(endRoomNode2);
 
         //LEVEL 3
             //nextToKey children
@@ -64,6 +67,13 @@ public class AdventurerBehavior : MonoBehaviour
             //No. Go towards the key!
             GoTowardsNode goToKey = new GoTowardsNode(TileType.Key, this);
             nextToKey.Insert(goToKey);
+
+            //endRoomNode2 children
+            //Yes. Save end!
+            ExploreNode goExploreAfterEnd = new ExploreNode(TileType.End, this);  
+            endRoomNode2.Insert(goExploreAfterEnd);
+            //No. Save empty.
+            endRoomNode2.Insert(goExploreAfterEmpty);
     }
     public void executeAction() {
         unitSelectionDone = false;
