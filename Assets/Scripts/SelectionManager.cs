@@ -7,6 +7,8 @@ using UnityEngine;
 public class SelectionManager : MonoBehaviour
 {
     [SerializeField]
+    private GameManager gameManager;
+    [SerializeField]
     private PlayerInput playerInput;
     private Camera cam;
     public LayerMask selectionMask;
@@ -18,10 +20,11 @@ public class SelectionManager : MonoBehaviour
 
     private void Awake() {
         cam = playerInput.camera;
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     public void HandleClick(InputAction.CallbackContext context) {
-        if (context.canceled) {
+        if (gameManager.monstersTurn && context.canceled) {
             Vector3 mousePosition = Input.mousePosition;
             GameObject result;
             if (findRayTarget(mousePosition, out result)) {

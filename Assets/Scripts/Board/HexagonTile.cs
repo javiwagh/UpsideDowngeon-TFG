@@ -11,8 +11,7 @@ public class HexagonTile : MonoBehaviour
     [SerializeField]
     private TileType tileType;
 
-    [SerializeField]
-    private TileType originalTileType;
+    public TileType originalTileType;
 
     private HexCoord hexCoord;
     public Unit unitOn;
@@ -20,6 +19,7 @@ public class HexagonTile : MonoBehaviour
 
     [SerializeField]
     private bool isSpawn;
+    public Room room;
 
     private void Awake(){
         hexCoord = GetComponent<HexCoord>();

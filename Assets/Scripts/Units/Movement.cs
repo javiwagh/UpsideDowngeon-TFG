@@ -68,4 +68,20 @@ public class Movement : MonoBehaviour{
     public bool tileInRange (Vector3Int tilePosition) {
         return movementRange.tileInRange(tilePosition);
     }
+
+    public Vector3Int findPath(Vector3Int target, Unit selectedUnit, HexGrid hexGrid) {
+        BFSearch fullRange = GraphSearch.BFSGetRange(hexGrid, hexGrid.GetClosestTile(selectedUnit.transform.position), 100);
+        List<Vector3Int> path = fullRange.getPathTo(target);
+        path.Reverse();
+
+        if (path != new List<Vector3Int>()) {
+            IEnumerable<Vector3Int> rangePositions = movementRange.getRangePositions();
+            if (rangePositions != null) {
+                foreach (Vector3Int pathPosition in path) {
+                    foreach (Vector3Int tilePosition in rangePositions) if (tilePosition == pathPosition) return tilePosition;
+                }
+            }
+        }
+        return new Vector3Int();
+    }
 }

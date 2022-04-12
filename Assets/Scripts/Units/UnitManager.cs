@@ -249,7 +249,9 @@ public class UnitManager : MonoBehaviour
     public void endTurn() {
         gameManager.endTurn();
         performTurnShiftUnitActions();
-        ClearSelection();        
+        ClearSelection();
+
+        if (!gameManager.monstersTurn) StartCoroutine(PerformAITurn()); //Perform AI turn      
     }
 
     private void performTurnShiftUnitActions() {
@@ -269,5 +271,21 @@ public class UnitManager : MonoBehaviour
         foreach (GameObject unit in units) {
             unit.GetComponent<Unit>().restoreActionPoints();
         } 
+    }
+
+    //AI TURN METHODS
+    IEnumerator PerformAITurn() {
+        foreach(GameObject adventurer in adventurersOnBoard) {
+            AdventurerBehavior behavior = adventurer.GetComponent<AdventurerBehavior>();
+            behavior.Perform();
+            while (behavior.Performing) yield return null;
+        } 
+        endTurn();
+    }
+
+    public HexagonTile findPath(Vector3Int target) {
+        Vector3Int targetTileInRangePosition = movementManager.findPath(target, selectedUnit, hexGrid);
+        if (targetTileInRangePosition != new Vector3Int()) return hexGrid.getTileAt(targetTileInRangePosition);
+        return null;
     }
 }

@@ -28,12 +28,12 @@ public class ToolTip : MonoBehaviour
     public void updateHealth(int HP) {
         stats[0] = "Current Health: " + HP;
         TooltipManager._intance.Hide();
-        TooltipManager._intance.SetAndShow(unitName, side, stats, actions);
+        TooltipManager._intance.Set(unitName, side, stats, actions);
     }
     public void updateActionPoints(int actionPoints) {
         actions = actionPoints;
         TooltipManager._intance.Hide();
-        TooltipManager._intance.SetAndShow(unitName, side, stats, actions);
+        TooltipManager._intance.Set(unitName, side, stats, actions);
     }
     private void OnMouseEnter() {
         TooltipManager._intance.Hide();
