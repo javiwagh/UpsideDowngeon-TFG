@@ -914,6 +914,8 @@ MonoBehaviour:
   tilesInRoom: []
   hasEndTile: 1
   hasKeyTile: 0
+  endTile: {fileID: 0}
+  keyTile: {fileID: 0}
 --- !u!4 &216264746 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4270305171673636805, guid: 5ff8dd39b238dc14aab46d0c135528de, type: 3}
@@ -3563,6 +3565,8 @@ MonoBehaviour:
   tilesInRoom: []
   hasEndTile: 0
   hasKeyTile: 1
+  endTile: {fileID: 0}
+  keyTile: {fileID: 0}
 --- !u!1001 &1220455250
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4522,6 +4526,8 @@ MonoBehaviour:
   tilesInRoom: []
   hasEndTile: 0
   hasKeyTile: 0
+  endTile: {fileID: 0}
+  keyTile: {fileID: 0}
 --- !u!1 &1626286259
 GameObject:
   m_ObjectHideFlags: 0
@@ -6094,6 +6100,8 @@ MonoBehaviour:
   tilesInRoom: []
   hasEndTile: 0
   hasKeyTile: 0
+  endTile: {fileID: 0}
+  keyTile: {fileID: 0}
 --- !u!1001 &1990057618
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6514,7 +6522,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c75a6134f4a8b5944b07a234194142df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mousePanControl: 1
+  mousePanControl: 0
   speed: 10
   playerInput: {fileID: 2053042166}
   limit: {x: 10, y: 10}

@@ -95,10 +95,17 @@ public class Unit : MonoBehaviour
         }        
     }
 
-    public void PickKey(bool spend) {
+    public void PickKey(Key key, bool spend) {
         if (spend && !spendActionPoint()) return;
+        StartCoroutine(Pick(key));
+    }
+    IEnumerator Pick(Key key) {
+        while (isMoving) yield return null;
         hasKey = true;
+        key.Pick();
         gameManager.KeyPicked();
+        key.GetComponent<HexagonTile>().room.hasKeyTile = false;
+        key.GetComponent<HexagonTile>().room.keyTile = null;
         Debug.Log("YAY! Got the key!");
     }
 
@@ -233,7 +240,6 @@ public class Unit : MonoBehaviour
             StartCoroutine(movingRotationCoroutine(pathPositions.Dequeue(), rotationDuration));
         }
         else {
-            Debug.Log("I have reached my end position òwó");
             MovementFinished?.Invoke(this);
             HexGrid hexGrid = FindObjectOfType<HexGrid>();
             hexGrid.getTileAt(hexGrid.GetClosestTile(this.transform.position)).stepOnTile(this);

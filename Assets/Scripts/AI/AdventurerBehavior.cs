@@ -28,6 +28,7 @@ public class AdventurerBehavior : MonoBehaviour
         Performing = true;
         characterSelected = false;
         checkRoom();
+        foreach (Room room in visitedRooms) Debug.Log($"I have already visited {room}");
         StartCoroutine(PerformTurnCoroutine());
     }
 
@@ -37,28 +38,32 @@ public class AdventurerBehavior : MonoBehaviour
         while (!characterSelected) yield return null;
 
         //BINARY DECISION BT////////////////////////////////////////////////////////////////////
-        //Do I have the key?
+        Debug.Log("Do I have the key?");
         if (gotTheKey()) {
-            //Yes, I got the key
+            Debug.Log("Yes, I got the key");
             Room endRoom = alreadyVisitedEndRoom();
-            //Have I arleady visited the end room?
+            Debug.Log("Have I arleady visited the end room?");
             if (endRoom != null) {
-                //Yes! Heading the end!
+                Debug.Log("Yes! Heading the end!");
                 setTarget(endRoom.endTile);
             }
-            else explore(); //Nope, gotta find that tile!
+            else {
+                Debug.Log("Nope, gotta find that end tile!");
+                explore();
+            } 
         }
         else {
-            /*
-            //Nope, gotta find the key yet!
-            //Have I arleady visited the key room? 
+            Debug.Log("Nope, gotta find the key yet!");
+            Debug.Log("Have I arleady visited the key room?");
             Room keyRoom = alreadyVisitedKeyRoom();
             if (keyRoom != null) {
-                //YES! Gotta take that key!
+                Debug.Log("YES! Gotta take that key!");
                 setTarget(keyRoom.keyTile);
             }
-            */
-            explore();
+            else {
+                Debug.Log("Nope, gotta find that key!");
+                explore();
+            } 
         }
 
         //GO TOWARDS THE TARGET////////////////////////////////////////////////////////////////////
@@ -176,8 +181,13 @@ public class AdventurerBehavior : MonoBehaviour
 
     IEnumerator selectTile() {
         tileSelected = false;
+        if (targetTile.hasPickUp() || targetTile.isOccupied() && notWalkableTargetTileInRange()) targetTileInRange = targetTile;
         unitManager.handleTileSelection(targetTileInRange.gameObject);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         tileSelected = true;
+    }
+
+    private bool notWalkableTargetTileInRange() {
+        return unitManager.Neighbours(targetTile, targetTileInRange);
     }
 }

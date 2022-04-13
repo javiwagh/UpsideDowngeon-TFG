@@ -45,7 +45,6 @@ public class UnitManager : MonoBehaviour
 
     public void handleSpawnButtonClick(GameObject unit) {
         if(gameManager.monstersTurn && checkEnoughMana(unit.GetComponent<Character>().cost)) {
-            Debug.Log($"Spawning a {unit.GetComponent<Character>().characterName}");
             ClearSelection();
             movementManager.ShowSpawnRange(hexGrid);
             unitToSpawn = unit;
@@ -176,7 +175,6 @@ public class UnitManager : MonoBehaviour
     }
 
     private void ClearSelection() {
-        Debug.Log("Clearing selection");
         previouslySelectedTile = null;
         if (unitToSpawn != null) {
             movementManager.HideSpawnRange(hexGrid);
@@ -193,9 +191,7 @@ public class UnitManager : MonoBehaviour
     }
 
     private void handleTileSelected(HexagonTile selectedTile) {  
-        Debug.Log("Handling selected tile");
         if (unitToSpawn != null) {
-            Debug.Log("Spawning");
             if (!movementManager.spawnTiles.Contains(selectedTile)) return;
             GameObject newUnit = Instantiate(unitToSpawn, new Vector3 (selectedTile.transform.position.x, UNITPOSITION_Y, selectedTile.transform.position.z),
              new Quaternion(selectedTile.transform.rotation.x, selectedTile.transform.rotation.y, selectedTile.transform.rotation.z, selectedTile.transform.rotation.w));
@@ -207,27 +203,21 @@ public class UnitManager : MonoBehaviour
         }      
         
         if (previouslySelectedTile == null || previouslySelectedTile != selectedTile) {
-            Debug.Log("Selecting the tile for the first time");
             previouslySelectedTile = selectedTile;
-            Debug.Log("Showing path");
             if (!(selectedTile.hasPickUp() || selectedTile.isOccupied())) movementManager.ShowPath(selectedTile.HexagonCoordinates, this.hexGrid);
-            else if (!isNeighbour(selectedTile)) movementManager.ShowPath(selectedTile.HexagonCoordinates, this.hexGrid);
+            else if (!Neighbours(selectedUnit.onTile, selectedTile)) movementManager.ShowPath(selectedTile.HexagonCoordinates, this.hexGrid);
         }
         else {
-            Debug.Log("Moving unit");
-            bool selectedTileIsNeighbor = isNeighbour(selectedTile);
+            bool selectedTileIsNeighbor = Neighbours(selectedUnit.onTile, selectedTile);
             
             if (selectedTile.hasPickUp()) {
                 if (!selectedTileIsNeighbor) moveUnit(selectedTile);
-                Debug.Log("Picking!");
-                selectedTile.GetComponent<Key>().Pick();
-                selectedUnit.PickKey(selectedTileIsNeighbor);
+                selectedUnit.PickKey(selectedTile.GetComponent<Key>(), selectedTileIsNeighbor);
             }
             else if (selectedTile.isOccupied() && selectedTile != selectedUnit.onTile) {
                 if (!selectedTileIsNeighbor) moveUnit(selectedTile);
-                Debug.Log("Attacking!");
                 Unit targetUnit = selectedTile.unitOn.GetComponent<Unit>();
-                this.selectedUnit.Attack(targetUnit, selectedTileIsNeighbor);
+                selectedUnit.Attack(targetUnit, selectedTileIsNeighbor);
                 if (targetUnit.GetComponent<Character>().healthPoints == 0) RemoveUnit(targetUnit.gameObject);
                 if (selectedTile.unitOn.GetComponent<Character>().healthPoints == 0) RemoveUnit(selectedTile.unitOn.gameObject);
             }
@@ -236,8 +226,8 @@ public class UnitManager : MonoBehaviour
         }      
     }
 
-    public bool isNeighbour(HexagonTile selectedTile) {
-        List<Vector3Int> neighbors = hexGrid.getNeightbours(selectedUnit.onTile.HexagonCoordinates);
+    public bool Neighbours(HexagonTile originTile, HexagonTile selectedTile) {
+        List<Vector3Int> neighbors = hexGrid.getNeightbours(originTile.HexagonCoordinates);
         foreach (Vector3Int tilePosition in neighbors) {
             if (tilePosition == selectedTile.HexagonCoordinates) return true;
         }
@@ -309,8 +299,11 @@ public class UnitManager : MonoBehaviour
     IEnumerator PerformAITurn() {
         foreach(GameObject adventurer in adventurersOnBoard) {
             AdventurerBehavior behavior = adventurer.GetComponent<AdventurerBehavior>();
-            behavior.Perform();
-            while (behavior.Performing) yield return null;
+            while(adventurer.GetComponent<Unit>().actionPoints > 0 && !gameManager.isStageEnded()) {
+                behavior.Perform();
+                while (behavior.Performing) yield return null;
+            }
+            if (gameManager.isStageEnded()) break;
         } 
         endTurn();
     }
