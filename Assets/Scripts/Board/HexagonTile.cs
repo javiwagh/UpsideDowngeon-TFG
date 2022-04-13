@@ -28,7 +28,6 @@ public class HexagonTile : MonoBehaviour
     }
 
     public void setOriginalType() {
-        Debug.Log("Gettin my type set");
         tileType = originalTileType;
     }
 

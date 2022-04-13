@@ -32,23 +32,36 @@ public class AdventurerBehavior : MonoBehaviour
     }
 
     IEnumerator PerformTurnCoroutine() {
-        //Try to go towards a door
+        //SELECT THE CHARACTER
         StartCoroutine(selectCharacter());
         while (!characterSelected) yield return null;
 
+        //BINARY DECISION BT////////////////////////////////////////////////////////////////////
+        //Do I have the key?
         if (gotTheKey()) {
+            //Yes, I got the key
             Room endRoom = alreadyVisitedEndRoom();
-            if (alreadyVisitedEndRoom() != null) {
+            //Have I arleady visited the end room?
+            if (endRoom != null) {
+                //Yes! Heading the end!
                 setTarget(endRoom.endTile);
             }
-            else if (targetTile == null) setRandomTarget();
-            else setTarget(targetTile);
+            else explore(); //Nope, gotta find that tile!
         }
-        else if (targetTile == null) setRandomTarget(); 
-        else setTarget(targetTile);
+        else {
+            /*
+            //Nope, gotta find the key yet!
+            //Have I arleady visited the key room? 
+            Room keyRoom = alreadyVisitedKeyRoom();
+            if (keyRoom != null) {
+                //YES! Gotta take that key!
+                setTarget(keyRoom.keyTile);
+            }
+            */
+            explore();
+        }
 
-        checkTarget();
-        ////////////////////////////////////////////////////////////////////
+        //GO TOWARDS THE TARGET////////////////////////////////////////////////////////////////////
 
         if (targetTileInRange != null) {
             StartCoroutine(selectTile());
@@ -63,39 +76,87 @@ public class AdventurerBehavior : MonoBehaviour
         Performing = false;
     }
 
-    private void setTarget(HexagonTile tile) {        
-        targetTile = tile;
-        Debug.Log($"My target is the door at {targetTile.HexagonCoordinates}!");
+    //ACTIONS////////////////////////////////////////////////////////////////////
+    private void explore() {
+        if (targetTile == null) setPriorityTarget(); 
+        else setTarget(targetTile);
     }
 
-    private void setRandomTarget() {
+    private void setTarget(HexagonTile tile) {        
+        targetTile = tile;
+        if (!goTowardsTarget()) setPriorityTarget(); 
+        else Debug.Log($"My target is the door at {targetTile.HexagonCoordinates}!");
+    }
+
+    //CHECKING METHODS////////////////////////////////////////////////////////////////////
+    private bool gotTheKey() {
+        if (unit.hasKey) return true;
+        return false;
+    }
+
+    private Room alreadyVisitedEndRoom() {
+        foreach (Room room in visitedRooms) {
+            if (room.hasEndTile) return room;
+        }
+        return null;
+    }
+
+    private Room alreadyVisitedKeyRoom() {
+        foreach (Room room in visitedRooms) {
+            if (room.hasKeyTile) return room;
+        }
+        return null;
+    }
+
+    //AUX METHODS////////////////////////////////////////////////////////////////////
+    private void checkRoom() {
+        if (unit.onTile.originalTileType == TileType.Door) {
+            foreach (Room room in unit.onTile.GetComponent<Door>().roomsAvailable) {
+                if (!visitedRooms.Contains(room)) visitedRooms.Add(room);
+            } 
+        }
+        else {
+            if (!visitedRooms.Contains(unit.onTile.room)) visitedRooms.Add(unit.onTile.room);
+        }
+    }
+
+    private void setPriorityTarget() {
         HexagonTile currentTile = unit.onTile;
-        
+
+        List<HexagonTile> possibleTargets = new List<HexagonTile>();
         if (currentTile.originalTileType == TileType.Door) {
             List<Room> roomsAvailable = currentTile.GetComponent<Door>().roomsAvailable;
-            Room targetRoom = roomsAvailable[Random.Range(0, roomsAvailable.Count)];
-            Door targetDoor = targetRoom.doors[Random.Range(0, targetRoom.doors.Count)];
-            targetTile = targetDoor.GetComponent<HexagonTile>();
-            
+            foreach (Room room in roomsAvailable) {
+                foreach (Door door in room.doors) {
+                    possibleTargets.Add(door.GetComponent<HexagonTile>());
+                }
+            }            
         }
         else
         {
-            Room targetRoom = currentTile.GetComponent<HexagonTile>().room;
-            Door targetDoor = targetRoom.doors[Random.Range(0, targetRoom.doors.Count)];
-            targetTile = targetDoor.GetComponent<HexagonTile>();
+            Room room = currentTile.GetComponent<HexagonTile>().room;
+            foreach (Door door in room.doors) {
+                possibleTargets.Add(door.GetComponent<HexagonTile>());
+            }
         }
-        Debug.Log($"My target is the door at {targetTile.HexagonCoordinates}!");
-    }
 
-    private void checkTarget() {
-        int timesTriedToReachTarget = 0;
-        
-        while (timesTriedToReachTarget < 6) {
-            if (goTowardsTarget()) return;
-            setRandomTarget();
-            ++timesTriedToReachTarget;
+        //Shuffle the list
+        for (int i = 0; i < possibleTargets.Count; i++) {
+            HexagonTile temp = possibleTargets[i];
+            int randomIndex = Random.Range(i, possibleTargets.Count);
+            possibleTargets[i] = possibleTargets[randomIndex];
+            possibleTargets[randomIndex] = temp;
         }
         
+        foreach(HexagonTile possibleTarget in possibleTargets) {
+            targetTile = possibleTarget;
+            if (goTowardsTarget()) {
+                Debug.Log($"Changed my target to the tile at {targetTile.HexagonCoordinates}!");
+                return;
+            }
+        }
+        
+        //If every target has failed, deselect unit
         unitManager.handleUnitSelection(this.gameObject);
     }
 
@@ -118,28 +179,5 @@ public class AdventurerBehavior : MonoBehaviour
         unitManager.handleTileSelection(targetTileInRange.gameObject);
         yield return new WaitForSeconds(1f);
         tileSelected = true;
-    }
-
-    private void checkRoom() {
-        if (unit.onTile.originalTileType == TileType.Door) {
-            foreach (Room room in unit.onTile.GetComponent<Door>().roomsAvailable) {
-                if (!visitedRooms.Contains(room)) visitedRooms.Add(room);
-            } 
-        }
-        else {
-            if (!visitedRooms.Contains(unit.onTile.room)) visitedRooms.Add(unit.onTile.room);
-        }
-    }
-
-    private bool gotTheKey() {
-        if (unit.hasKey) return true;
-        return false;
-    }
-
-    private Room alreadyVisitedEndRoom() {
-        foreach (Room room in visitedRooms) {
-            if (room.hasEndTile) return room;
-        }
-        return null;
     }
 }

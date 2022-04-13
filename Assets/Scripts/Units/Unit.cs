@@ -227,11 +227,9 @@ public class Unit : MonoBehaviour
         transform.position = endPosition;
 
         if (pathPositions.Count > 0) {
-            Debug.Log("Looking for my next position ...");
             StartCoroutine(movingRotationCoroutine(pathPositions.Dequeue(), rotationDuration));
         }
         else {
-            Debug.Log("I have reached my end position òwó");
             MovementFinished?.Invoke(this);
             if (this.hasKey && this.onTile.isEnd()) gameManager.AdventurersWin();
             this.isMoving = false;
