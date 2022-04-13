@@ -169,7 +169,7 @@ public class UnitManager : MonoBehaviour
 
         this.selectedUnit = unit;
         this.selectedUnit.Select();
-        if (selectedUnit.hasKey) gameManager.canEndStage();
+        if (selectedUnit.hasKey && selectedUnit.GetComponent<Character>().side == Side.Adventurers) gameManager.canEndStage();
         else gameManager.disableEndStage();
         movementManager.ShowRange(this.selectedUnit, this.hexGrid);
     }

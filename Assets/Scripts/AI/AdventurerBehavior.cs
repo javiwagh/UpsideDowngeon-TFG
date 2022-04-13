@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class AdventurerBehavior : MonoBehaviour
 {
+    [SerializeField]
+    private float WAITING_TIME = 0.5f;
     public UnitManager unitManager;
     private Unit unit;
     private Character character;
@@ -175,7 +177,7 @@ public class AdventurerBehavior : MonoBehaviour
     IEnumerator selectCharacter() {
         characterSelected = false;
         unitManager.handleUnitSelection(this.gameObject);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(WAITING_TIME);
         characterSelected = true;
     }
 
@@ -183,7 +185,7 @@ public class AdventurerBehavior : MonoBehaviour
         tileSelected = false;
         if (targetTile.hasPickUp() || targetTile.isOccupied() && notWalkableTargetTileInRange()) targetTileInRange = targetTile;
         unitManager.handleTileSelection(targetTileInRange.gameObject);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(WAITING_TIME);
         tileSelected = true;
     }
 

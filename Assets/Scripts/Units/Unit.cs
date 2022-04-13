@@ -5,6 +5,8 @@ using UnityEngine;
 [SelectionBase]
 public class Unit : MonoBehaviour
 {
+    [SerializeField]
+    private float MOVEMENT_DURATION = 0.5f, ROTATION_DURATION = 0.1f;
     private const int POISON_DURATION = 2;
     private const int PARALYSE_DURATION = 1;
     private int movementPoints;
@@ -13,10 +15,6 @@ public class Unit : MonoBehaviour
 
     [SerializeField]
     private GameManager gameManager;
-
-    [SerializeField]
-    private float movementDuration = 0.5f, rotationDuration = 0.1f;
-
     private GlowHighlight glowHighlight;
     public Character character;
     public HexagonTile onTile;
@@ -28,6 +26,7 @@ public class Unit : MonoBehaviour
     private bool paralysed = false;
     private int poisonTimer = 0;
     private int paralysedTimer = 0;
+    public GameObject keyInstance;
 
     private void Awake() {
         glowHighlight = GetComponent<GlowHighlight>();
@@ -49,7 +48,7 @@ public class Unit : MonoBehaviour
         if (!spendActionPoint()) return;
         pathPositions = new Queue<Vector3>(currentPath);
         Vector3 firstTarget = pathPositions.Dequeue();
-        StartCoroutine(movingRotationCoroutine(firstTarget, rotationDuration));
+        StartCoroutine(movingRotationCoroutine(firstTarget, ROTATION_DURATION));
     }
 
     public bool isBard() {
@@ -59,7 +58,7 @@ public class Unit : MonoBehaviour
     public void Attack(Unit target, bool spend) {
         if (spend && !spendActionPoint()) return;
         Debug.Log($"Attacking {target.GetComponent<Character>().characterName}!");
-        StartCoroutine(attackingRotationCoroutine(target.transform.position, rotationDuration));
+        StartCoroutine(attackingRotationCoroutine(target.transform.position, ROTATION_DURATION));
         
         if (this.character.unitType == UnitType.Monster) {
             switch (this.character.monsterType){
@@ -106,6 +105,7 @@ public class Unit : MonoBehaviour
         gameManager.KeyPicked();
         key.GetComponent<HexagonTile>().room.hasKeyTile = false;
         key.GetComponent<HexagonTile>().room.keyTile = null;
+        keyInstance.SetActive(true);
         Debug.Log("YAY! Got the key!");
     }
 
@@ -228,16 +228,16 @@ public class Unit : MonoBehaviour
         endPosition.y = startPosition.y;
         float timeElapsed = 0;
 
-        while (timeElapsed < movementDuration) {
+        while (timeElapsed < MOVEMENT_DURATION) {
             timeElapsed += Time.deltaTime;
-            float lerpstep = timeElapsed / movementDuration;
+            float lerpstep = timeElapsed / MOVEMENT_DURATION;
             transform.position = Vector3.Lerp(startPosition, endPosition, lerpstep);
             yield return null;
         }
         transform.position = endPosition;
 
         if (pathPositions.Count > 0) {
-            StartCoroutine(movingRotationCoroutine(pathPositions.Dequeue(), rotationDuration));
+            StartCoroutine(movingRotationCoroutine(pathPositions.Dequeue(), MOVEMENT_DURATION));
         }
         else {
             MovementFinished?.Invoke(this);
