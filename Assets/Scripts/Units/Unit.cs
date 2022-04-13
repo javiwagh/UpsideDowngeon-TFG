@@ -9,6 +9,7 @@ public class Unit : MonoBehaviour
     private float MOVEMENT_DURATION = 0.5f, ROTATION_DURATION = 0.1f;
     private const int POISON_DURATION = 2;
     private const int PARALYSE_DURATION = 1;
+    private Unit lastPoisonAttacker;
     private int movementPoints;
     public int actionPoints;
     public int MovementPoints {get => movementPoints;}
@@ -76,12 +77,11 @@ public class Unit : MonoBehaviour
         Debug.Log("YAY! Got the key!");
     }
 
-    public void DropKey() {
-        if (hasKey) {
-            hasKey = false;
-            gameManager.keyDropped(this.onTile);
-            this.onTile.room.hasKeyTile = true;
-        }
+    public void GiveKey() {
+        hasKey = true;
+        gameManager.KeyPicked();
+        keyInstance.SetActive(true);
+        Debug.Log("YAY! Got the key!");    
     }
 
     public bool spendActionPoint() {
@@ -101,44 +101,45 @@ public class Unit : MonoBehaviour
         character.toolTip.updateActionPoints(actionPoints);
     }
 
-    public void recieveDamage(int damage){
+    public void recieveDamage(int damage, Unit attacker){
         this.character.healthPoints -= damage;
         if (this.character.healthPoints <= 0) {
             this.character.healthPoints = 0;
             onTile.resetTileType();
-            DropKey();
+            attacker.GiveKey();
             this.gameObject.SetActive(false);
         }
         else character.toolTip.updateHealth(character.healthPoints);
     }
 
-    public void getStab(Quaternion attackerRotation){
+    public void getStab(Quaternion attackerRotation, Unit attacker){
         int damage = 2;
         float dotRotation = Quaternion.Dot(attackerRotation, this.transform.rotation);
         if (dotRotation > 0.6f || dotRotation < -0.6f) damage = damage * 2;
         
-        recieveDamage(damage);
+        recieveDamage(damage, attacker);
     }
 
-    public void getSting(){
+    public void getSting(Unit attacker){
         //A paralysed adventurer will not to move a single tile the next turn
         paralysed = true;
         paralysedTimer = PARALYSE_DURATION;
         int damage = 1;
-        recieveDamage(damage);
+        recieveDamage(damage, attacker);
     }
 
-    public void getPoisoningBite(){
+    public void getPoisoningBite(Unit attacker){
         //A poisoned adventurer will receive low damage the next two turn shifts
         poisonCounter += 1;
         poisonTimer = POISON_DURATION;
-        int damage = 1;     
-        recieveDamage(damage);
+        int damage = 1;
+        lastPoisonAttacker = attacker;  
+        recieveDamage(damage, attacker);
     }
 
     public void TurnShiftUnitActions() {
         //POISON
-        recieveDamage(poisonCounter);
+        recieveDamage(poisonCounter, lastPoisonAttacker);
         poisonTimer -= 1;
         if (poisonTimer == 0) {
             poisonCounter -= 1;
@@ -193,16 +194,16 @@ public class Unit : MonoBehaviour
         if (this.character.unitType == UnitType.Monster) {
             switch (this.character.monsterType){
                 case MonsterType.Goblin:
-                    target.getStab(this.transform.rotation);
+                    target.getStab(this.transform.rotation, this);
                 break;
                 case MonsterType.Troll:
-                    target.recieveDamage(this.character.meleeDamage);
+                    target.recieveDamage(this.character.meleeDamage, this);
                 break;
                 case MonsterType.Spider:
-                    target.getSting();
+                    target.getSting(this);
                 break;
                 case MonsterType.Rat:
-                    target.getPoisoningBite();
+                    target.getPoisoningBite(this);
                 break;
                 default:
                     Debug.Log($"Monster type not supported: {this.character.monsterType}");
@@ -212,10 +213,10 @@ public class Unit : MonoBehaviour
         else {
             switch (this.character.adventurerType){
                 case AdventurerType.Warrior:
-                    target.recieveDamage(this.character.meleeDamage);
+                    target.recieveDamage(this.character.meleeDamage, this);
                 break;
                 case AdventurerType.Rogue:
-                    target.getStab(this.transform.rotation);
+                    target.getStab(this.transform.rotation, this);
                 break;
                 default:
                     Debug.Log($"Adventurer type not supported: {this.character.monsterType}");
