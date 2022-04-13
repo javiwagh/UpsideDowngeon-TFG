@@ -49,7 +49,9 @@ public class GameManager : MonoBehaviour
     public void keyDropped(HexagonTile tile) {
         gameState = GameState.KeyOnBoard;
         GameObject key = Instantiate(keyTilePrefab, tile.transform.position, tile.transform.rotation);
-        key.transform.SetParent(hexGrid.transform, false);
+        key.transform.SetParent(tile.room.transform, false);
+        tile.room.hasKeyTile = true;
+        tile.room.keyTile = key.GetComponent<HexagonTile>();
         key.GetComponent<Key>().setTile(tile.gameObject);
         hexGrid.UpdateTiles();
     }

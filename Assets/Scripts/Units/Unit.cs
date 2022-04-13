@@ -58,40 +58,7 @@ public class Unit : MonoBehaviour
     public void Attack(Unit target, bool spend) {
         if (spend && !spendActionPoint()) return;
         Debug.Log($"Attacking {target.GetComponent<Character>().characterName}!");
-        StartCoroutine(attackingRotationCoroutine(target.transform.position, ROTATION_DURATION));
-        
-        if (this.character.unitType == UnitType.Monster) {
-            switch (this.character.monsterType){
-                case MonsterType.Goblin:
-                    target.getStab(this.transform.rotation);
-                break;
-                case MonsterType.Troll:
-                    target.recieveDamage(this.character.meleeDamage);
-                break;
-                case MonsterType.Spider:
-                    target.getSting();
-                break;
-                case MonsterType.Rat:
-                    target.getPoisoningBite();
-                break;
-                default:
-                    Debug.Log($"Monster type not supported: {this.character.monsterType}");
-                break;
-            }
-        }
-        else {
-            switch (this.character.adventurerType){
-                case AdventurerType.Warrior:
-                    target.recieveDamage(this.character.meleeDamage);
-                break;
-                case AdventurerType.Rogue:
-                    target.getStab(this.transform.rotation);
-                break;
-                default:
-                    Debug.Log($"Adventurer type not supported: {this.character.monsterType}");
-                break;
-            }
-        }        
+        StartCoroutine(attackingCoroutine(target, ROTATION_DURATION));
     }
 
     public void PickKey(Key key, bool spend) {
@@ -113,10 +80,11 @@ public class Unit : MonoBehaviour
         if (hasKey) {
             hasKey = false;
             gameManager.keyDropped(this.onTile);
+            this.onTile.room.hasKeyTile = true;
         }
     }
 
-    private bool spendActionPoint() {
+    public bool spendActionPoint() {
         if (actionPoints > 0) actionPoints -= 1;
         else return false;
         character.toolTip.updateActionPoints(actionPoints);
@@ -203,11 +171,12 @@ public class Unit : MonoBehaviour
         StartCoroutine(MovementCoroutine(endPosition));
     }
 
-    private IEnumerator attackingRotationCoroutine(Vector3 target, float rotationDuration) {
+    private IEnumerator attackingCoroutine(Unit target, float rotationDuration) {
         while(isMoving) yield return null;
         Quaternion startRotation = transform.rotation;
-        target.y = transform.position.y;
-        Vector3 direction = target - transform.position;
+        Vector3 targetPosition = target.transform.position;
+        targetPosition.y = transform.position.y;
+        Vector3 direction = targetPosition - transform.position;
         Quaternion endRotation = Quaternion.LookRotation(direction, Vector3.up);
 
         if (Mathf.Approximately(Mathf.Abs(Quaternion.Dot(startRotation, endRotation)), 1.0f) == false) {
@@ -220,7 +189,39 @@ public class Unit : MonoBehaviour
             }
             transform.rotation = endRotation;
         }
-        
+
+        if (this.character.unitType == UnitType.Monster) {
+            switch (this.character.monsterType){
+                case MonsterType.Goblin:
+                    target.getStab(this.transform.rotation);
+                break;
+                case MonsterType.Troll:
+                    target.recieveDamage(this.character.meleeDamage);
+                break;
+                case MonsterType.Spider:
+                    target.getSting();
+                break;
+                case MonsterType.Rat:
+                    target.getPoisoningBite();
+                break;
+                default:
+                    Debug.Log($"Monster type not supported: {this.character.monsterType}");
+                break;
+            }
+        }
+        else {
+            switch (this.character.adventurerType){
+                case AdventurerType.Warrior:
+                    target.recieveDamage(this.character.meleeDamage);
+                break;
+                case AdventurerType.Rogue:
+                    target.getStab(this.transform.rotation);
+                break;
+                default:
+                    Debug.Log($"Adventurer type not supported: {this.character.monsterType}");
+                break;
+            }
+        }        
     }
 
     private IEnumerator MovementCoroutine(Vector3 endPosition) {

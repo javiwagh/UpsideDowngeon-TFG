@@ -164,6 +164,7 @@ public class AdventurerBehavior : MonoBehaviour
         }
         
         //If every target has failed, deselect unit
+        unit.spendActionPoint();
         unitManager.handleUnitSelection(this.gameObject);
     }
 

@@ -69,10 +69,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d29c635825eb85341b5dca812f89789c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MOVEMENT_DURATION: 0.2
+  ROTATION_DURATION: 0.1
   actionPoints: 0
   gameManager: {fileID: 0}
-  movementDuration: 0.5
-  rotationDuration: 0.1
   character: {fileID: 0}
   onTile: {fileID: 0}
   hasKey: 0

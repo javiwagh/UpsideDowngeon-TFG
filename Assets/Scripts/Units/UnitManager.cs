@@ -219,7 +219,7 @@ public class UnitManager : MonoBehaviour
                 Unit targetUnit = selectedTile.unitOn.GetComponent<Unit>();
                 selectedUnit.Attack(targetUnit, selectedTileIsNeighbor);
                 if (targetUnit.GetComponent<Character>().healthPoints == 0) RemoveUnit(targetUnit.gameObject);
-                if (selectedTile.unitOn.GetComponent<Character>().healthPoints == 0) RemoveUnit(selectedTile.unitOn.gameObject);
+                //if (selectedTile.unitOn.GetComponent<Character>().healthPoints == 0) RemoveUnit(selectedTile.unitOn.gameObject);
             }
             else moveUnit(selectedTile);
             ClearSelection();    

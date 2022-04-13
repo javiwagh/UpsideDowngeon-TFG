@@ -22,7 +22,8 @@ public class Movement : MonoBehaviour{
         if (unitsPositions != null) {
             foreach (Vector3Int tilePosition in unitsPositions)
             {
-                hexGrid.getTileAt(tilePosition).unitOn.Deselect();
+                Unit unit = hexGrid.getTileAt(tilePosition).unitOn;
+                if (unit != null) unit.Deselect();
             }
         }
         if (pickUpsPositions != null) {
