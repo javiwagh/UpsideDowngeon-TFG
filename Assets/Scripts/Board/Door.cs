@@ -12,7 +12,9 @@ public class Door : MonoBehaviour
     private void Start() {
         List<Vector3Int> neighbors = hexGrid.getNeightbours(this.GetComponent<HexagonTile>().HexagonCoordinates);
         foreach (Vector3Int neighbor in neighbors) {
-            Room room = hexGrid.getTileAt(neighbor).room;
+            HexagonTile neighborTile = hexGrid.getTileAt(neighbor);
+            neighborTile.isSpawn = false;
+            Room room = neighborTile.room;
             if (!roomsAvailable.Contains(room)) roomsAvailable.Add(room);
         }
     }

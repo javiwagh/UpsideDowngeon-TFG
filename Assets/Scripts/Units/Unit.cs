@@ -56,10 +56,11 @@ public class Unit : MonoBehaviour
         return (this.character.unitType == UnitType.Adventurer && this.character.adventurerType == AdventurerType.Bard);
     }
 
-    public void Attack(Unit target) {
-        if (!spendActionPoint()) return;
+    public void Attack(Unit target, bool spend) {
+        if (spend && !spendActionPoint()) return;
         Debug.Log($"Attacking {target.GetComponent<Character>().characterName}!");
         StartCoroutine(attackingRotationCoroutine(target.transform.position, rotationDuration));
+        
         if (this.character.unitType == UnitType.Monster) {
             switch (this.character.monsterType){
                 case MonsterType.Goblin:
@@ -91,11 +92,11 @@ public class Unit : MonoBehaviour
                     Debug.Log($"Adventurer type not supported: {this.character.monsterType}");
                 break;
             }
-        }
+        }        
     }
 
-    public void PickKey() {
-        if (!spendActionPoint()) return;
+    public void PickKey(bool spend) {
+        if (spend && !spendActionPoint()) return;
         hasKey = true;
         gameManager.KeyPicked();
         Debug.Log("YAY! Got the key!");
@@ -196,6 +197,7 @@ public class Unit : MonoBehaviour
     }
 
     private IEnumerator attackingRotationCoroutine(Vector3 target, float rotationDuration) {
+        while(isMoving) yield return null;
         Quaternion startRotation = transform.rotation;
         target.y = transform.position.y;
         Vector3 direction = target - transform.position;
@@ -207,10 +209,11 @@ public class Unit : MonoBehaviour
                 timeElapsed += Time.deltaTime;
                 float lerpstep = timeElapsed / rotationDuration;
                 transform.rotation = Quaternion.Lerp(startRotation, endRotation, lerpstep);
+                yield return null;
             }
             transform.rotation = endRotation;
         }
-        yield return null;
+        
     }
 
     private IEnumerator MovementCoroutine(Vector3 endPosition) {
@@ -230,7 +233,10 @@ public class Unit : MonoBehaviour
             StartCoroutine(movingRotationCoroutine(pathPositions.Dequeue(), rotationDuration));
         }
         else {
+            Debug.Log("I have reached my end position òwó");
             MovementFinished?.Invoke(this);
+            HexGrid hexGrid = FindObjectOfType<HexGrid>();
+            hexGrid.getTileAt(hexGrid.GetClosestTile(this.transform.position)).stepOnTile(this);
             if (this.hasKey && this.onTile.isEnd()) gameManager.AdventurersWin();
             this.isMoving = false;
         }

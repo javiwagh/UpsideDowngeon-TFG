@@ -53,19 +53,33 @@ public class UnitManager : MonoBehaviour
     }
 
     public void handleUnitSelection(GameObject unit) {
-        if(unitToSpawn != null) ClearSelection();
         Unit logicalUnit = unit.GetComponent<Unit>();
+        if (this.selectedUnit != null && selectedTargetUnit(logicalUnit)) return;
+        if(unitToSpawn != null) ClearSelection();
+        
         if(checkIfSelectedTheSameUnit(logicalUnit) || logicalUnit.isMoving) return;
         if (selectedUnit != null && selectedUnit.actionPoints == 0) return;
 
         if (logicalUnit.actionPoints > 0 && !gameManager.isStageEnded() 
             && (gameManager.monstersTurn && unit.GetComponent<Character>().unitType == UnitType.Monster 
             || !gameManager.monstersTurn && unit.GetComponent<Character>().unitType == UnitType.Adventurer)) {           
-            prepareUnitForMovement(logicalUnit);
-            checkAvailableActions(logicalUnit);
+            showActions(logicalUnit);
+            //checkAvailableActions(logicalUnit);
             return;
         }
-        if (this.selectedUnit != null) checkIfSelectedTargetUnit(logicalUnit);
+    }
+
+    public void handleTileSelection(GameObject tile) {
+        if (unitToSpawn == null) {
+            if (selectedUnit == null) return;
+
+            HexagonTile logicalTile = tile.GetComponent<HexagonTile>();
+
+            if (!logicalTile.hasPickUp() && handleTileOutOfRange(logicalTile.HexagonCoordinates) 
+                || handleTileWithSelectedUnitOn(logicalTile.HexagonCoordinates)) return;
+        }        
+
+        handleTileSelected(tile.GetComponent<HexagonTile>());
     }
 
     private bool checkIfSelectedTheSameUnit(Unit unit) {
@@ -76,13 +90,16 @@ public class UnitManager : MonoBehaviour
         return false;
     }
 
-    private void checkIfSelectedTargetUnit(Unit unit) {
-        if (this.selectedUnit != unit && availableMeleeTargets.Contains(unit)) {
-            this.selectedUnit.Attack(unit.GetComponent<Unit>());
-            ClearSelection();
-            //spendMana(1);
-            if (unit.GetComponent<Character>().healthPoints == 0) RemoveUnit(unit.gameObject);
+    private bool selectedTargetUnit(Unit unit) {
+        if (this.selectedUnit.GetComponent<Character>().side != unit.GetComponent<Character>().side 
+        && movementManager.tileInRange(unit.onTile.HexagonCoordinates)) {
+            //this.selectedUnit.Attack(unit.GetComponent<Unit>());
+            handleTileSelection(unit.onTile.gameObject);
+            return true;
+            //ClearSelection();
+            //if (unit.GetComponent<Character>().healthPoints == 0) RemoveUnit(unit.gameObject);
         }
+        return false;
     }
 
     private void RemoveUnit(GameObject unit) {
@@ -116,21 +133,8 @@ public class UnitManager : MonoBehaviour
         }
         availablePickUps = new List<HexagonTile>();
     }
-
-    public void handleTileSelection(GameObject tile) {
-        if (unitToSpawn == null) {
-            if (selectedUnit == null) return;
-
-            HexagonTile logicalTile = tile.GetComponent<HexagonTile>();
-
-            if (!logicalTile.hasPickUp() && handleTileOutOfRange(logicalTile.HexagonCoordinates) 
-                || handleTileWithUnitOn(logicalTile.HexagonCoordinates)) return;
-        }        
-
-        handleTileSelected(tile.GetComponent<HexagonTile>());
-    }
     
-    public void checkAvailableActions (Unit unit) {
+    /*public void checkAvailableActions (Unit unit) {
         if (!unit.isBard()) checkMeleeAttack(hexGrid.GetClosestTile(unit.transform.position), unit);
         if (unit.character.side == Side.Adventurers) {
             checkPicking(hexGrid.GetClosestTile(unit.transform.position), unit);
@@ -159,9 +163,9 @@ public class UnitManager : MonoBehaviour
                 neighbor.EnableHighlight();
             }
         }
-    }
+    }*/
     
-    private void prepareUnitForMovement(Unit unit) {
+    private void showActions(Unit unit) {
         if (this.selectedUnit != null) ClearSelection();
 
         this.selectedUnit = unit;
@@ -172,6 +176,7 @@ public class UnitManager : MonoBehaviour
     }
 
     private void ClearSelection() {
+        Debug.Log("Clearing selection");
         previouslySelectedTile = null;
         if (unitToSpawn != null) {
             movementManager.HideSpawnRange(hexGrid);
@@ -188,7 +193,9 @@ public class UnitManager : MonoBehaviour
     }
 
     private void handleTileSelected(HexagonTile selectedTile) {  
+        Debug.Log("Handling selected tile");
         if (unitToSpawn != null) {
+            Debug.Log("Spawning");
             if (!movementManager.spawnTiles.Contains(selectedTile)) return;
             GameObject newUnit = Instantiate(unitToSpawn, new Vector3 (selectedTile.transform.position.x, UNITPOSITION_Y, selectedTile.transform.position.z),
              new Quaternion(selectedTile.transform.rotation.x, selectedTile.transform.rotation.y, selectedTile.transform.rotation.z, selectedTile.transform.rotation.w));
@@ -198,25 +205,49 @@ public class UnitManager : MonoBehaviour
             spendMana(newUnit.GetComponent<Character>().cost);
             return;
         }      
-        if (availablePickUps.Contains(selectedTile)) {
-            selectedTile.GetComponent<Key>().Pick();
-            selectedUnit.PickKey();
-            ClearSelection();
-            //spendMana(1);
-            return;
-        }
+        
         if (previouslySelectedTile == null || previouslySelectedTile != selectedTile) {
+            Debug.Log("Selecting the tile for the first time");
             previouslySelectedTile = selectedTile;
-            movementManager.ShowPath(selectedTile.HexagonCoordinates, this.hexGrid);
+            Debug.Log("Showing path");
+            if (!(selectedTile.hasPickUp() || selectedTile.isOccupied())) movementManager.ShowPath(selectedTile.HexagonCoordinates, this.hexGrid);
+            else if (!isNeighbour(selectedTile)) movementManager.ShowPath(selectedTile.HexagonCoordinates, this.hexGrid);
         }
         else {
-            Vector3Int unitPosition = hexGrid.GetClosestTile(selectedUnit.transform.position);
-            hexGrid.getTileAt(unitPosition).resetTileType();
-            selectedTile.stepOnTile(selectedUnit);
-            movementManager.moveUnit(selectedUnit, this.hexGrid);
-            ClearSelection();
-            //spendMana(1);
+            Debug.Log("Moving unit");
+            bool selectedTileIsNeighbor = isNeighbour(selectedTile);
+            
+            if (selectedTile.hasPickUp()) {
+                if (!selectedTileIsNeighbor) moveUnit(selectedTile);
+                Debug.Log("Picking!");
+                selectedTile.GetComponent<Key>().Pick();
+                selectedUnit.PickKey(selectedTileIsNeighbor);
+            }
+            else if (selectedTile.isOccupied() && selectedTile != selectedUnit.onTile) {
+                if (!selectedTileIsNeighbor) moveUnit(selectedTile);
+                Debug.Log("Attacking!");
+                Unit targetUnit = selectedTile.unitOn.GetComponent<Unit>();
+                this.selectedUnit.Attack(targetUnit, selectedTileIsNeighbor);
+                if (targetUnit.GetComponent<Character>().healthPoints == 0) RemoveUnit(targetUnit.gameObject);
+                if (selectedTile.unitOn.GetComponent<Character>().healthPoints == 0) RemoveUnit(selectedTile.unitOn.gameObject);
+            }
+            else moveUnit(selectedTile);
+            ClearSelection();    
         }      
+    }
+
+    public bool isNeighbour(HexagonTile selectedTile) {
+        List<Vector3Int> neighbors = hexGrid.getNeightbours(selectedUnit.onTile.HexagonCoordinates);
+        foreach (Vector3Int tilePosition in neighbors) {
+            if (tilePosition == selectedTile.HexagonCoordinates) return true;
+        }
+        return false;
+    }
+
+    public void moveUnit(HexagonTile targetTile) {
+        Vector3Int unitPosition = selectedUnit.onTile.HexagonCoordinates;
+        hexGrid.getTileAt(unitPosition).resetTileType();
+        movementManager.moveUnit(selectedUnit, this.hexGrid);
     }
 
     private void spendMana(int cost) {
@@ -229,8 +260,9 @@ public class UnitManager : MonoBehaviour
         return false;
     }
 
-    private bool handleTileWithUnitOn(Vector3Int tilePosition) {
-        if(tilePosition == hexGrid.GetClosestTile(selectedUnit.transform.position)) {
+    private bool handleTileWithSelectedUnitOn(Vector3Int tilePosition) {
+        if(tilePosition == selectedUnit.onTile.HexagonCoordinates) {
+             Debug.Log("The tile is not reachable");
             selectedUnit.Deselect();
             ClearSelection();
             return true;

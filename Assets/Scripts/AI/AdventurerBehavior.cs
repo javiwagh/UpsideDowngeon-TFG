@@ -72,7 +72,7 @@ public class AdventurerBehavior : MonoBehaviour
 
             if (targetTile == targetTileInRange) targetTile = null;
         }
-
+        while (unit.isMoving) yield return null;
         Performing = false;
     }
 

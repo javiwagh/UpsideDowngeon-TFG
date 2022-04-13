@@ -17,8 +17,7 @@ public class HexagonTile : MonoBehaviour
     public Unit unitOn;
     public Vector3Int HexagonCoordinates => hexCoord.getHexCoordinates();
 
-    [SerializeField]
-    private bool isSpawn;
+    public bool isSpawn = true;
     public Room room;
 
     private void Awake(){
