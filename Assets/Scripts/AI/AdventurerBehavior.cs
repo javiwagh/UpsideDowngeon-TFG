@@ -64,7 +64,16 @@ public class AdventurerBehavior : MonoBehaviour
             }
             else {
                 Debug.Log("Nope, gotta find that key!");
-                explore();
+                Debug.Log("Is there a monster with the key in the room?");
+                HexagonTile tileWithKeyMonster = lookForKeyMonstersInRoom();
+                if (tileWithKeyMonster != null) {
+                    Debug.Log("YES! GOTTA KILL IT!");
+                    setTarget(tileWithKeyMonster);
+                }
+                else{
+                    Debug.Log("Nope, there is no monster with key here!");
+                    explore();
+                }   
             } 
         }
 
@@ -111,6 +120,22 @@ public class AdventurerBehavior : MonoBehaviour
     private Room alreadyVisitedKeyRoom() {
         foreach (Room room in visitedRooms) {
             if (room.hasKeyTile) return room;
+        }
+        return null;
+    }
+
+    private HexagonTile lookForKeyMonstersInRoom() {
+        if (unit.onTile.originalTileType == TileType.Door) {
+            foreach (Room room in unit.onTile.GetComponent<Door>().roomsAvailable) {
+                foreach (HexagonTile tile in room.monstersInRoom()) {
+                    if (tile.unitOn.hasKey) return tile;
+                }
+            } 
+        }
+        else {
+            foreach (HexagonTile tile in unit.onTile.room.monstersInRoom()) {
+                if (tile.unitOn.hasKey) return tile;
+            }
         }
         return null;
     }

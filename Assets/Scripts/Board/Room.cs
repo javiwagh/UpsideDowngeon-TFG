@@ -31,4 +31,12 @@ public class Room : MonoBehaviour
         }
         return true;
     }
+
+    public List<HexagonTile> monstersInRoom() {
+        List<HexagonTile> result = new List<HexagonTile>();
+        foreach (HexagonTile tile in tilesInRoom) {
+            if (tile.isOccupied() && tile.unitOn.GetComponent<Character>().side == Side.Monsters) result.Add(tile);
+        }
+        return result;
+    }
 }
