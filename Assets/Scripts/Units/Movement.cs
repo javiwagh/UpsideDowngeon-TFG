@@ -76,8 +76,11 @@ public class Movement : MonoBehaviour{
 
     public void ShowPath(Vector3Int selectedTilePosition, HexGrid hexGrid) {
         Vector3Int targetTilePosition = new Vector3Int();
-        if(movementRange.getUnitsPositions().Contains(selectedTilePosition) 
-        || movementRange.getPickUpsPositions().Contains(selectedTilePosition)) targetTilePosition = getClosestNeighbor(selectedTilePosition, hexGrid);
+        IEnumerable<Vector3Int> unitsPositions = movementRange.getUnitsPositions();
+        IEnumerable<Vector3Int> pickUpsPositions = movementRange.getPickUpsPositions();
+        
+        if(unitsPositions != null && unitsPositions.Contains(selectedTilePosition) 
+        || pickUpsPositions != null && movementRange.getPickUpsPositions().Contains(selectedTilePosition)) targetTilePosition = getClosestNeighbor(selectedTilePosition, hexGrid);
         else if (movementRange.getRangePositions().Contains(selectedTilePosition)) targetTilePosition = selectedTilePosition;
 
         
@@ -112,8 +115,11 @@ public class Movement : MonoBehaviour{
 
     public Vector3Int findPath(Vector3Int target, Unit selectedUnit, HexGrid hexGrid) {
         Vector3Int targetTilePosition = target;
-        if(movementRange.getUnitsPositions().Contains(target) 
-        || movementRange.getPickUpsPositions().Contains(target)) targetTilePosition = getClosestNeighbor(target, hexGrid);
+        IEnumerable<Vector3Int> unitsPositions = movementRange.getUnitsPositions();
+        IEnumerable<Vector3Int> pickUpsPositions = movementRange.getPickUpsPositions();
+
+        if(unitsPositions != null && unitsPositions.Contains(target) 
+        || pickUpsPositions != null && movementRange.getPickUpsPositions().Contains(target)) targetTilePosition = getClosestNeighbor(target, hexGrid);
 
         BFSearch fullRange = GraphSearch.BFSGetRange(hexGrid, hexGrid.GetClosestTile(selectedUnit.transform.position), 100, selectedUnit.GetComponent<Character>().side == Side.Monsters);
         List<Vector3Int> path = fullRange.checkPathTo(targetTilePosition);
@@ -128,5 +134,13 @@ public class Movement : MonoBehaviour{
             }
         }
         return new Vector3Int();
+    }
+
+    public IEnumerable<Vector3Int> getUnitsInRange() {
+        return movementRange.getUnitsPositions();
+    }
+
+    public IEnumerable<Vector3Int> getRangePositions() {
+        return movementRange.getRangePositions();
     }
 }

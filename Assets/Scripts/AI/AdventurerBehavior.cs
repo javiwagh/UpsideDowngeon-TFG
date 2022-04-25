@@ -11,6 +11,9 @@ public class AdventurerBehavior : MonoBehaviour
     private Character character;
     private HexagonTile targetTile;
     private HexagonTile targetTileInRange;
+    private Room endRoom = null;
+    private Room keyRoom = null;
+    private HexagonTile tileWithKeyMonster = null;
     public bool Performing;
     public bool characterSelected;
     public bool tileSelected;
@@ -42,44 +45,57 @@ public class AdventurerBehavior : MonoBehaviour
         while (!characterSelected) yield return null;
 
         //BINARY DECISION BT////////////////////////////////////////////////////////////////////
-        Debug.Log("Do I have the key?");
-        if (gotTheKey()) {
-            Debug.Log("Yes, I got the key");
-            Room endRoom = alreadyVisitedEndRoom();
-            Debug.Log("Have I arleady visited the end room?");
-            if (endRoom != null) {
-                Debug.Log("Yes! Heading the end!");
-                setTarget(endRoom.endTile);
-            }
-            else {
-                Debug.Log("Nope, gotta find that end tile!");
-                explore();
+        Debug.Log("Are there any nearby monsters?");
+        List<HexagonTile> monstersInRange = lookForMonstersInRange();
+        if (monstersInRange.Count > 0){
+            Debug.Log("Yes, there is at least one of those filthy creatures nearby!");
+            Debug.Log("Hm... Shall I attack?");
+            if (coinFlip()) {
+                Debug.Log("YES! GOTTA KILL IT!");
+                attacking = true;
+                setMonsterInRangeAsTarget(monstersInRange);
             } 
         }
-        else {
-            Debug.Log("Nope, gotta find the key yet!");
-            Debug.Log("Have I arleady visited the key room?");
-            Room keyRoom = alreadyVisitedKeyRoom();
-            if (keyRoom != null) {
-                Debug.Log("YES! Gotta take that key!");
-                setTarget(keyRoom.keyTile);
-            }
-            else {
-                Debug.Log("Nope, gotta find that key!");
-                Debug.Log("Is there a monster with the key in the room?");
-                HexagonTile tileWithKeyMonster = lookForKeyMonstersInRoom();
-                if (tileWithKeyMonster != null) {
-                    Debug.Log("YES! GOTTA KILL IT!");
-                    attacking = true;
-                    setTarget(tileWithKeyMonster);
+        if (!attacking) {
+            Debug.Log("Do I have the key?");
+            if (gotTheKey()) {
+                Debug.Log("Yes, I got the key");
+                if (endRoom == null) endRoom = alreadyVisitedEndRoom();
+                Debug.Log("Have I arleady visited the end room?");
+                if (endRoom != null) {
+                    Debug.Log("Yes! Heading the end!");
+                    setTarget(endRoom.endTile);
                 }
-                else{
-                    Debug.Log("Nope, there is no monster with key here!");
+                else {
+                    Debug.Log("Nope, gotta find that end tile!");
                     explore();
-                }   
-            } 
+                } 
+            }
+            else {
+                Debug.Log("Nope, gotta find the key yet!");
+                Debug.Log("Have I arleady visited the key room?");
+                if (keyRoom == null) keyRoom = alreadyVisitedKeyRoom();
+                if (keyRoom != null) {
+                    Debug.Log("YES! Gotta take that key!");
+                    setTarget(keyRoom.keyTile);
+                }
+                else {
+                    Debug.Log("Nope, gotta find that key!");
+                    Debug.Log("Is there a monster with the key in the room?");
+                    if (tileWithKeyMonster == null) tileWithKeyMonster = lookForKeyMonstersInRoom();
+                    if (tileWithKeyMonster != null) {
+                        Debug.Log("YES! GOTTA KILL IT!");
+                        attacking = true;
+                        setTarget(tileWithKeyMonster);
+                    }
+                    else{
+                        Debug.Log("Nope, there is no monster with key here!");
+                        explore();
+                    }   
+                } 
+            }
         }
-
+        
         //GO TOWARDS THE TARGET////////////////////////////////////////////////////////////////////
 
         if (targetTileInRange != null) {
@@ -92,6 +108,7 @@ public class AdventurerBehavior : MonoBehaviour
             if (targetTile == targetTileInRange) targetTile = null;
         }
         while (unit.isMoving) yield return null;
+        yield return new WaitForSeconds(0.5f);
         Performing = false;
     }
 
@@ -102,12 +119,29 @@ public class AdventurerBehavior : MonoBehaviour
     }
 
     private void setTarget(HexagonTile tile) {        
-        targetTile = tile;
+        this.targetTile = tile;
         if (!goTowardsTarget()) setPriorityTarget(); 
         else Debug.Log($"My target is the door at {targetTile.HexagonCoordinates}!");
     }
 
+    private void setMonsterInRangeAsTarget(List<HexagonTile> monstersInRange) {   
+        monstersInRange = Shuffle(monstersInRange);  
+        foreach (HexagonTile monsterTile in monstersInRange) {
+            targetTile = monsterTile;
+            if (goTowardsTarget()) {
+                Debug.Log($"My target is the monster at {targetTile.HexagonCoordinates}!");
+                return;
+            }
+        }   
+        setPriorityTarget(); 
+    }
+
     //CHECKING METHODS////////////////////////////////////////////////////////////////////
+    private bool coinFlip() {
+        if (Random.value < 0.5f) return true;
+        return false;
+    }
+
     private bool gotTheKey() {
         if (unit.hasKey) return true;
         return false;
@@ -125,6 +159,10 @@ public class AdventurerBehavior : MonoBehaviour
             if (room.hasKeyTile) return room;
         }
         return null;
+    }
+
+    private List<HexagonTile> lookForMonstersInRange() {
+        return unitManager.getMonstersInRange();
     }
 
     private HexagonTile lookForKeyMonstersInRoom() {
@@ -156,6 +194,13 @@ public class AdventurerBehavior : MonoBehaviour
     }
 
     private void setPriorityTarget() {
+        List<HexagonTile> monstersInRange = lookForMonstersInRange();
+        if (monstersInRange.Count > 0){
+            attacking = true;
+            setMonsterInRangeAsTarget(monstersInRange);
+            return;
+        }
+
         HexagonTile currentTile = unit.onTile;
 
         List<HexagonTile> possibleTargets = new List<HexagonTile>();
@@ -176,12 +221,13 @@ public class AdventurerBehavior : MonoBehaviour
         }
 
         //Shuffle the list
-        for (int i = 0; i < possibleTargets.Count; i++) {
+        possibleTargets = Shuffle(possibleTargets);
+        /*for (int i = 0; i < possibleTargets.Count; i++) {
             HexagonTile temp = possibleTargets[i];
             int randomIndex = Random.Range(i, possibleTargets.Count);
             possibleTargets[i] = possibleTargets[randomIndex];
             possibleTargets[randomIndex] = temp;
-        }
+        }*/
         
         foreach(HexagonTile possibleTarget in possibleTargets) {
             targetTile = possibleTarget;
@@ -191,9 +237,28 @@ public class AdventurerBehavior : MonoBehaviour
             }
         }
         
-        //If every target has failed, deselect unit
+        //If every target has failed, move randomly
+        possibleTargets = Shuffle(unitManager.getTilesAvailable());
+        foreach(HexagonTile possibleTarget in possibleTargets) {
+            targetTile = possibleTarget;
+            if (goTowardsTarget()) {
+                Debug.Log($"Changed my target to the tile at {targetTile.HexagonCoordinates}!");
+                return;
+            }
+        }
         unit.spendActionPoint();
         unitManager.handleUnitSelection(this.gameObject);
+
+    }
+
+    private List<HexagonTile> Shuffle(List<HexagonTile> tileList) {
+        for (int i = 0; i < tileList.Count; i++) {
+            HexagonTile temp = tileList[i];
+            int randomIndex = Random.Range(i, tileList.Count);
+            tileList[i] = tileList[randomIndex];
+            tileList[randomIndex] = temp;
+        }
+        return tileList;
     }
 
     private bool goTowardsTarget() {

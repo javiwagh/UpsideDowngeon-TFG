@@ -106,7 +106,7 @@ public class Unit : MonoBehaviour
         if (this.character.healthPoints <= 0) {
             this.character.healthPoints = 0;
             onTile.resetTileType();
-            attacker.GiveKey();
+            if (hasKey) attacker.GiveKey();
             this.gameObject.SetActive(false);
         }
         else character.toolTip.updateHealth(character.healthPoints);
@@ -219,10 +219,10 @@ public class Unit : MonoBehaviour
                     target.getStab(this.transform.rotation, this);
                 break;
                 default:
-                    Debug.Log($"Adventurer type not supported: {this.character.monsterType}");
+                    target.recieveDamage(this.character.meleeDamage, this);
                 break;
             }
-        }        
+        }
     }
 
     private IEnumerator MovementCoroutine(Vector3 endPosition) {

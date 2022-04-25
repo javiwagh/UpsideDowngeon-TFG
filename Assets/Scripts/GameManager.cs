@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public GameState gameState;
@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private Animator blackFadeAnimator;
+
+    [SerializeField]
+    private Button endTurnButton;
     public bool monstersTurn {get; private set;} = true;
     public bool endedStage {get; private set;} = false;
     private void Start() {
@@ -31,11 +34,13 @@ public class GameManager : MonoBehaviour
         monstersTurn = !monstersTurn;
         if(monstersTurn) {
             Debug.Log("It's monster's turn!");
-            player.manaPoints = 10;
+            endTurnButton.interactable = true;
+            player.manaPoints = 5;
             player.updateMana();
         }
         else {
             Debug.Log("It's adventurer's turn!");
+            endTurnButton.interactable = false;
             player.manaPoints = 0;
             player.updateMana();
         }

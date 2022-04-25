@@ -269,11 +269,13 @@ public class UnitManager : MonoBehaviour
     }
 
     public void endTurn() {
-        gameManager.endTurn();
-        performTurnShiftUnitActions();
+        if (!gameManager.isStageEnded()) {
+            gameManager.endTurn();
+            performTurnShiftUnitActions();
+        }
         ClearSelection();
 
-        if (!gameManager.monstersTurn) StartCoroutine(PerformAITurn()); //Perform AI turn      
+        if (!gameManager.isStageEnded() && !gameManager.monstersTurn) StartCoroutine(PerformAITurn()); //Perform AI turn      
     }
 
     private void performTurnShiftUnitActions() {
@@ -312,5 +314,27 @@ public class UnitManager : MonoBehaviour
         Vector3Int targetTileInRangePosition = movementManager.findPath(target, selectedUnit, hexGrid);
         if (targetTileInRangePosition != new Vector3Int()) return hexGrid.getTileAt(targetTileInRangePosition);
         return null;
+    }
+
+    public List<HexagonTile> getMonstersInRange() {
+        List<HexagonTile> monstersTileList = new List<HexagonTile>();
+        IEnumerable<Vector3Int> unitsInRange = movementManager.getUnitsInRange();
+        if (unitsInRange != null) {
+            foreach (Vector3Int tilePosition in unitsInRange) {
+                HexagonTile tile = hexGrid.getTileAt(tilePosition);
+                if (tile.unitOn.GetComponent<Character>().side == Side.Monsters) monstersTileList.Add(tile);
+            }
+        }
+
+        return monstersTileList;
+    }
+
+    public List<HexagonTile> getTilesAvailable() {
+        List<HexagonTile> tilesAvailable = new List<HexagonTile>();
+        IEnumerable<Vector3Int> unitsInRange = movementManager.getRangePositions();
+        if (unitsInRange != null) {
+            foreach (Vector3Int tilePosition in unitsInRange) tilesAvailable.Add(hexGrid.getTileAt(tilePosition));
+        }
+        return tilesAvailable;
     }
 }
