@@ -14,6 +14,7 @@ public class AdventurerBehavior : MonoBehaviour
     public bool Performing;
     public bool characterSelected;
     public bool tileSelected;
+    private bool attacking;
 
     private List<Room> visitedRooms;
     private void Start() {
@@ -29,6 +30,7 @@ public class AdventurerBehavior : MonoBehaviour
         Debug.Log($"Performing {character.characterName}'s turn!");
         Performing = true;
         characterSelected = false;
+        attacking = false;
         checkRoom();
         foreach (Room room in visitedRooms) Debug.Log($"I have already visited {room}");
         StartCoroutine(PerformTurnCoroutine());
@@ -68,6 +70,7 @@ public class AdventurerBehavior : MonoBehaviour
                 HexagonTile tileWithKeyMonster = lookForKeyMonstersInRoom();
                 if (tileWithKeyMonster != null) {
                     Debug.Log("YES! GOTTA KILL IT!");
+                    attacking = true;
                     setTarget(tileWithKeyMonster);
                 }
                 else{
@@ -194,6 +197,7 @@ public class AdventurerBehavior : MonoBehaviour
     }
 
     private bool goTowardsTarget() {
+        if (unitManager.Neighbours(unit.onTile, targetTile) && attacking) return true;
         targetTileInRange = unitManager.findPath(targetTile.HexagonCoordinates);
         if (targetTileInRange == null) return false;
 
