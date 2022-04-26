@@ -121,6 +121,7 @@ public class Movement : MonoBehaviour{
         if(unitsPositions != null && unitsPositions.Contains(target) 
         || pickUpsPositions != null && movementRange.getPickUpsPositions().Contains(target)) targetTilePosition = getClosestNeighbor(target, hexGrid);
 
+        //Debug.LogWarning(selectedUnit);
         BFSearch fullRange = GraphSearch.BFSGetRange(hexGrid, hexGrid.GetClosestTile(selectedUnit.transform.position), 100, selectedUnit.GetComponent<Character>().side == Side.Monsters);
         List<Vector3Int> path = fullRange.checkPathTo(targetTilePosition);
         path.Reverse();

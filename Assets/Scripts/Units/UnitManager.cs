@@ -70,10 +70,12 @@ public class UnitManager : MonoBehaviour
 
     public void handleTileSelection(GameObject tile) {
         if (unitToSpawn == null) {
+            Debug.LogWarning(selectedUnit);
             if (selectedUnit == null) return;
 
             HexagonTile logicalTile = tile.GetComponent<HexagonTile>();
-
+            
+            Debug.LogWarning(logicalTile.HexagonCoordinates);
             if (!logicalTile.hasPickUp() && handleTileOutOfRange(logicalTile.HexagonCoordinates) 
                 || handleTileWithSelectedUnitOn(logicalTile.HexagonCoordinates)) return;
         }        
@@ -101,7 +103,7 @@ public class UnitManager : MonoBehaviour
         return false;
     }
 
-    private void RemoveUnit(GameObject unit) {
+    public void RemoveUnit(GameObject unit) {
         unitsOnBoard.Remove(unit.gameObject);
         if (unit.GetComponent<Character>().side == Side.Adventurers) {                    
             adventurersOnBoard.Remove(unit.gameObject);
@@ -216,10 +218,7 @@ public class UnitManager : MonoBehaviour
             }
             else if (selectedTile.isOccupied() && selectedTile != selectedUnit.onTile) {
                 if (!selectedTileIsNeighbor) moveUnit(selectedTile);
-                Unit targetUnit = selectedTile.unitOn.GetComponent<Unit>();
-                selectedUnit.Attack(targetUnit, selectedTileIsNeighbor);
-                if (targetUnit.GetComponent<Character>().healthPoints == 0) RemoveUnit(targetUnit.gameObject);
-                //if (selectedTile.unitOn.GetComponent<Character>().healthPoints == 0) RemoveUnit(selectedTile.unitOn.gameObject);
+                selectedUnit.Attack(selectedTile.unitOn.GetComponent<Unit>(), selectedTileIsNeighbor);
             }
             else moveUnit(selectedTile);
             ClearSelection();    
@@ -304,6 +303,7 @@ public class UnitManager : MonoBehaviour
             while(adventurer.GetComponent<Unit>().actionPoints > 0 && !gameManager.isStageEnded()) {
                 behavior.Perform();
                 while (behavior.Performing) yield return null;
+                ClearSelection();
             }
             if (gameManager.isStageEnded()) break;
         } 

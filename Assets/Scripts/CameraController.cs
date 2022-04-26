@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class CameraController : MonoBehaviour
 {
+    public bool playerPanControl = true;
+
     [SerializeField] 
     private bool mousePanControl;
     [SerializeField] 
@@ -26,25 +28,27 @@ public class CameraController : MonoBehaviour
         cameraOffset = this.transform.position;
     }
 
-    private void Update() {        
-        Vector2 input = playerInputActions.Player.Movement.ReadValue<Vector2>();
-        Vector3 move = new Vector3();
-        if (mousePanControl && input == new Vector2(0f, 0f)) {
-            if (Input.mousePosition.x >= Screen.width - panZone) input.x = 1f;
-            else if (Input.mousePosition.x <= panZone) input.x = -1f;
+    private void Update() {
+        if (playerPanControl) {
+            Vector2 input = playerInputActions.Player.Movement.ReadValue<Vector2>();
+            Vector3 move = new Vector3();
+            if (mousePanControl && input == new Vector2(0f, 0f)) {
+                if (Input.mousePosition.x >= Screen.width - panZone) input.x = 1f;
+                else if (Input.mousePosition.x <= panZone) input.x = -1f;
 
-            if (Input.mousePosition.y >= Screen.height - panZone) input.y = 1f;
-            else if (Input.mousePosition.y <= panZone) input.y = -1f;
-        }
+                if (Input.mousePosition.y >= Screen.height - panZone) input.y = 1f;
+                else if (Input.mousePosition.y <= panZone) input.y = -1f;
+            }
 
-        move = (transform.right * input.x + transform.forward * input.y) * speed * Time.deltaTime;
-         
-        Vector3 finalPosition = transform.position + move;
-        //if (Vector3.Distance(cameraOffset, finalPosition) < limit) transform.position = finalPosition;
-        finalPosition.x = Mathf.Clamp(finalPosition.x, cameraOffset.x -limit.x, cameraOffset.x + limit.x);
-        finalPosition.z = Mathf.Clamp(finalPosition.z, cameraOffset.z -limit.y, cameraOffset.z + limit.y); 
+            move = (transform.right * input.x + transform.forward * input.y) * speed * Time.deltaTime;
+            
+            Vector3 finalPosition = transform.position + move;
+            //if (Vector3.Distance(cameraOffset, finalPosition) < limit) transform.position = finalPosition;
+            finalPosition.x = Mathf.Clamp(finalPosition.x, cameraOffset.x -limit.x, cameraOffset.x + limit.x);
+            finalPosition.z = Mathf.Clamp(finalPosition.z, cameraOffset.z -limit.y, cameraOffset.z + limit.y); 
 
-        transform.position = finalPosition;
+            transform.position = finalPosition;
+        }        
     }
 
     public void performZoom(InputAction.CallbackContext context) {

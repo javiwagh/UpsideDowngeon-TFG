@@ -24,7 +24,7 @@ public class SelectionManager : MonoBehaviour
     }
 
     public void HandleClick(InputAction.CallbackContext context) {
-        if (gameManager.monstersTurn && context.canceled) {
+        if (gameManager.gameState == GameManager.GameState.Waiting && gameManager.monstersTurn && context.canceled) {
             Vector3 mousePosition = Input.mousePosition;
             GameObject result;
             if (findRayTarget(mousePosition, out result)) {

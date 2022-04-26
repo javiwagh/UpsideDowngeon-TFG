@@ -130,6 +130,7 @@ public class AdventurerBehavior : MonoBehaviour
             targetTile = monsterTile;
             if (goTowardsTarget()) {
                 Debug.Log($"My target is the monster at {targetTile.HexagonCoordinates}!");
+                targetTileInRange = targetTile;
                 return;
             }
         }   
@@ -149,7 +150,7 @@ public class AdventurerBehavior : MonoBehaviour
 
     private Room alreadyVisitedEndRoom() {
         foreach (Room room in visitedRooms) {
-            if (room.hasEndTile) return room;
+            if (room != null && room.hasEndTile) return room;
         }
         return null;
     }
@@ -185,11 +186,11 @@ public class AdventurerBehavior : MonoBehaviour
     private void checkRoom() {
         if (unit.onTile.originalTileType == TileType.Door) {
             foreach (Room room in unit.onTile.GetComponent<Door>().roomsAvailable) {
-                if (!visitedRooms.Contains(room)) visitedRooms.Add(room);
+                if (room != null && !visitedRooms.Contains(room)) visitedRooms.Add(room);
             } 
         }
         else {
-            if (!visitedRooms.Contains(unit.onTile.room)) visitedRooms.Add(unit.onTile.room);
+            if (unit.onTile.room != null && !visitedRooms.Contains(unit.onTile.room)) visitedRooms.Add(unit.onTile.room);
         }
     }
 
@@ -200,7 +201,8 @@ public class AdventurerBehavior : MonoBehaviour
             setMonsterInRangeAsTarget(monstersInRange);
             return;
         }
-
+        
+        attacking = false;
         HexagonTile currentTile = unit.onTile;
 
         List<HexagonTile> possibleTargets = new List<HexagonTile>();
@@ -233,6 +235,7 @@ public class AdventurerBehavior : MonoBehaviour
             targetTile = possibleTarget;
             if (goTowardsTarget()) {
                 Debug.Log($"Changed my target to the tile at {targetTile.HexagonCoordinates}!");
+                //targetTileInRange = targetTile;
                 return;
             }
         }
@@ -243,6 +246,7 @@ public class AdventurerBehavior : MonoBehaviour
             targetTile = possibleTarget;
             if (goTowardsTarget()) {
                 Debug.Log($"Changed my target to the tile at {targetTile.HexagonCoordinates}!");
+                //targetTileInRange = targetTile;
                 return;
             }
         }

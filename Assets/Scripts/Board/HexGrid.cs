@@ -7,11 +7,11 @@ public class HexGrid : MonoBehaviour
     Dictionary<Vector3Int, HexagonTile> hexagonTileDictionary = new Dictionary<Vector3Int, HexagonTile>();
     Dictionary<Vector3Int, List<Vector3Int>> hexagonTileNeighboursDictionary = new Dictionary<Vector3Int, List<Vector3Int>>();
 
-    Room[] romsInBoard;
+    Room[] roomsInBoard;
 
     private void Awake() {
+        roomsInBoard = GetComponentsInChildren<Room>();
         UpdateTiles();
-        romsInBoard = GetComponentsInChildren<Room>();
     }
 
     public void UpdateTiles() {
@@ -19,6 +19,7 @@ public class HexGrid : MonoBehaviour
             //Debug.Log(tile.gameObject.name);
             if (tile.isActiveAndEnabled) hexagonTileDictionary[tile.HexagonCoordinates] = tile;
         }
+        foreach (Room room in roomsInBoard) room.UpdateTiles();
     }
 
     public HexagonTile getTileAt(Vector3Int coords){
@@ -50,7 +51,7 @@ public class HexGrid : MonoBehaviour
 
     public List<HexagonTile> GetEverySpawnTiles() {
         List<HexagonTile> spawnTiles = new List<HexagonTile>();
-        foreach (Room room in romsInBoard) {
+        foreach (Room room in roomsInBoard) {
             if (room.checkAvailableRoom()){
                 foreach (HexagonTile tile in room.tilesInRoom) {
                     if (tile.IsSpawn()) spawnTiles.Add(tile);

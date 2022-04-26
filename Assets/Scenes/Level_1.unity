@@ -2385,13 +2385,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e70cd7e3b07ac9b4a859b1c0dbff7fb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameState: 0
+  gameState: 1
   player: {fileID: 2053042168}
   hexGrid: {fileID: 366540810}
   unitManager: {fileID: 0}
   endTile: {fileID: 1241291338}
   keyTilePrefab: {fileID: 8428897718366608426, guid: 944c44b9b13218842af2fe844a843f85, type: 3}
   blackFadeAnimator: {fileID: 452535537}
+  endTurnButton: {fileID: 59443457}
 --- !u!4 &794436220 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6510855887520554071, guid: e2f23569fe17aee418ba8d9c884d691a, type: 3}
@@ -5239,7 +5240,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1833580412}
   m_Layer: 0
-  m_Name: Agents
+  m_Name: Adventurers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5406,6 +5407,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1177154277}
     m_Modifications:
+    - target: {fileID: 1271131692190162405, guid: b68a9aaf8070a0946b5b3081df1288e6, type: 3}
+      propertyPath: room
+      value: 
+      objectReference: {fileID: 1177154278}
     - target: {fileID: 1581941516998515120, guid: b68a9aaf8070a0946b5b3081df1288e6, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -6932,6 +6937,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 24986589}
     m_Modifications:
+    - target: {fileID: 2425882989836439622, guid: 0447e73fd7dd0f543920dc60420e9c3a, type: 3}
+      propertyPath: m_text
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2425882989836439622, guid: 0447e73fd7dd0f543920dc60420e9c3a, type: 3}
+      propertyPath: m_fontSize
+      value: 64.1
+      objectReference: {fileID: 0}
     - target: {fileID: 9109676505227575851, guid: 0447e73fd7dd0f543920dc60420e9c3a, type: 3}
       propertyPath: m_Name
       value: Spawn Rat
@@ -7130,6 +7143,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5685628035330696957, guid: 833b06c3c9e07454c835300a79ce9176, type: 3}
+      propertyPath: m_text
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5685628035330696957, guid: 833b06c3c9e07454c835300a79ce9176, type: 3}
+      propertyPath: m_fontSize
+      value: 64.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 833b06c3c9e07454c835300a79ce9176, type: 3}
 --- !u!224 &3684832738055952057 stripped
@@ -7310,6 +7331,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1833580412}
     m_Modifications:
+    - target: {fileID: 4319466905522402836, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
+      propertyPath: meleeDamage
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4319466905522402836, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
+      propertyPath: healthPoints
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 4319466905522402840, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -7485,8 +7514,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6510855887520554075, guid: e2f23569fe17aee418ba8d9c884d691a, type: 3}
+      propertyPath: meleeDamage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6510855887520554075, guid: e2f23569fe17aee418ba8d9c884d691a, type: 3}
       propertyPath: healthPoints
-      value: 13
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2f23569fe17aee418ba8d9c884d691a, type: 3}
@@ -7544,6 +7577,14 @@ PrefabInstance:
     - target: {fileID: 781481527263213239, guid: c541a6f2b66d48b44adc7ab83b355aaf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 781481527263213243, guid: c541a6f2b66d48b44adc7ab83b355aaf, type: 3}
+      propertyPath: meleeDamage
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 781481527263213243, guid: c541a6f2b66d48b44adc7ab83b355aaf, type: 3}
+      propertyPath: healthPoints
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 9170652433872724826, guid: c541a6f2b66d48b44adc7ab83b355aaf, type: 3}
       propertyPath: unitManager

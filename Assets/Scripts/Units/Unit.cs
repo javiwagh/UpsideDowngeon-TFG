@@ -9,6 +9,8 @@ public class Unit : MonoBehaviour
     private float MOVEMENT_DURATION = 0.5f, ROTATION_DURATION = 0.1f;
     private const int POISON_DURATION = 2;
     private const int PARALYSE_DURATION = 1;
+    private const int BASE_ADVENTURER_ACTION_POINTS = 2;
+    private const int BASE_MONSTER_ACTION_POINTS = 2;
     private Unit lastPoisonAttacker;
     private int movementPoints;
     public int actionPoints;
@@ -23,8 +25,8 @@ public class Unit : MonoBehaviour
     public event System.Action<Unit> MovementFinished;
     public bool hasKey = false;
     public bool isMoving = false;
-    private int poisonCounter = 0;
-    private bool paralysed = false;
+    public int poisonCounter = 0;
+    public bool paralysed = false;
     private int poisonTimer = 0;
     private int paralysedTimer = 0;
     public GameObject keyInstance;
@@ -47,6 +49,7 @@ public class Unit : MonoBehaviour
 
     public void moveThroughPath(List<Vector3> currentPath){
         if (!spendActionPoint()) return;
+        gameManager.Move();
         pathPositions = new Queue<Vector3>(currentPath);
         Vector3 firstTarget = pathPositions.Dequeue();
         StartCoroutine(movingRotationCoroutine(firstTarget, ROTATION_DURATION));
@@ -70,18 +73,18 @@ public class Unit : MonoBehaviour
         while (isMoving) yield return null;
         hasKey = true;
         key.Pick();
-        gameManager.KeyPicked();
         key.GetComponent<HexagonTile>().room.hasKeyTile = false;
         key.GetComponent<HexagonTile>().room.keyTile = null;
         keyInstance.SetActive(true);
         Debug.Log("YAY! Got the key!");
+        gameManager.KeyPicked();
     }
 
     public void GiveKey() {
         hasKey = true;
-        gameManager.KeyPicked();
         keyInstance.SetActive(true);
-        Debug.Log("YAY! Got the key!");    
+        Debug.Log("YAY! Got the key!");
+        gameManager.KeyPicked();
     }
 
     public bool spendActionPoint() {
@@ -92,7 +95,8 @@ public class Unit : MonoBehaviour
     }
 
     public void restoreActionPoints() {
-        actionPoints = 2;
+        if (this.character.side == Side.Monsters) actionPoints = BASE_MONSTER_ACTION_POINTS;
+        else actionPoints = BASE_ADVENTURER_ACTION_POINTS;
         character.toolTip.updateActionPoints(actionPoints);
     }
 
@@ -108,12 +112,12 @@ public class Unit : MonoBehaviour
             onTile.resetTileType();
             if (hasKey) attacker.GiveKey();
             this.gameObject.SetActive(false);
+            gameManager.RemoveUnit(this.gameObject);
         }
         else character.toolTip.updateHealth(character.healthPoints);
     }
 
-    public void getStab(Quaternion attackerRotation, Unit attacker){
-        int damage = 2;
+    public void getStab(int damage, Quaternion attackerRotation, Unit attacker){
         float dotRotation = Quaternion.Dot(attackerRotation, this.transform.rotation);
         if (dotRotation > 0.6f || dotRotation < -0.6f) damage = damage * 2;
         
@@ -139,17 +143,21 @@ public class Unit : MonoBehaviour
 
     public void TurnShiftUnitActions() {
         //POISON
-        recieveDamage(poisonCounter, lastPoisonAttacker);
-        poisonTimer -= 1;
-        if (poisonTimer == 0) {
-            poisonCounter -= 1;
-            if (poisonCounter > 0) poisonTimer = POISON_DURATION;
-        }
+        if (poisonCounter >= 1 && this.character.healthPoints > 1) {
+            recieveDamage(1, lastPoisonAttacker);
+            poisonTimer -= 1;
+            if (poisonTimer <= 0) {
+                poisonCounter -= 1;
+                if (poisonCounter > 0) poisonTimer = POISON_DURATION;
+            }
+        } 
         //PARALYSE
         if (paralysed) movementPoints = 0;
         else movementPoints = character.speed;
         paralysedTimer -= 1;
         if (paralysedTimer == 0) paralysed = false;
+
+        character.toolTip.updateHealth(character.healthPoints);
     }
 
     private IEnumerator movingRotationCoroutine(Vector3 endPosition, float rotationDuration) {
@@ -194,7 +202,7 @@ public class Unit : MonoBehaviour
         if (this.character.unitType == UnitType.Monster) {
             switch (this.character.monsterType){
                 case MonsterType.Goblin:
-                    target.getStab(this.transform.rotation, this);
+                    target.getStab(this.character.meleeDamage, this.transform.rotation, this);
                 break;
                 case MonsterType.Troll:
                     target.recieveDamage(this.character.meleeDamage, this);
@@ -216,10 +224,10 @@ public class Unit : MonoBehaviour
                     target.recieveDamage(this.character.meleeDamage, this);
                 break;
                 case AdventurerType.Rogue:
-                    target.getStab(this.transform.rotation, this);
+                    target.getStab(this.character.meleeDamage, this.transform.rotation, this);
                 break;
                 default:
-                    target.recieveDamage(this.character.meleeDamage, this);
+                    target.getStab(this.character.meleeDamage, this.transform.rotation, this);
                 break;
             }
         }
@@ -246,6 +254,7 @@ public class Unit : MonoBehaviour
             HexGrid hexGrid = FindObjectOfType<HexGrid>();
             hexGrid.getTileAt(hexGrid.GetClosestTile(this.transform.position)).stepOnTile(this);
             if (this.hasKey && this.onTile.isEnd()) gameManager.AdventurersWin();
+            gameManager.Wait();
             this.isMoving = false;
         }
     }    

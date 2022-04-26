@@ -10,7 +10,11 @@ public class Room : MonoBehaviour
     public bool hasKeyTile;
     public HexagonTile endTile;
     public HexagonTile keyTile;
-    private void Awake() {
+    /*private void Awake() {
+        UpdateTiles();
+    }*/
+
+    public void UpdateTiles() {
         tilesInRoom = GetComponentsInChildren<HexagonTile>();
         foreach (HexagonTile tile in tilesInRoom) {
             if (tile.originalTileType == TileType.End) {
@@ -26,6 +30,10 @@ public class Room : MonoBehaviour
     }
 
     public bool checkAvailableRoom() {
+        foreach (Door door in doors) {
+            HexagonTile tile = door.GetComponent<HexagonTile>();
+            if (tile.isOccupied() && tile.unitOn.GetComponent<Character>().side == Side.Adventurers) return false;
+        }
         foreach (HexagonTile tile in tilesInRoom) {
             if (tile.isOccupied() && tile.unitOn.GetComponent<Character>().side == Side.Adventurers) return false;
         }
