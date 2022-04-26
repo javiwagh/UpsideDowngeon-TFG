@@ -10,6 +10,7 @@ public class Character : MonoBehaviour
     [HideInInspector]
     public UnitType unitType;
     public Side side;
+    public Skill skill;
     public MonsterType? monsterType;
     public NestType? nestType;
     public AdventurerType? adventurerType;
@@ -27,6 +28,7 @@ public class Character : MonoBehaviour
     private void asignTypes() {
         switch(characterName) {
             case CharacterName.Goblin:
+                skill = Skill.Stab;
                 unitType = UnitType.Monster;
                 monsterType = MonsterType.Goblin;
                 side = Side.Monsters;
@@ -34,6 +36,7 @@ public class Character : MonoBehaviour
                 adventurerType = null;
             break;
             case CharacterName.Troll:
+                skill = Skill.Bulk;
                 unitType = UnitType.Monster;
                 monsterType = MonsterType.Troll;
                 side = Side.Monsters;
@@ -41,12 +44,14 @@ public class Character : MonoBehaviour
                 adventurerType = null;
             break;
             case CharacterName.Spider:
+                skill = Skill.Paralyse;
                 unitType = UnitType.Monster;
                 monsterType = MonsterType.Spider;
                 nestType = null;
                 adventurerType = null;
             break;
             case CharacterName.Rat:
+                skill = Skill.Poisonous;
                 unitType = UnitType.Monster;
                 side = Side.Monsters;
                 monsterType = MonsterType.Rat;
@@ -54,6 +59,7 @@ public class Character : MonoBehaviour
                 adventurerType = null;
             break;
             case CharacterName.Spiders_nest:
+                skill = Skill.None;
                 unitType = UnitType.Nest;
                 side = Side.Monsters;
                 monsterType = null;
@@ -61,6 +67,7 @@ public class Character : MonoBehaviour
                 adventurerType = null;
             break;
             case CharacterName.Rats_nest:
+                skill = Skill.None;
                 unitType = UnitType.Nest;
                 side = Side.Monsters;
                 monsterType = null;
@@ -68,6 +75,7 @@ public class Character : MonoBehaviour
                 adventurerType = null;
             break;
             case CharacterName.Rogue:
+                skill = Skill.Stab;
                 unitType = UnitType.Adventurer;
                 side = Side.Adventurers;
                 monsterType = null;
@@ -75,6 +83,7 @@ public class Character : MonoBehaviour
                 adventurerType = AdventurerType.Rogue;
             break;
             case CharacterName.Warrior:
+                skill = Skill.None;
                 unitType = UnitType.Adventurer;
                 side = Side.Adventurers;
                 monsterType = null;
@@ -82,6 +91,7 @@ public class Character : MonoBehaviour
                 adventurerType = AdventurerType.Warrior;
             break;
             case CharacterName.Bard:
+                skill = Skill.Stab;
                 unitType = UnitType.Adventurer;
                 side = Side.Adventurers;
                 monsterType = null;
@@ -141,4 +151,12 @@ public enum AdventurerType {
     Rogue,
     Warrior,
     Bard
+}
+
+public enum Skill {
+    Poisonous,
+    Paralyse,
+    Stab,
+    Bulk,
+    None
 }

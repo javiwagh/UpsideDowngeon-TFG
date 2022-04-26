@@ -5,18 +5,19 @@ using UnityEngine;
 [SelectionBase]
 public class Unit : MonoBehaviour
 {
+    [SerializeField]
+    private float MOVEMENT_DURATION = 0.5f, ROTATION_DURATION = 0.1f;
     private const int POISON_DURATION = 2;
     private const int PARALYSE_DURATION = 1;
+    private const int BASE_ADVENTURER_ACTION_POINTS = 2;
+    private const int BASE_MONSTER_ACTION_POINTS = 2;
+    private Unit lastPoisonAttacker;
     private int movementPoints;
     public int actionPoints;
     public int MovementPoints {get => movementPoints;}
 
     [SerializeField]
     private GameManager gameManager;
-
-    [SerializeField]
-    private float movementDuration = 0.5f, rotationDuration = 0.1f;
-
     private GlowHighlight glowHighlight;
     public Character character;
     public HexagonTile onTile;
@@ -24,10 +25,11 @@ public class Unit : MonoBehaviour
     public event System.Action<Unit> MovementFinished;
     public bool hasKey = false;
     public bool isMoving = false;
-    private int poisonCounter = 0;
-    private bool paralysed = false;
+    public int poisonCounter = 0;
+    public bool paralysed = false;
     private int poisonTimer = 0;
     private int paralysedTimer = 0;
+    public GameObject keyInstance;
 
     private void Awake() {
         glowHighlight = GetComponent<GlowHighlight>();
@@ -47,68 +49,45 @@ public class Unit : MonoBehaviour
 
     public void moveThroughPath(List<Vector3> currentPath){
         if (!spendActionPoint()) return;
+        gameManager.Move();
         pathPositions = new Queue<Vector3>(currentPath);
         Vector3 firstTarget = pathPositions.Dequeue();
-        StartCoroutine(movingRotationCoroutine(firstTarget, rotationDuration));
+        StartCoroutine(movingRotationCoroutine(firstTarget, ROTATION_DURATION));
     }
 
     public bool isBard() {
         return (this.character.unitType == UnitType.Adventurer && this.character.adventurerType == AdventurerType.Bard);
     }
 
-    public void Attack(Unit target) {
-        if (!spendActionPoint()) return;
+    public void Attack(Unit target, bool spend) {
+        if (spend && !spendActionPoint()) return;
         Debug.Log($"Attacking {target.GetComponent<Character>().characterName}!");
-        StartCoroutine(attackingRotationCoroutine(target.transform.position, rotationDuration));
-        if (this.character.unitType == UnitType.Monster) {
-            switch (this.character.monsterType){
-                case MonsterType.Goblin:
-                    target.getStab(this.transform.rotation);
-                break;
-                case MonsterType.Troll:
-                    target.recieveDamage(this.character.meleeDamage);
-                break;
-                case MonsterType.Spider:
-                    target.getSting();
-                break;
-                case MonsterType.Rat:
-                    target.getPoisoningBite();
-                break;
-                default:
-                    Debug.Log($"Monster type not supported: {this.character.monsterType}");
-                break;
-            }
-        }
-        else {
-            switch (this.character.adventurerType){
-                case AdventurerType.Warrior:
-                    target.recieveDamage(this.character.meleeDamage);
-                break;
-                case AdventurerType.Rogue:
-                    target.getStab(this.transform.rotation);
-                break;
-                default:
-                    Debug.Log($"Adventurer type not supported: {this.character.monsterType}");
-                break;
-            }
-        }
+        StartCoroutine(attackingCoroutine(target, ROTATION_DURATION));
     }
 
-    public void PickKey() {
-        if (!spendActionPoint()) return;
+    public void PickKey(Key key, bool spend) {
+        if (spend && !spendActionPoint()) return;
+        StartCoroutine(Pick(key));
+    }
+    IEnumerator Pick(Key key) {
+        while (isMoving) yield return null;
         hasKey = true;
-        gameManager.KeyPicked();
+        key.Pick();
+        key.GetComponent<HexagonTile>().room.hasKeyTile = false;
+        key.GetComponent<HexagonTile>().room.keyTile = null;
+        keyInstance.SetActive(true);
         Debug.Log("YAY! Got the key!");
+        gameManager.KeyPicked();
     }
 
-    public void DropKey() {
-        if (hasKey) {
-            hasKey = false;
-            gameManager.keyDropped(this.onTile);
-        }
+    public void GiveKey() {
+        hasKey = true;
+        keyInstance.SetActive(true);
+        Debug.Log("YAY! Got the key!");
+        gameManager.KeyPicked();
     }
 
-    private bool spendActionPoint() {
+    public bool spendActionPoint() {
         if (actionPoints > 0) actionPoints -= 1;
         else return false;
         character.toolTip.updateActionPoints(actionPoints);
@@ -116,7 +95,8 @@ public class Unit : MonoBehaviour
     }
 
     public void restoreActionPoints() {
-        actionPoints = 2;
+        if (this.character.side == Side.Monsters) actionPoints = BASE_MONSTER_ACTION_POINTS;
+        else actionPoints = BASE_ADVENTURER_ACTION_POINTS;
         character.toolTip.updateActionPoints(actionPoints);
     }
 
@@ -125,54 +105,59 @@ public class Unit : MonoBehaviour
         character.toolTip.updateActionPoints(actionPoints);
     }
 
-    public void recieveDamage(int damage){
+    public void recieveDamage(int damage, Unit attacker){
         this.character.healthPoints -= damage;
         if (this.character.healthPoints <= 0) {
             this.character.healthPoints = 0;
             onTile.resetTileType();
-            DropKey();
+            if (hasKey) attacker.GiveKey();
             this.gameObject.SetActive(false);
+            gameManager.RemoveUnit(this.gameObject);
         }
         else character.toolTip.updateHealth(character.healthPoints);
     }
 
-    public void getStab(Quaternion attackerRotation){
-        int damage = 2;
+    public void getStab(int damage, Quaternion attackerRotation, Unit attacker){
         float dotRotation = Quaternion.Dot(attackerRotation, this.transform.rotation);
         if (dotRotation > 0.6f || dotRotation < -0.6f) damage = damage * 2;
         
-        recieveDamage(damage);
+        recieveDamage(damage, attacker);
     }
 
-    public void getSting(){
+    public void getSting(Unit attacker){
         //A paralysed adventurer will not to move a single tile the next turn
         paralysed = true;
         paralysedTimer = PARALYSE_DURATION;
         int damage = 1;
-        recieveDamage(damage);
+        recieveDamage(damage, attacker);
     }
 
-    public void getPoisoningBite(){
+    public void getPoisoningBite(Unit attacker){
         //A poisoned adventurer will receive low damage the next two turn shifts
         poisonCounter += 1;
         poisonTimer = POISON_DURATION;
-        int damage = 1;     
-        recieveDamage(damage);
+        int damage = 1;
+        lastPoisonAttacker = attacker;  
+        recieveDamage(damage, attacker);
     }
 
     public void TurnShiftUnitActions() {
         //POISON
-        recieveDamage(poisonCounter);
-        poisonTimer -= 1;
-        if (poisonTimer == 0) {
-            poisonCounter -= 1;
-            if (poisonCounter > 0) poisonTimer = POISON_DURATION;
-        }
+        if (poisonCounter >= 1 && this.character.healthPoints > 1) {
+            recieveDamage(1, lastPoisonAttacker);
+            poisonTimer -= 1;
+            if (poisonTimer <= 0) {
+                poisonCounter -= 1;
+                if (poisonCounter > 0) poisonTimer = POISON_DURATION;
+            }
+        } 
         //PARALYSE
         if (paralysed) movementPoints = 0;
         else movementPoints = character.speed;
         paralysedTimer -= 1;
         if (paralysedTimer == 0) paralysed = false;
+
+        character.toolTip.updateHealth(character.healthPoints);
     }
 
     private IEnumerator movingRotationCoroutine(Vector3 endPosition, float rotationDuration) {
@@ -195,10 +180,12 @@ public class Unit : MonoBehaviour
         StartCoroutine(MovementCoroutine(endPosition));
     }
 
-    private IEnumerator attackingRotationCoroutine(Vector3 target, float rotationDuration) {
+    private IEnumerator attackingCoroutine(Unit target, float rotationDuration) {
+        while(isMoving) yield return null;
         Quaternion startRotation = transform.rotation;
-        target.y = transform.position.y;
-        Vector3 direction = target - transform.position;
+        Vector3 targetPosition = target.transform.position;
+        targetPosition.y = transform.position.y;
+        Vector3 direction = targetPosition - transform.position;
         Quaternion endRotation = Quaternion.LookRotation(direction, Vector3.up);
 
         if (Mathf.Approximately(Mathf.Abs(Quaternion.Dot(startRotation, endRotation)), 1.0f) == false) {
@@ -207,10 +194,43 @@ public class Unit : MonoBehaviour
                 timeElapsed += Time.deltaTime;
                 float lerpstep = timeElapsed / rotationDuration;
                 transform.rotation = Quaternion.Lerp(startRotation, endRotation, lerpstep);
+                yield return null;
             }
             transform.rotation = endRotation;
         }
-        yield return null;
+
+        if (this.character.unitType == UnitType.Monster) {
+            switch (this.character.monsterType){
+                case MonsterType.Goblin:
+                    target.getStab(this.character.meleeDamage, this.transform.rotation, this);
+                break;
+                case MonsterType.Troll:
+                    target.recieveDamage(this.character.meleeDamage, this);
+                break;
+                case MonsterType.Spider:
+                    target.getSting(this);
+                break;
+                case MonsterType.Rat:
+                    target.getPoisoningBite(this);
+                break;
+                default:
+                    Debug.Log($"Monster type not supported: {this.character.monsterType}");
+                break;
+            }
+        }
+        else {
+            switch (this.character.adventurerType){
+                case AdventurerType.Warrior:
+                    target.recieveDamage(this.character.meleeDamage, this);
+                break;
+                case AdventurerType.Rogue:
+                    target.getStab(this.character.meleeDamage, this.transform.rotation, this);
+                break;
+                default:
+                    target.getStab(this.character.meleeDamage, this.transform.rotation, this);
+                break;
+            }
+        }
     }
 
     private IEnumerator MovementCoroutine(Vector3 endPosition) {
@@ -218,22 +238,23 @@ public class Unit : MonoBehaviour
         endPosition.y = startPosition.y;
         float timeElapsed = 0;
 
-        while (timeElapsed < movementDuration) {
+        while (timeElapsed < MOVEMENT_DURATION) {
             timeElapsed += Time.deltaTime;
-            float lerpstep = timeElapsed / movementDuration;
+            float lerpstep = timeElapsed / MOVEMENT_DURATION;
             transform.position = Vector3.Lerp(startPosition, endPosition, lerpstep);
             yield return null;
         }
         transform.position = endPosition;
 
         if (pathPositions.Count > 0) {
-            Debug.Log("Looking for my next position ...");
-            StartCoroutine(movingRotationCoroutine(pathPositions.Dequeue(), rotationDuration));
+            StartCoroutine(movingRotationCoroutine(pathPositions.Dequeue(), MOVEMENT_DURATION));
         }
         else {
-            Debug.Log("I have reached my end position òwó");
             MovementFinished?.Invoke(this);
+            HexGrid hexGrid = FindObjectOfType<HexGrid>();
+            hexGrid.getTileAt(hexGrid.GetClosestTile(this.transform.position)).stepOnTile(this);
             if (this.hasKey && this.onTile.isEnd()) gameManager.AdventurersWin();
+            gameManager.Wait();
             this.isMoving = false;
         }
     }    

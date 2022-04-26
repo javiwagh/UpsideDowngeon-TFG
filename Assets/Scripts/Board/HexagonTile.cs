@@ -11,15 +11,14 @@ public class HexagonTile : MonoBehaviour
     [SerializeField]
     private TileType tileType;
 
-    [SerializeField]
-    private TileType originalTileType;
+    public TileType originalTileType;
 
     private HexCoord hexCoord;
     public Unit unitOn;
     public Vector3Int HexagonCoordinates => hexCoord.getHexCoordinates();
 
-    [SerializeField]
-    private bool isSpawn;
+    public bool isSpawn = true;
+    public Room room;
 
     private void Awake(){
         hexCoord = GetComponent<HexCoord>();
@@ -28,7 +27,6 @@ public class HexagonTile : MonoBehaviour
     }
 
     public void setOriginalType() {
-        Debug.Log("Gettin my type set");
         tileType = originalTileType;
     }
 

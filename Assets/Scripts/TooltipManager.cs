@@ -26,12 +26,25 @@ public class TooltipManager : MonoBehaviour
         transform.position = Input.mousePosition;
     }
 
-    public void SetAndShow(string name, string side, List<string> stats, int actions) {
+    public void SetAndShow(string name, string side, Dictionary<string, string> stats, int actions) {
         gameObject.SetActive(true);
         nameText.text = name;
         sideText.text = side;
         actionsText.text = actions.ToString();
-        foreach(string stat in stats) {
+        foreach(string key in stats.Keys) {
+            string stat = stats[key];
+            statsText.text += stat;
+            statsText.text += "\n";
+        }
+    }
+
+    public void Set(string name, string side, Dictionary<string, string> stats, int actions) {
+        //gameObject.SetActive(true);
+        nameText.text = name;
+        sideText.text = side;
+        actionsText.text = actions.ToString();
+        foreach(string key in stats.Keys) {
+            string stat = stats[key];
             statsText.text += stat;
             statsText.text += "\n";
         }

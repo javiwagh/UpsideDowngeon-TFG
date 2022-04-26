@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public GameState gameState;
@@ -17,42 +17,48 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private Animator blackFadeAnimator;
+
+    [SerializeField]
+    private Button endTurnButton;
     public bool monstersTurn {get; private set;} = true;
     public bool endedStage {get; private set;} = false;
     private void Start() {
-        gameState = GameState.KeyOnBoard;
         monstersTurn = true;
         hexGrid = FindObjectOfType<HexGrid>();
         unitManager = FindObjectOfType<UnitManager>();
 
         StartCoroutine(GameStartCoroutine());
+        Wait();
     }
     public void endTurn() {
         monstersTurn = !monstersTurn;
         if(monstersTurn) {
             Debug.Log("It's monster's turn!");
-            player.manaPoints = 10;
+            endTurnButton.interactable = true;
+            player.manaPoints = 5;
             player.updateMana();
         }
         else {
             Debug.Log("It's adventurer's turn!");
+            endTurnButton.interactable = false;
             player.manaPoints = 0;
             player.updateMana();
         }
     }
 
     public void KeyPicked() {
-        gameState = GameState.KeyPicked;
         hexGrid.UpdateTiles();
     }
 
-    public void keyDropped(HexagonTile tile) {
+    /*public void keyDropped(HexagonTile tile) {
         gameState = GameState.KeyOnBoard;
         GameObject key = Instantiate(keyTilePrefab, tile.transform.position, tile.transform.rotation);
-        key.transform.SetParent(hexGrid.transform, false);
+        key.transform.SetParent(tile.room.transform, false);
+        tile.room.hasKeyTile = true;
+        tile.room.keyTile = key.GetComponent<HexagonTile>();
         key.GetComponent<Key>().setTile(tile.gameObject);
         hexGrid.UpdateTiles();
-    }
+    }*/
 
     public void canEndStage() {
         endTile.enableEnd();
@@ -92,9 +98,20 @@ public class GameManager : MonoBehaviour
         yield return null;
     } 
 
+    public void RemoveUnit(GameObject unit) {
+        unitManager.RemoveUnit(unit);
+    }
+
+    public void Move() {
+        this.gameState = GameState.Moving;
+    }
+    public void Wait() {
+        this.gameState = GameState.Waiting;
+    }
+
     public enum GameState {
-        KeyOnBoard,
-        KeyPicked,
+        Moving,
+        Waiting,
         MonstersWin,
         AdventurersWin
     }

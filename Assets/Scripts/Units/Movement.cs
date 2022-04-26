@@ -10,8 +10,24 @@ public class Movement : MonoBehaviour{
 
     public void HideRange(HexGrid hexGrid) {
         IEnumerable<Vector3Int> rangePositions = movementRange.getRangePositions();
+        IEnumerable<Vector3Int> unitsPositions = movementRange.getUnitsPositions();
+        IEnumerable<Vector3Int> pickUpsPositions = movementRange.getPickUpsPositions();
         if (rangePositions != null) {
             foreach (Vector3Int tilePosition in rangePositions)
+            {
+                hexGrid.getTileAt(tilePosition).ResetHighlight();
+                hexGrid.getTileAt(tilePosition).DisableHighlight();
+            }
+        }
+        if (unitsPositions != null) {
+            foreach (Vector3Int tilePosition in unitsPositions)
+            {
+                Unit unit = hexGrid.getTileAt(tilePosition).unitOn;
+                if (unit != null) unit.Deselect();
+            }
+        }
+        if (pickUpsPositions != null) {
+            foreach (Vector3Int tilePosition in pickUpsPositions)
             {
                 hexGrid.getTileAt(tilePosition).ResetHighlight();
                 hexGrid.getTileAt(tilePosition).DisableHighlight();
@@ -26,6 +42,16 @@ public class Movement : MonoBehaviour{
         Vector3Int unitPosition = hexGrid.GetClosestTile(selectedUnit.transform.position);
         
         foreach(Vector3Int tilePosition in movementRange.getRangePositions()) {
+            if (unitPosition != tilePosition)
+                hexGrid.getTileAt(tilePosition).EnableHighlight();
+        }
+
+        foreach(Vector3Int tilePosition in movementRange.getUnitsPositions()) {
+            if (unitPosition != tilePosition)
+                hexGrid.getTileAt(tilePosition).unitOn.Select();
+        }
+
+        foreach(Vector3Int tilePosition in movementRange.getPickUpsPositions()) {
             if (unitPosition != tilePosition)
                 hexGrid.getTileAt(tilePosition).EnableHighlight();
         }
@@ -45,19 +71,37 @@ public class Movement : MonoBehaviour{
     }
 
     public void CalculateRange(Unit selectedUnit, HexGrid hexGrid) {
-        movementRange = GraphSearch.BFSGetRange(hexGrid, hexGrid.GetClosestTile(selectedUnit.transform.position), selectedUnit.MovementPoints);
+        movementRange = GraphSearch.BFSGetRange(hexGrid, hexGrid.GetClosestTile(selectedUnit.transform.position), selectedUnit.MovementPoints, selectedUnit.GetComponent<Character>().side == Side.Monsters);
     }
 
     public void ShowPath(Vector3Int selectedTilePosition, HexGrid hexGrid) {
-        if (movementRange.getRangePositions().Contains(selectedTilePosition)) {
+        Vector3Int targetTilePosition = new Vector3Int();
+        IEnumerable<Vector3Int> unitsPositions = movementRange.getUnitsPositions();
+        IEnumerable<Vector3Int> pickUpsPositions = movementRange.getPickUpsPositions();
+        
+        if(unitsPositions != null && unitsPositions.Contains(selectedTilePosition) 
+        || pickUpsPositions != null && movementRange.getPickUpsPositions().Contains(selectedTilePosition)) targetTilePosition = getClosestNeighbor(selectedTilePosition, hexGrid);
+        else if (movementRange.getRangePositions().Contains(selectedTilePosition)) targetTilePosition = selectedTilePosition;
+
+        
+        if (targetTilePosition != new Vector3Int()) {
             foreach (Vector3Int tilePosition in currentPath) {
                 hexGrid.getTileAt(tilePosition).ResetHighlight();
             }
-            currentPath = movementRange.getPathTo(selectedTilePosition);
+            currentPath = movementRange.getPathTo(targetTilePosition);
             foreach (Vector3Int tilePosition in currentPath) {
                 hexGrid.getTileAt(tilePosition).HighlightPath();
             }
         }
+        else Debug.Log("Something went wrong");
+    }
+
+    public Vector3Int getClosestNeighbor(Vector3Int selectedTilePosition, HexGrid hexGrid) {
+        IEnumerable<Vector3Int> rangePositions = movementRange.getRangePositions();
+        foreach(Vector3Int position in hexGrid.getNeightbours(selectedTilePosition)) {
+            if (rangePositions.Contains(position)) return position;
+        }
+        return new Vector3Int();
     }
 
     public void moveUnit (Unit selectedUnit, HexGrid hexGrid) {
@@ -67,5 +111,37 @@ public class Movement : MonoBehaviour{
 
     public bool tileInRange (Vector3Int tilePosition) {
         return movementRange.tileInRange(tilePosition);
+    }
+
+    public Vector3Int findPath(Vector3Int target, Unit selectedUnit, HexGrid hexGrid) {
+        Vector3Int targetTilePosition = target;
+        IEnumerable<Vector3Int> unitsPositions = movementRange.getUnitsPositions();
+        IEnumerable<Vector3Int> pickUpsPositions = movementRange.getPickUpsPositions();
+
+        if(unitsPositions != null && unitsPositions.Contains(target) 
+        || pickUpsPositions != null && movementRange.getPickUpsPositions().Contains(target)) targetTilePosition = getClosestNeighbor(target, hexGrid);
+
+        //Debug.LogWarning(selectedUnit);
+        BFSearch fullRange = GraphSearch.BFSGetRange(hexGrid, hexGrid.GetClosestTile(selectedUnit.transform.position), 100, selectedUnit.GetComponent<Character>().side == Side.Monsters);
+        List<Vector3Int> path = fullRange.checkPathTo(targetTilePosition);
+        path.Reverse();
+
+        if (path != new List<Vector3Int>()) {
+            IEnumerable<Vector3Int> rangePositions = movementRange.getRangePositions();
+            if (rangePositions != null) {
+                foreach (Vector3Int pathPosition in path) {
+                    foreach (Vector3Int tilePosition in rangePositions) if (tilePosition == pathPosition) return tilePosition;
+                }
+            }
+        }
+        return new Vector3Int();
+    }
+
+    public IEnumerable<Vector3Int> getUnitsInRange() {
+        return movementRange.getUnitsPositions();
+    }
+
+    public IEnumerable<Vector3Int> getRangePositions() {
+        return movementRange.getRangePositions();
     }
 }
