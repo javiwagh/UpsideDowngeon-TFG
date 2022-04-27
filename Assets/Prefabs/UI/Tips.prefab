@@ -215,7 +215,7 @@ MonoBehaviour:
   - Adventurers can move twice per turn
   - Click on a monster to SELECT IT
   - A selected monster will show its MOVEMENT RANGE
-  - Monsters can move twice per turn
+  - Monsters can move once per turn
   - Click once on a glowing tile or foe to SHOW THE PATH
   - DOUBLE CLICK on the target to confirm any monster action
   - ANY MONSTER OR ADVENTURER CAN PICK THE KEY!
@@ -594,7 +594,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 45.3
+  m_fontSize: 45.25
   m_fontSizeBase: 26
   m_fontWeight: 400
   m_enableAutoSizing: 1

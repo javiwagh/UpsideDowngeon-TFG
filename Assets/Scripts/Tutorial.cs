@@ -13,9 +13,12 @@ public class Tutorial : MonoBehaviour
     public Button continueButton;
     public Button skipButton;
     public TipPanel tipPanel;
+
+    public GameObject pauseButton;
     
     void Start()
     {
+        pauseButton.SetActive(false);
         tipPanel.gameObject.SetActive(false);
         continueButton.interactable = false;
         skipButton.interactable = false;
@@ -51,6 +54,7 @@ public class Tutorial : MonoBehaviour
     }
 
     public void SkipTutorial() {
+        pauseButton.SetActive(true);
         continueButton.interactable = false;
         skipButton.interactable = false;
         playerCameraController.playerPanControl = true;
