@@ -123,6 +123,7 @@ public class UnitManager : MonoBehaviour
 
     private void clearTargets() {
         foreach (Unit availableTarget in availableMeleeTargets) {
+            availableTarget.ResetHighlight();
             availableTarget.Deselect();
         }
         availableMeleeTargets = new List<Unit>();
@@ -183,6 +184,7 @@ public class UnitManager : MonoBehaviour
             this.unitToSpawn = null;
         }
         if (this.selectedUnit != null) {
+            this.selectedUnit.ResetHighlight();
             this.selectedUnit.Deselect();
             this.selectedUnit = null;
         }
@@ -205,9 +207,17 @@ public class UnitManager : MonoBehaviour
         }      
         
         if (previouslySelectedTile == null || previouslySelectedTile != selectedTile) {
+            if (previouslySelectedTile != null) {
+                previouslySelectedTile.ResetHighlight();
+                if (previouslySelectedTile.unitOn != null) previouslySelectedTile.unitOn.ResetHighlight();
+            }
             previouslySelectedTile = selectedTile;
             if (!(selectedTile.hasPickUp() || selectedTile.isOccupied())) movementManager.ShowPath(selectedTile.HexagonCoordinates, this.hexGrid);
-            else if (!Neighbours(selectedUnit.onTile, selectedTile)) movementManager.ShowPath(selectedTile.HexagonCoordinates, this.hexGrid);
+            else {
+                if (!Neighbours(selectedUnit.onTile, selectedTile)) movementManager.ShowPath(selectedTile.HexagonCoordinates, this.hexGrid);
+                if(selectedTile.isOccupied()) selectedTile.unitOn.HighlightTarget();
+                else selectedTile.HighlightTarget();
+            }
         }
         else {
             bool selectedTileIsNeighbor = Neighbours(selectedUnit.onTile, selectedTile);
@@ -252,6 +262,7 @@ public class UnitManager : MonoBehaviour
     private bool handleTileWithSelectedUnitOn(Vector3Int tilePosition) {
         if(tilePosition == selectedUnit.onTile.HexagonCoordinates) {
              Debug.Log("The tile is not reachable");
+            selectedUnit.ResetHighlight();
             selectedUnit.Deselect();
             ClearSelection();
             return true;

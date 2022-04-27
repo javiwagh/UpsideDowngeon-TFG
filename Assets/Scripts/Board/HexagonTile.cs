@@ -108,6 +108,10 @@ public class HexagonTile : MonoBehaviour
     public void HighlightPath() {
         highlight.HighlightPath();
     }
+
+    public void HighlightTarget() {
+        highlight.HighlightTarget();
+    }
 }
 
 public enum TileType {

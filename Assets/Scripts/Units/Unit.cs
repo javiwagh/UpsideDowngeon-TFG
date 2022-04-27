@@ -47,6 +47,14 @@ public class Unit : MonoBehaviour
         glowHighlight.ToggleGlow(true);
     }
 
+    public void HighlightTarget() {
+        glowHighlight.HighlightTarget();
+    }
+
+    public void ResetHighlight() {
+        glowHighlight.ResetHighlight();
+    }
+
     public void moveThroughPath(List<Vector3> currentPath){
         if (!spendActionPoint()) return;
         gameManager.Move();

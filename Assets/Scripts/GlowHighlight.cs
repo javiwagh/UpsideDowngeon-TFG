@@ -13,6 +13,7 @@ public class GlowHighlight : MonoBehaviour
     private bool isGlowing = false;
 
     private UnityEngine.Color yellowColor = UnityEngine.Color.yellow;
+    private UnityEngine.Color redColor = UnityEngine.Color.red;
     private UnityEngine.Color originalGlowColor;
     private float originalGlowPower;
 
@@ -75,6 +76,17 @@ public class GlowHighlight : MonoBehaviour
         foreach(Renderer renderer in glowMaterialDictionary.Keys) {
             foreach(Material item in glowMaterialDictionary[renderer]) {
                 item.SetColor("_GlowColor", yellowColor);
+                item.SetFloat("_GlowPower", 1.0f);
+            }
+            renderer.materials = glowMaterialDictionary[renderer];
+        }
+    }
+
+    public void HighlightTarget() {
+        if (isGlowing == false) return;
+        foreach(Renderer renderer in glowMaterialDictionary.Keys) {
+            foreach(Material item in glowMaterialDictionary[renderer]) {
+                item.SetColor("_GlowColor", redColor);
                 item.SetFloat("_GlowPower", 1.0f);
             }
             renderer.materials = glowMaterialDictionary[renderer];

@@ -23,7 +23,10 @@ public class Movement : MonoBehaviour{
             foreach (Vector3Int tilePosition in unitsPositions)
             {
                 Unit unit = hexGrid.getTileAt(tilePosition).unitOn;
-                if (unit != null) unit.Deselect();
+                if (unit != null) {
+                    unit.ResetHighlight();
+                    unit.Deselect();
+                } 
             }
         }
         if (pickUpsPositions != null) {
