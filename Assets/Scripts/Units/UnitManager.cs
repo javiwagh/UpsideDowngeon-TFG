@@ -12,7 +12,6 @@ public class UnitManager : MonoBehaviour
     [SerializeField]
     private HexGrid hexGrid;
 
-    [SerializeField]
     private List<GameObject> unitsOnBoard = new List<GameObject>();
     private List<GameObject> monstersOnBoard = new List<GameObject>();
     private List<GameObject> adventurersOnBoard = new List<GameObject>();

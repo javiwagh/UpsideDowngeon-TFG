@@ -368,6 +368,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 366540811}
     m_Modifications:
+    - target: {fileID: 6400186018496149608, guid: 04ac8b7afe4b8a741aabc0d62fba069d, type: 3}
+      propertyPath: roomsAvailable.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6400186018496149608, guid: 04ac8b7afe4b8a741aabc0d62fba069d, type: 3}
+      propertyPath: roomsAvailable.Array.data[0]
+      value: 
+      objectReference: {fileID: 1624096520}
+    - target: {fileID: 6400186018496149608, guid: 04ac8b7afe4b8a741aabc0d62fba069d, type: 3}
+      propertyPath: roomsAvailable.Array.data[1]
+      value: 
+      objectReference: {fileID: 1177154278}
     - target: {fileID: 8111602194784852096, guid: 04ac8b7afe4b8a741aabc0d62fba069d, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -835,9 +847,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManager: {fileID: 705070424}
   hexGrid: {fileID: 366540810}
-  unitsOnBoard:
-  - {fileID: 1084984227}
-  - {fileID: 0}
   movementManager: {fileID: 1845198017}
   selectedUnit: {fileID: 0}
 --- !u!4 &161426599
@@ -3828,11 +3837,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1074281543}
   m_CullTransparentMesh: 1
---- !u!1 &1084984227 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4319466905522402847, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
-  m_PrefabInstance: {fileID: 4319466904438472124}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1084984228 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4319466905522402840, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
@@ -5082,6 +5086,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 366540811}
     m_Modifications:
+    - target: {fileID: 6400186018496149608, guid: 04ac8b7afe4b8a741aabc0d62fba069d, type: 3}
+      propertyPath: roomsAvailable.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6400186018496149608, guid: 04ac8b7afe4b8a741aabc0d62fba069d, type: 3}
+      propertyPath: roomsAvailable.Array.data[0]
+      value: 
+      objectReference: {fileID: 1624096520}
+    - target: {fileID: 6400186018496149608, guid: 04ac8b7afe4b8a741aabc0d62fba069d, type: 3}
+      propertyPath: roomsAvailable.Array.data[1]
+      value: 
+      objectReference: {fileID: 169611567}
     - target: {fileID: 8111602194784852096, guid: 04ac8b7afe4b8a741aabc0d62fba069d, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -5353,6 +5369,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 366540811}
     m_Modifications:
+    - target: {fileID: 6400186018496149608, guid: 04ac8b7afe4b8a741aabc0d62fba069d, type: 3}
+      propertyPath: roomsAvailable.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6400186018496149608, guid: 04ac8b7afe4b8a741aabc0d62fba069d, type: 3}
+      propertyPath: roomsAvailable.Array.data[0]
+      value: 
+      objectReference: {fileID: 1624096520}
+    - target: {fileID: 6400186018496149608, guid: 04ac8b7afe4b8a741aabc0d62fba069d, type: 3}
+      propertyPath: roomsAvailable.Array.data[1]
+      value: 
+      objectReference: {fileID: 1983069946}
     - target: {fileID: 8111602194784852096, guid: 04ac8b7afe4b8a741aabc0d62fba069d, type: 3}
       propertyPath: m_Mesh
       value: 

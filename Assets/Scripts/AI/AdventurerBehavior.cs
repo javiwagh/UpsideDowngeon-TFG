@@ -57,6 +57,7 @@ public class AdventurerBehavior : MonoBehaviour
             } 
         }
         if (!attacking) {
+            Debug.Log("Nope.");
             Debug.Log("Do I have the key?");
             if (gotTheKey()) {
                 Debug.Log("Yes, I got the key");
@@ -82,7 +83,7 @@ public class AdventurerBehavior : MonoBehaviour
                 else {
                     Debug.Log("Nope, gotta find that key!");
                     Debug.Log("Is there a monster with the key in the room?");
-                    if (tileWithKeyMonster == null) tileWithKeyMonster = lookForKeyMonstersInRoom();
+                    tileWithKeyMonster = lookForKeyMonstersInRoom();
                     if (tileWithKeyMonster != null) {
                         Debug.Log("YES! GOTTA KILL IT!");
                         attacking = true;
