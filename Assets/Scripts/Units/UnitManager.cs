@@ -43,8 +43,8 @@ public class UnitManager : MonoBehaviour
     }
 
     public void handleSpawnButtonClick(GameObject unit) {
+        ClearSelection();
         if(gameManager.monstersTurn && checkEnoughMana(unit.GetComponent<Character>().cost)) {
-            ClearSelection();
             movementManager.ShowSpawnRange(hexGrid);
             unitToSpawn = unit;
         }

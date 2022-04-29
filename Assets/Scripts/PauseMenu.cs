@@ -10,6 +10,9 @@ public class PauseMenu : MonoBehaviour
     private Animator blackFadeAnimator;
 
     [SerializeField]
+    private Image gear;
+
+    [SerializeField]
     private List<GameObject> UIElements = new List<GameObject>();
     public GameObject menu;
     private Button pauseButton;
@@ -25,7 +28,7 @@ public class PauseMenu : MonoBehaviour
         menu.SetActive(true);
 
         pauseButton.interactable = false;
-        gameObject.GetComponent<Image>().enabled = false;
+        gear.enabled = false;
 
         playerCameraController.playerPanControl = false;
     }
@@ -35,7 +38,7 @@ public class PauseMenu : MonoBehaviour
         menu.SetActive(false);
 
         pauseButton.interactable = true;
-        gameObject.GetComponent<Image>().enabled = true;
+        gear.enabled = true;
 
         playerCameraController.playerPanControl = true;
     }
