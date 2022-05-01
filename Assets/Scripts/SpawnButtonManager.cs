@@ -33,19 +33,23 @@ public class SpawnButtonManager : MonoBehaviour
         originalTextColor = trollText.color;
     }
 
-    private void OnMouseEnter() {
-        toggleSpawnPannel();
+    /*private void OnMouseEnter() {
+        toggleSpawnPannel(true);
     }
 
-    public void toggleSpawnPannel() {
+    private void OnMouseExit() {
+        toggleSpawnPannel(false);
+    }*/
+
+    public void toggleSpawnPannel(bool show) {
         Animator animator = spawnPannel.GetComponent<Animator>();
         bool state = animator.GetBool("Show");
 
-        animator.SetBool("Show", !state);
-        spawnTrollButton.interactable = !state;
-        spawnGoblinButton.interactable = !state;
-        spawnRatButton.interactable = !state;
-        spawnSpiderButton.interactable = !state;
+        animator.SetBool("Show", show);
+        spawnTrollButton.interactable = show;
+        spawnGoblinButton.interactable = show;
+        spawnRatButton.interactable = show;
+        spawnSpiderButton.interactable = show;
     }
 
     public void disableSpawnButtons(int currentMana) {

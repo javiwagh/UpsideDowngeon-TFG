@@ -20,6 +20,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private Button endTurnButton;
+    [SerializeField]
+    private SpawnButtonManager spawnPannel;
+
     public bool monstersTurn {get; private set;} = true;
     public bool endedStage {get; private set;} = false;
     private void Start() {
@@ -37,12 +40,14 @@ public class GameManager : MonoBehaviour
             endTurnButton.interactable = true;
             player.manaPoints = 5;
             player.updateMana();
+            spawnPannel.toggleSpawnPannel(true);
         }
         else {
             Debug.Log("It's adventurer's turn!");
             endTurnButton.interactable = false;
             player.manaPoints = 0;
             player.updateMana();
+            spawnPannel.toggleSpawnPannel(false);
         }
     }
 
