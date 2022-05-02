@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class GlowHighlight : MonoBehaviour
 {
+    public Renderer TileRenderer;
     Dictionary<Renderer, Material[]> glowMaterialDictionary = new Dictionary<Renderer, Material[]>();
     Dictionary<Renderer, Material[]> originalMaterialDictionary = new Dictionary<Renderer, Material[]>();
     Dictionary<UnityEngine.Color, Material> catchedGlowMaterials = new Dictionary<UnityEngine.Color, Material>();
@@ -24,20 +25,18 @@ public class GlowHighlight : MonoBehaviour
     }
 
     private void SetMaterialDictionaries() {
-        foreach(Renderer renderer in GetComponentsInChildren<Renderer>()) {
-            Material[] originalMaterials = renderer.materials;
-            originalMaterialDictionary.Add(renderer, originalMaterials);
-            Material[] newMaterials = new Material[renderer.materials.Length];
-            for (int i = 0; i < originalMaterials.Length; i++) {
-                Material mat = null;
-                if (catchedGlowMaterials.TryGetValue(originalMaterials[i].color, out mat) == false) {
-                    mat = new Material (glowMaterial);
-                    mat.color = originalMaterials[i].color;
-                }
-                newMaterials[i] = mat;
+        Material[] originalMaterials = TileRenderer.materials;
+        originalMaterialDictionary.Add(TileRenderer, originalMaterials);
+        Material[] newMaterials = new Material[TileRenderer.materials.Length];
+        for (int i = 0; i < originalMaterials.Length; i++) {
+            Material mat = null;
+            if (catchedGlowMaterials.TryGetValue(originalMaterials[i].color, out mat) == false) {
+                mat = new Material (glowMaterial);
+                mat.color = UnityEngine.Color.grey;
             }
-            glowMaterialDictionary.Add(renderer, newMaterials);
+            newMaterials[i] = mat;
         }
+        glowMaterialDictionary.Add(TileRenderer, newMaterials);
     }
 
     public void ToggleGlow() {

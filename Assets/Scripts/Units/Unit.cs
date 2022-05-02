@@ -17,7 +17,7 @@ public class Unit : MonoBehaviour
     public int MovementPoints {get => movementPoints;}
 
     [SerializeField]
-    private GameManager gameManager;
+    public GameManager gameManager;
     private GlowHighlight glowHighlight;
     public Character character;
     public HexagonTile onTile;

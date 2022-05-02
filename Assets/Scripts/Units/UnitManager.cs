@@ -199,6 +199,7 @@ public class UnitManager : MonoBehaviour
             GameObject newUnit = Instantiate(unitToSpawn, new Vector3 (selectedTile.transform.position.x, UNITPOSITION_Y, selectedTile.transform.position.z),
              new Quaternion(selectedTile.transform.rotation.x, selectedTile.transform.rotation.y, selectedTile.transform.rotation.z, selectedTile.transform.rotation.w));
             newUnit.transform.RotateAround(newUnit.transform.position, Vector3.up, 150f);
+            newUnit.GetComponent<Unit>().gameManager = gameManager;
             ClearSelection();
             addUnit(newUnit);
             spendMana(newUnit.GetComponent<Character>().cost);
