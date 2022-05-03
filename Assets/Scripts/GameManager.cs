@@ -114,6 +114,14 @@ public class GameManager : MonoBehaviour
         this.gameState = GameState.Waiting;
     }
 
+    public void followAdventurer(GameObject adventurer) {
+        player.GetComponent<CameraController>().followAdventurer(adventurer);
+    }
+
+    public void freeCamera() {
+        player.GetComponent<CameraController>().freeCamera();
+    }
+
     public enum GameState {
         Moving,
         Waiting,

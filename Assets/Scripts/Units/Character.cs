@@ -36,7 +36,7 @@ public class Character : MonoBehaviour
                 adventurerType = null;
             break;
             case CharacterName.Troll:
-                skill = Skill.Bulk;
+                skill = Skill.None;
                 unitType = UnitType.Monster;
                 monsterType = MonsterType.Troll;
                 side = Side.Monsters;
@@ -157,6 +157,5 @@ public enum Skill {
     Poisonous,
     Paralyse,
     Stab,
-    Bulk,
     None
 }

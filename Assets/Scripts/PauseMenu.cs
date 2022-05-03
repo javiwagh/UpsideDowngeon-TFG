@@ -17,6 +17,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject menu;
     private Button pauseButton;
     public CameraController playerCameraController;
+    public TooltipManager tooltipManager;
     void Awake()
     {
         pauseButton = this.GetComponent<Button>();
@@ -31,6 +32,7 @@ public class PauseMenu : MonoBehaviour
         gear.enabled = false;
 
         playerCameraController.playerPanControl = false;
+        tooltipManager.paused = true;
     }
 
     public void closePauseMenu() {
@@ -41,6 +43,7 @@ public class PauseMenu : MonoBehaviour
         gear.enabled = true;
 
         playerCameraController.playerPanControl = true;
+        tooltipManager.paused = false;
     }
 
     public void RestartGame() {

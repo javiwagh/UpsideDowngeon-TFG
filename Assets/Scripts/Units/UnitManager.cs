@@ -312,12 +312,14 @@ public class UnitManager : MonoBehaviour
         foreach(GameObject adventurer in adventurersOnBoard) {
             AdventurerBehavior behavior = adventurer.GetComponent<AdventurerBehavior>();
             while(adventurer.GetComponent<Unit>().actionPoints > 0 && !gameManager.isStageEnded()) {
+                gameManager.followAdventurer(adventurer);
                 behavior.Perform();
                 while (behavior.Performing) yield return null;
                 ClearSelection();
             }
             if (gameManager.isStageEnded()) break;
-        } 
+        }
+        
         endTurn();
     }
 
@@ -336,7 +338,7 @@ public class UnitManager : MonoBehaviour
                 if (tile.unitOn.GetComponent<Character>().side == Side.Monsters) monstersTileList.Add(tile);
             }
         }
-
+        gameManager.freeCamera();
         return monstersTileList;
     }
 

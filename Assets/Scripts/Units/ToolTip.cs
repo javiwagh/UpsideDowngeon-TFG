@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ToolTip : MonoBehaviour
 {
@@ -10,14 +11,15 @@ public class ToolTip : MonoBehaviour
     private string side;
     private int actions;
     Dictionary<string, string> stats = new Dictionary<string, string>();
+
     public void setInfo(Character character) {
         if (character.unitType != UnitType.Nest) {
             unitName = character.characterName.ToString();
             side = character.unitType.ToString();
-            stats.Add("HP", "Current Health: " + character.healthPoints);
-            stats.Add("SPEED", "Speed: " + character.speed);
-            stats.Add("STRENGTH", "Strength: " + character.meleeDamage);
-            if (character.skill != Skill.None) stats.Add("SKILL", "Skill: " + character.skill);
+            stats.Add("HP", character.healthPoints.ToString());
+            stats.Add("SPEED", character.speed.ToString());
+            stats.Add("ATK", character.meleeDamage.ToString());
+            if (character.skill != Skill.None) stats.Add("SKILL", character.skill.ToString());
             if (this.GetComponent<Unit>().poisonCounter > 0) stats.Add("POISON", "Poisoned");
             if (this.GetComponent<Unit>().paralysed) stats.Add("PARALYSE", "Paralysed");
             actions = character.GetComponent<Unit>().actionPoints;
@@ -29,7 +31,7 @@ public class ToolTip : MonoBehaviour
     }
 
     public void updateHealth(int HP) {
-        stats["HP"] = "Current Health: " + HP;
+        stats["HP"] = HP.ToString();
 
         string value = "";
         if (this.GetComponent<Unit>().poisonCounter > 0) {

@@ -20,15 +20,19 @@ public class CameraController : MonoBehaviour
     private Vector2 limit;
     private Vector3 cameraOffset;
 
+    private GameObject target;
+
     private void Awake() {
         playerInput.GetComponent<PlayerInput>();
         playerInputActions = new PlayerInputActions();
         playerInputActions.Player.Enable();
         playerInputActions.Player.Zoom.performed += performZoom;
         cameraOffset = this.transform.position;
+        target = null;
     }
 
     private void Update() {
+        Debug.LogWarning($"My target is {target}");
         if (playerPanControl) {
             Vector2 input = playerInputActions.Player.Movement.ReadValue<Vector2>();
             Vector3 move = new Vector3();
@@ -55,5 +59,13 @@ public class CameraController : MonoBehaviour
         //Debug.Log("Hewo?");
         //context.ReadValue<float>(); 
         //Debug.Log(context.ReadValue<float>());
+    }
+
+    public void followAdventurer(GameObject adventurer) {
+        target = adventurer;
+    }
+
+    public void freeCamera() {
+        target = null;
     }
 }
