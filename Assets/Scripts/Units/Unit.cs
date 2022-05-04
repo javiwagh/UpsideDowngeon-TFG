@@ -7,10 +7,14 @@ public class Unit : MonoBehaviour
 {
     [SerializeField]
     private float MOVEMENT_DURATION = 0.5f, ROTATION_DURATION = 0.1f;
-    private const int POISON_DURATION = 2;
-    private const int PARALYSE_DURATION = 1;
+    private const int POISON_DURATION = 3;
+    private const int PARALYSE_DURATION = 2;
     private const int BASE_ADVENTURER_ACTION_POINTS = 2;
     private const int BASE_MONSTER_ACTION_POINTS = 1;
+    private const int BASE_POPUP_MODE = 1;
+    private const int CRITICAL_POPUP_MODE = 2;
+    private const int POISON_POPUP_MODE = 3;
+    private const int PARALYSE_POPUP_MODE = 4;
     private Unit lastPoisonAttacker;
     private int movementPoints;
     public int actionPoints;
@@ -30,6 +34,8 @@ public class Unit : MonoBehaviour
     private int poisonTimer = 0;
     private int paralysedTimer = 0;
     public GameObject keyInstance;
+    [SerializeField] 
+    private Transform damagePopup;
 
     private void Awake() {
         glowHighlight = GetComponent<GlowHighlight>();
@@ -113,8 +119,10 @@ public class Unit : MonoBehaviour
         character.toolTip.updateActionPoints(actionPoints);
     }
 
-    public void recieveDamage(int damage, Unit attacker){
+    public void recieveDamage(int damage, Unit attacker, int mode){
         this.character.healthPoints -= damage;
+        popup("-" + damage, mode);
+        
         if (this.character.healthPoints <= 0) {
             this.character.healthPoints = 0;
             onTile.resetTileType();
@@ -125,34 +133,52 @@ public class Unit : MonoBehaviour
         else character.toolTip.updateHealth(character.healthPoints);
     }
 
-    public void getStab(int damage, Quaternion attackerRotation, Unit attacker){
-        float dotRotation = Quaternion.Dot(attackerRotation, this.transform.rotation);
-        if (dotRotation > 0.6f || dotRotation < -0.6f) damage = damage * 2;
-        
-        recieveDamage(damage, attacker);
+    private void popup(string text, int mode) {
+        Transform damagePopupInstance = Instantiate(damagePopup, transform.position, Quaternion.identity);
+        damagePopupInstance.GetComponent<DMGPopup>().setText(text, mode);
     }
 
-    public void getSting(Unit attacker){
+    public void getStab(int damage, Quaternion attackerRotation, Unit attacker){
+        int critical = BASE_POPUP_MODE;
+        float dotRotation = Quaternion.Dot(attackerRotation, this.transform.rotation);
+        if (dotRotation > 0.6f || dotRotation < -0.6f) {
+            damage = damage * 2;
+            critical = CRITICAL_POPUP_MODE;
+        }
+        
+        
+        recieveDamage(damage, attacker, critical);
+    }
+
+    public IEnumerator getSting(Unit attacker){
         //A paralysed adventurer will not to move a single tile the next turn
+        
         paralysed = true;
         paralysedTimer = PARALYSE_DURATION;
         int damage = 1;
-        recieveDamage(damage, attacker);
+        
+        recieveDamage(damage, attacker, PARALYSE_POPUP_MODE);
+        yield return new WaitForSeconds(0.3f);
+        popup("PARALYSED", PARALYSE_POPUP_MODE);
     }
 
-    public void getPoisoningBite(Unit attacker){
+    public IEnumerator getPoisoningBite(Unit attacker){
         //A poisoned adventurer will receive low damage the next two turn shifts
+        
         poisonCounter += 1;
         poisonTimer = POISON_DURATION;
         int damage = 1;
-        lastPoisonAttacker = attacker;  
-        recieveDamage(damage, attacker);
+        lastPoisonAttacker = attacker;
+     
+        recieveDamage(damage, attacker, POISON_POPUP_MODE);
+        yield return new WaitForSeconds(0.2f); 
+        popup("POISONED", POISON_POPUP_MODE);
     }
 
     public void TurnShiftUnitActions() {
         //POISON
         if (poisonCounter >= 1 && this.character.healthPoints > 1) {
-            recieveDamage(1, lastPoisonAttacker);
+            recieveDamage(1, lastPoisonAttacker, POISON_POPUP_MODE);
             poisonTimer -= 1;
             if (poisonTimer <= 0) {
                 poisonCounter -= 1;
@@ -213,13 +239,13 @@ public class Unit : MonoBehaviour
                     target.getStab(this.character.meleeDamage, this.transform.rotation, this);
                 break;
                 case MonsterType.Troll:
-                    target.recieveDamage(this.character.meleeDamage, this);
+                    target.recieveDamage(this.character.meleeDamage, this, BASE_POPUP_MODE);
                 break;
                 case MonsterType.Spider:
-                    target.getSting(this);
+                    StartCoroutine(target.getSting(this));
                 break;
                 case MonsterType.Rat:
-                    target.getPoisoningBite(this);
+                    StartCoroutine(target.getPoisoningBite(this));
                 break;
                 default:
                     Debug.Log($"Monster type not supported: {this.character.monsterType}");
@@ -229,7 +255,7 @@ public class Unit : MonoBehaviour
         else {
             switch (this.character.adventurerType){
                 case AdventurerType.Warrior:
-                    target.recieveDamage(this.character.meleeDamage, this);
+                    target.recieveDamage(this.character.meleeDamage, this, BASE_POPUP_MODE);
                 break;
                 case AdventurerType.Rogue:
                     target.getStab(this.character.meleeDamage, this.transform.rotation, this);

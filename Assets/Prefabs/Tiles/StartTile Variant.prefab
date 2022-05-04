@@ -8,6 +8,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1271131692190162405, guid: b68a9aaf8070a0946b5b3081df1288e6, type: 3}
+      propertyPath: costTMP
+      value: 
+      objectReference: {fileID: 3366164194878753423}
+    - target: {fileID: 1271131692190162405, guid: b68a9aaf8070a0946b5b3081df1288e6, type: 3}
       propertyPath: isSpawn
       value: 0
       objectReference: {fileID: 0}
@@ -89,3 +93,14 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 5a22ecac256132345817de284be43285, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b68a9aaf8070a0946b5b3081df1288e6, type: 3}
+--- !u!114 &3366164194878753423 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 996035829, guid: b68a9aaf8070a0946b5b3081df1288e6, type: 3}
+  m_PrefabInstance: {fileID: 3366164194691729018}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -27,6 +27,8 @@ public class UnitManager : MonoBehaviour
     List<Unit> availableMeleeTargets = new List<Unit>();
     List<HexagonTile> availablePickUps = new List<HexagonTile>();
 
+    public TooltipManager tooltipManager;
+
     public void updateUnits() {
         Unit[] units = FindObjectsOfType<Unit>();
         unitsOnBoard = new List<GameObject>();
@@ -309,6 +311,8 @@ public class UnitManager : MonoBehaviour
 
     //AI TURN METHODS
     IEnumerator PerformAITurn() {
+        tooltipManager.paused = true;
+
         foreach(GameObject adventurer in adventurersOnBoard) {
             AdventurerBehavior behavior = adventurer.GetComponent<AdventurerBehavior>();
             while(adventurer.GetComponent<Unit>().actionPoints > 0 && !gameManager.isStageEnded()) {
@@ -319,7 +323,8 @@ public class UnitManager : MonoBehaviour
             }
             if (gameManager.isStageEnded()) break;
         }
-        
+        gameManager.freeCamera();
+        tooltipManager.paused = false;
         endTurn();
     }
 
@@ -338,7 +343,6 @@ public class UnitManager : MonoBehaviour
                 if (tile.unitOn.GetComponent<Character>().side == Side.Monsters) monstersTileList.Add(tile);
             }
         }
-        gameManager.freeCamera();
         return monstersTileList;
     }
 

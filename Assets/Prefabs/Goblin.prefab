@@ -81,6 +81,7 @@ MonoBehaviour:
   poisonCounter: 0
   paralysed: 0
   keyInstance: {fileID: 6681489618534130110}
+  damagePopup: {fileID: 2920851808372281093, guid: a03b1d6e741d5c94f8ac16df35939609, type: 3}
 --- !u!114 &3325981499527651418
 MonoBehaviour:
   m_ObjectHideFlags: 0

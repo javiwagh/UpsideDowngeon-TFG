@@ -25,6 +25,11 @@ public class PauseMenu : MonoBehaviour
     }
 
     public void launchPauseMenu() {
+        StartCoroutine(pauseCorroutine());
+    }
+
+    private IEnumerator pauseCorroutine() {
+        yield return new WaitForSeconds(0.5f);
         foreach (GameObject element in UIElements) element.SetActive(false);        
         menu.SetActive(true);
 

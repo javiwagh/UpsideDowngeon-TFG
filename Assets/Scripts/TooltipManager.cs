@@ -57,17 +57,6 @@ public class TooltipManager : MonoBehaviour
 
     public void SetAndShow(string name, string side, Dictionary<string, string> stats, int actions) {
         Set(name, side, stats, actions);
-        /*nameText.text = name;
-        sideText.text = side;
-        actionsText.text = actions.ToString();
-        HP.text = stats["HP"];
-        SPEED.text = stats["SPEED"];
-        ATK.text = stats["ATK"];
-        foreach(string key in stats.Keys) {
-            string stat = stats[key];
-            statsText.text += stat;
-            statsText.text += "\n";
-        }*/
         if (!paused) {
             gameObject.SetActive(true);
             animator.SetBool("Show", true);
@@ -75,7 +64,6 @@ public class TooltipManager : MonoBehaviour
     }
 
     public void Set(string name, string side, Dictionary<string, string> stats, int actions) {
-        //gameObject.SetActive(true);
         nameText.text = name;
         sideText.text = side;
         actionsText.text = actions.ToString();
@@ -119,7 +107,6 @@ public class TooltipManager : MonoBehaviour
         gameObject.SetActive(false);
         nameText.text = string.Empty;
         sideText.text = string.Empty;
-        //statsText.text = string.Empty;
         HP.text = string.Empty;
         SPEED.text = string.Empty;
         ATK.text = string.Empty;

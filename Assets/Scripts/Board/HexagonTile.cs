@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 [SelectionBase]
 public class HexagonTile : MonoBehaviour
 {
     [SerializeField]
     private GlowHighlight highlight;
+    [SerializeField]
+    private TextMeshPro costTMP;
 
     [SerializeField]
     private TileType tileType;
@@ -22,8 +25,16 @@ public class HexagonTile : MonoBehaviour
 
     private void Awake(){
         hexCoord = GetComponent<HexCoord>();
-        highlight = GetComponent<GlowHighlight>();
+        highlight = GetComponent<GlowHighlight>();        
         setOriginalType();
+        updateCost();
+    }
+
+    private void updateCost() {
+        int cost = getCost();
+        if (cost < 10) costTMP.SetText(getCost().ToString());
+        else costTMP.SetText(string.Empty);
+        costTMP.enabled = false;
     }
 
     public void setOriginalType() {
@@ -83,10 +94,12 @@ public class HexagonTile : MonoBehaviour
     public void resetTileType() {
         this.unitOn = null;
         this.tileType = originalTileType;
+        updateCost();
     }
 
     public void enableEnd() {
         if (tileType == TileType.End) tileType = TileType.EndAvailable;
+        updateCost();
     }
 
     public bool isEnd() {
@@ -95,10 +108,12 @@ public class HexagonTile : MonoBehaviour
 
     public void EnableHighlight() {
         highlight.ToggleGlow(true);
+        costTMP.enabled = true;
     }
 
     public void DisableHighlight() {
         highlight.ToggleGlow(false);
+        costTMP.enabled = false;
     }
 
     public void ResetHighlight() {

@@ -11,6 +11,9 @@ public class CameraController : MonoBehaviour
     private bool mousePanControl;
     [SerializeField] 
     private float speed = 20f;
+    [SerializeField] 
+    private float followSpeed = 15f;
+    
     private float panZone = Screen.width / 50;
     [SerializeField] 
     private PlayerInput playerInput;
@@ -19,6 +22,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] 
     private Vector2 limit;
     private Vector3 cameraOffset;
+    public Vector2 followingCameraOffset;
 
     private GameObject target;
 
@@ -32,7 +36,11 @@ public class CameraController : MonoBehaviour
     }
 
     private void Update() {
-        Debug.LogWarning($"My target is {target}");
+        //Debug.LogWarning($"My target is {target}");
+        if (target != null) {
+            Vector3 targetPosition = new Vector3(target.transform.position.x - followingCameraOffset.x, transform.position.y, target.transform.position.z - followingCameraOffset.y);
+            transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * followSpeed);
+        }
         if (playerPanControl) {
             Vector2 input = playerInputActions.Player.Movement.ReadValue<Vector2>();
             Vector3 move = new Vector3();
@@ -63,9 +71,11 @@ public class CameraController : MonoBehaviour
 
     public void followAdventurer(GameObject adventurer) {
         target = adventurer;
+        playerPanControl = false;
     }
 
     public void freeCamera() {
         target = null;
+        playerPanControl = true;
     }
 }

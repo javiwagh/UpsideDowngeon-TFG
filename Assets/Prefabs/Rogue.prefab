@@ -82,6 +82,7 @@ MonoBehaviour:
   poisonCounter: 0
   paralysed: 0
   keyInstance: {fileID: 503948439118512541}
+  damagePopup: {fileID: 2920851808372281093, guid: a03b1d6e741d5c94f8ac16df35939609, type: 3}
 --- !u!114 &4319466905522402841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,7 +107,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.8
+  m_Radius: 1
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
