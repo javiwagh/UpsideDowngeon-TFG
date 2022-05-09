@@ -134,7 +134,8 @@ public class Unit : MonoBehaviour
     }
 
     private void popup(string text, int mode) {
-        Transform damagePopupInstance = Instantiate(damagePopup, transform.position, Quaternion.identity);
+        Transform damagePopupInstance = Instantiate(damagePopup, transform.position, gameManager.player.transform.rotation);
+        ;
         damagePopupInstance.GetComponent<DMGPopup>().setText(text, mode);
     }
 
@@ -150,29 +151,50 @@ public class Unit : MonoBehaviour
         recieveDamage(damage, attacker, critical);
     }
 
+    private bool coinFlip() {
+        if (Random.value < 0.5f) return true;
+        return false;
+    }
     public IEnumerator getSting(Unit attacker){
         //A paralysed adventurer will not to move a single tile the next turn
-        
-        paralysed = true;
-        paralysedTimer = PARALYSE_DURATION;
+        int mode = BASE_POPUP_MODE;
+        if (coinFlip()) {
+            paralysed = true;
+            paralysedTimer = PARALYSE_DURATION;
+            mode = PARALYSE_POPUP_MODE;
+        }
+
         int damage = 1;
         
-        recieveDamage(damage, attacker, PARALYSE_POPUP_MODE);
-        yield return new WaitForSeconds(0.3f);
-        popup("PARALYSED", PARALYSE_POPUP_MODE);
+        recieveDamage(damage, attacker, mode);
+        if (mode == PARALYSE_POPUP_MODE) {
+            yield return new WaitForSeconds(0.2f);
+            popup("PARALYSED", mode);
+        }
+        yield return null;
     }
 
     public IEnumerator getPoisoningBite(Unit attacker){
         //A poisoned adventurer will receive low damage the next two turn shifts
+        int mode = BASE_POPUP_MODE;
+
+        if (coinFlip()) {
+            poisonCounter += 1;
+            poisonTimer = POISON_DURATION;
+            lastPoisonAttacker = attacker;
+            mode = POISON_POPUP_MODE;
+        }
         
-        poisonCounter += 1;
-        poisonTimer = POISON_DURATION;
         int damage = 1;
-        lastPoisonAttacker = attacker;
+        
      
-        recieveDamage(damage, attacker, POISON_POPUP_MODE);
-        yield return new WaitForSeconds(0.2f); 
-        popup("POISONED", POISON_POPUP_MODE);
+        recieveDamage(damage, attacker, mode);
+
+        if (mode == POISON_POPUP_MODE) {
+            yield return new WaitForSeconds(0.2f); 
+            popup("POISONED", mode);
+        }
+        yield return null;
     }
 
     public void TurnShiftUnitActions() {
