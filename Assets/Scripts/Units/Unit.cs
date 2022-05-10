@@ -134,8 +134,9 @@ public class Unit : MonoBehaviour
     }
 
     private void popup(string text, int mode) {
-        Transform damagePopupInstance = Instantiate(damagePopup, transform.position, gameManager.player.transform.rotation);
-        ;
+        Vector3 position = keyInstance.transform.position;
+        Transform damagePopupInstance = Instantiate(damagePopup, position, gameManager.player.transform.rotation);
+        
         damagePopupInstance.GetComponent<DMGPopup>().setText(text, mode);
     }
 
