@@ -11958,13 +11958,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1833580412}
     m_Modifications:
-    - target: {fileID: 4319466905522402836, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
-      propertyPath: meleeDamage
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4319466905522402836, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
-      propertyPath: healthPoints
-      value: 12
+    - target: {fileID: 503948439118512541, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4319466905522402840, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
       propertyPath: m_RootOrder
@@ -12010,10 +12006,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4319466905522402841, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
-      propertyPath: glowMaterial
-      value: 
-      objectReference: {fileID: 2100000, guid: 8caefef3b85109c4585ee54fdc42f21d, type: 2}
     - target: {fileID: 4319466905522402842, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
       propertyPath: gameManager
       value: 
@@ -12021,6 +12013,18 @@ PrefabInstance:
     - target: {fileID: 4319466905522402847, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
       propertyPath: m_Name
       value: Rogue
+      objectReference: {fileID: 0}
+    - target: {fileID: 4358197179686848174, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4358197179686848174, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4358197179686848174, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 5651180536676508661, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
       propertyPath: unitManager
