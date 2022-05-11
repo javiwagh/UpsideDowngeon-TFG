@@ -9241,7 +9241,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 0.8, g: 0.85, b: 1, a: 1}
-  m_Intensity: 0.5
+  m_Intensity: 0.2
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -12093,6 +12093,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1487388516436167558, guid: e2f23569fe17aee418ba8d9c884d691a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ba7aecf8a451c8f4ba900c3fa06068db, type: 2}
     - target: {fileID: 2511568521322055991, guid: e2f23569fe17aee418ba8d9c884d691a, type: 3}
       propertyPath: m_Range
       value: 5
@@ -12218,6 +12222,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4910918487449117030, guid: c541a6f2b66d48b44adc7ab83b355aaf, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dc4ad5d1ce66dff43a7bed96d374c97a, type: 2}
     - target: {fileID: 9170652433872724826, guid: c541a6f2b66d48b44adc7ab83b355aaf, type: 3}
       propertyPath: unitManager
       value: 
