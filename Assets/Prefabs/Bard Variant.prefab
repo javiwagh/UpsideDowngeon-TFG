@@ -17,7 +17,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4319466905522402836, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
       propertyPath: meleeDamage
-      value: 2
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4319466905522402836, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
+      propertyPath: healthPoints
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 4319466905522402836, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
       propertyPath: characterName
@@ -29,15 +33,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4319466905522402840, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4319466905522402840, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5411864
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4319466905522402840, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1.73
       objectReference: {fileID: 0}
     - target: {fileID: 4319466905522402840, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
       propertyPath: m_LocalRotation.w
@@ -73,7 +77,11 @@ PrefabInstance:
       objectReference: {fileID: 2920851808372281093, guid: a03b1d6e741d5c94f8ac16df35939609, type: 3}
     - target: {fileID: 4319466905522402847, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
       propertyPath: m_Name
-      value: Bard Variant
+      value: Bard
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859387226602070904, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8434858739608576457, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
       propertyPath: m_Materials.Array.data[0]

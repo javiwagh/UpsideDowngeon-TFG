@@ -9240,18 +9240,18 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Color: {r: 0.8, g: 0.85, b: 1, a: 1}
+  m_Intensity: 0.5
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 0
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 0.8
-    m_Bias: 0.5
+    m_Bias: 5
     m_NormalBias: 1
     m_NearPlane: 0.1
     m_CullingMatrixOverride:
@@ -12089,6 +12089,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1833580412}
     m_Modifications:
+    - target: {fileID: 1171329183923392133, guid: e2f23569fe17aee418ba8d9c884d691a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2511568521322055991, guid: e2f23569fe17aee418ba8d9c884d691a, type: 3}
+      propertyPath: m_Range
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2511568521322055991, guid: e2f23569fe17aee418ba8d9c884d691a, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 3442973796509665722, guid: e2f23569fe17aee418ba8d9c884d691a, type: 3}
       propertyPath: unitManager
       value: 
@@ -12144,14 +12156,6 @@ PrefabInstance:
     - target: {fileID: 6510855887520554071, guid: e2f23569fe17aee418ba8d9c884d691a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6510855887520554075, guid: e2f23569fe17aee418ba8d9c884d691a, type: 3}
-      propertyPath: meleeDamage
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6510855887520554075, guid: e2f23569fe17aee418ba8d9c884d691a, type: 3}
-      propertyPath: healthPoints
-      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2f23569fe17aee418ba8d9c884d691a, type: 3}
@@ -12213,14 +12217,6 @@ PrefabInstance:
     - target: {fileID: 781481527263213239, guid: c541a6f2b66d48b44adc7ab83b355aaf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 781481527263213243, guid: c541a6f2b66d48b44adc7ab83b355aaf, type: 3}
-      propertyPath: meleeDamage
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 781481527263213243, guid: c541a6f2b66d48b44adc7ab83b355aaf, type: 3}
-      propertyPath: healthPoints
-      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 9170652433872724826, guid: c541a6f2b66d48b44adc7ab83b355aaf, type: 3}
       propertyPath: unitManager
