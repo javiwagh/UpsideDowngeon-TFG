@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3325981499527651421}
   - component: {fileID: 8277038815338564845}
   m_Layer: 7
-  m_Name: Goblin
+  m_Name: Monster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -322,7 +322,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 457eb7b73e6292742a5ca858fb7452e3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 457eb7b73e6292742a5ca858fb7452e3, type: 3}
       propertyPath: m_LocalPosition.z
