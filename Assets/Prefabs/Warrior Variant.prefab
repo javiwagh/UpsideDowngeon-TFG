@@ -184,9 +184,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4319466905522402843, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
+      propertyPath: m_Height
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4319466905522402843, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
+      propertyPath: m_Radius
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4319466905522402843, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
+      propertyPath: m_Center.y
+      value: 0.9
+      objectReference: {fileID: 0}
     - target: {fileID: 4319466905522402847, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
       propertyPath: m_Name
-      value: Warrior
+      value: Warrior Variant
       objectReference: {fileID: 0}
     - target: {fileID: 4859387226602070904, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
       propertyPath: m_Range
@@ -202,7 +214,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8208800993997415626, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8434858739608576457, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
       propertyPath: m_Materials.Array.data[0]

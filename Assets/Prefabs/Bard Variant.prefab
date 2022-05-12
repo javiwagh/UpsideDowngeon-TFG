@@ -79,6 +79,18 @@ PrefabInstance:
       propertyPath: damagePopup
       value: 
       objectReference: {fileID: 2920851808372281093, guid: a03b1d6e741d5c94f8ac16df35939609, type: 3}
+    - target: {fileID: 4319466905522402843, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
+      propertyPath: m_Height
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4319466905522402843, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
+      propertyPath: m_Radius
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4319466905522402843, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
+      propertyPath: m_Center.y
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 4319466905522402847, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
       propertyPath: m_Name
       value: Bard Variant
@@ -107,7 +119,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 4298b56c17a0dc347b41927c4f5fec40, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4298b56c17a0dc347b41927c4f5fec40, type: 3}
       propertyPath: m_LocalScale.x

@@ -71,6 +71,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3325981499527651421, guid: 7502603f1aca0e1409e958c12a8cf693, type: 3}
+      propertyPath: m_Height
+      value: 1.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3325981499527651421, guid: 7502603f1aca0e1409e958c12a8cf693, type: 3}
+      propertyPath: m_Radius
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3325981499527651423, guid: 7502603f1aca0e1409e958c12a8cf693, type: 3}
       propertyPath: m_Name
       value: Spider Variant
