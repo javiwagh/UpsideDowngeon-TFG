@@ -10,7 +10,7 @@ public class Unit : MonoBehaviour
     private const int POISON_DURATION = 3;
     private const int PARALYSE_DURATION = 2;
     private const int BASE_ADVENTURER_ACTION_POINTS = 2;
-    private const int BASE_MONSTER_ACTION_POINTS = 1;
+    private const int BASE_MONSTER_ACTION_POINTS = 2;
     private const int BASE_POPUP_MODE = 1;
     private const int CRITICAL_POPUP_MODE = 2;
     private const int POISON_POPUP_MODE = 3;

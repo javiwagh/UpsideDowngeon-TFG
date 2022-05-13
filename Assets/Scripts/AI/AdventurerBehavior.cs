@@ -268,7 +268,13 @@ public class AdventurerBehavior : MonoBehaviour
 
     private bool goTowardsTarget() {
         if (unitManager.Neighbours(unit.onTile, targetTile) && attacking) return true;
-        targetTileInRange = unitManager.findPath(targetTile.HexagonCoordinates);
+        
+        try {
+            targetTileInRange = unitManager.findPath(targetTile.HexagonCoordinates);
+        }
+        catch(System.StackOverflowException e) {
+            return false;
+        }
         if (targetTileInRange == null) return false;
 
         return true;

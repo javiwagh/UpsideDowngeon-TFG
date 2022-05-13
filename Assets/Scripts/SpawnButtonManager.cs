@@ -82,6 +82,21 @@ public class SpawnButtonManager : MonoBehaviour
             spawnSpiderButton.interactable = true;
             spiderText.color = originalTextColor;
         }
+        else if (currentMana < 4) {
+            //DISABLE EVERY BUTTON
+            spawnTrollButton.interactable = false;
+            trollText.color = disabledColor;
+
+            spawnGoblinButton.interactable = false;
+            goblinText.color = disabledColor;
+
+            //BUT SPIDER
+            spawnRatButton.interactable = true;
+            ratText.color = originalTextColor;
+
+            spawnSpiderButton.interactable = true;
+            spiderText.color = originalTextColor;
+        }
         else if (currentMana < 5) {
             //DISABLE TROLL BUTTON
             spawnTrollButton.interactable = false;

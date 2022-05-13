@@ -38,15 +38,16 @@ public class GameManager : MonoBehaviour
         if(monstersTurn) {
             Debug.Log("It's monster's turn!");
             endTurnButton.interactable = true;
-            player.manaPoints = 5;
+            player.manaPoints += 5;
+            if (player.manaPoints > 10) player.manaPoints = 10;
             player.updateMana();
             spawnPannel.toggleSpawnPannel(true);
         }
         else {
             Debug.Log("It's adventurer's turn!");
             endTurnButton.interactable = false;
-            player.manaPoints = 0;
-            player.updateMana();
+            //player.manaPoints = 0;
+            //player.updateMana();
             spawnPannel.toggleSpawnPannel(false);
         }
     }

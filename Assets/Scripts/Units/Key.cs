@@ -12,6 +12,7 @@ public class Key : MonoBehaviour
     public void Pick() {
         onKeyPickedTile.SetActive(true);
         this.gameObject.SetActive(false);
+        this.GetComponent<HexagonTile>().room.hasKeyTile = false;
     }
 
     public void setTile(GameObject tile) {
