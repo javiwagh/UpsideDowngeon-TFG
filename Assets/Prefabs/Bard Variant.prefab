@@ -7,6 +7,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3066637455061927772, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 97374922c84215341bd874c8efcf3c5f, type: 2}
+    - target: {fileID: 3066637455061927772, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0d85433ca272f7b44aafa74fe57962d1, type: 2}
     - target: {fileID: 3897509227356340217, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
       propertyPath: unitName
       value: Bard
@@ -93,7 +101,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4319466905522402847, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
       propertyPath: m_Name
-      value: Bard Variant
+      value: Bard
       objectReference: {fileID: 0}
     - target: {fileID: 4859387226602070904, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
       propertyPath: m_Shadows.m_Type
