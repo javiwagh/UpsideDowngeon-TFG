@@ -29,6 +29,11 @@ public class UnitManager : MonoBehaviour
 
     public TooltipManager tooltipManager;
 
+    public Texture2D cursorRest;
+    public Texture2D cursorGlow;
+    public CursorMode cursorMode = CursorMode.Auto;
+    public Vector2 hotSpot = Vector2.zero;
+
     public void updateUnits() {
         Unit[] units = FindObjectsOfType<Unit>();
         unitsOnBoard = new List<GameObject>();
@@ -47,6 +52,7 @@ public class UnitManager : MonoBehaviour
     public void handleSpawnButtonClick(GameObject unit) {
         ClearSelection();
         if(gameManager.monstersTurn && checkEnoughMana(unit.GetComponent<Character>().cost)) {
+            Cursor.SetCursor(cursorGlow, hotSpot, cursorMode);
             movementManager.ShowSpawnRange(hexGrid);
             unitToSpawn = unit;
         }
@@ -64,6 +70,7 @@ public class UnitManager : MonoBehaviour
             && (gameManager.monstersTurn && unit.GetComponent<Character>().unitType == UnitType.Monster 
             || !gameManager.monstersTurn && unit.GetComponent<Character>().unitType == UnitType.Adventurer)) {           
             showActions(logicalUnit);
+            if (gameManager.monstersTurn) Cursor.SetCursor(cursorGlow, hotSpot, cursorMode);
             //checkAvailableActions(logicalUnit);
             return;
         }
@@ -190,7 +197,7 @@ public class UnitManager : MonoBehaviour
             this.selectedUnit = null;
         }
         movementManager.HideRange(this.hexGrid);
-        
+        if (gameManager.monstersTurn) Cursor.SetCursor(cursorRest, hotSpot, cursorMode);
         clearTargets();
         clearPickUps();
     }
@@ -281,11 +288,11 @@ public class UnitManager : MonoBehaviour
     }
 
     public void endTurn() {
+        ClearSelection();
         if (!gameManager.isStageEnded()) {
             gameManager.endTurn();
             performTurnShiftUnitActions();
         }
-        ClearSelection();
 
         if (!gameManager.isStageEnded() && !gameManager.monstersTurn) StartCoroutine(PerformAITurn()); //Perform AI turn      
     }
