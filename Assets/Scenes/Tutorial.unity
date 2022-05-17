@@ -4009,10 +4009,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1833580412}
     m_Modifications:
-    - target: {fileID: 3112864584204560950, guid: 99c5807ecd170f34d9e7f1228fa15a0d, type: 3}
-      propertyPath: m_Materials.Array.data[0]
+    - target: {fileID: 4200779968432577392, guid: 99c5807ecd170f34d9e7f1228fa15a0d, type: 3}
+      propertyPath: gameManager
       value: 
-      objectReference: {fileID: 2100000, guid: c9d6c46234469eb4f93709e1c8e90253, type: 2}
+      objectReference: {fileID: 705070424}
     - target: {fileID: 4200779968432577394, guid: 99c5807ecd170f34d9e7f1228fa15a0d, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -4059,7 +4059,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4200779968432577397, guid: 99c5807ecd170f34d9e7f1228fa15a0d, type: 3}
       propertyPath: m_Name
-      value: Rogue Variant
+      value: Rogue
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99c5807ecd170f34d9e7f1228fa15a0d, type: 3}
@@ -9427,7 +9427,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 0.8, g: 0.85, b: 1, a: 1}
-  m_Intensity: 0.3
+  m_Intensity: 0.1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -12231,10 +12231,6 @@ PrefabInstance:
       propertyPath: unitManager
       value: 
       objectReference: {fileID: 161426598}
-    - target: {fileID: 5414455024405474579, guid: e2f23569fe17aee418ba8d9c884d691a, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: c9d6c46234469eb4f93709e1c8e90253, type: 2}
     - target: {fileID: 6510855887520554064, guid: e2f23569fe17aee418ba8d9c884d691a, type: 3}
       propertyPath: m_Name
       value: Warrior
@@ -12348,10 +12344,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1992657608848541683, guid: c541a6f2b66d48b44adc7ab83b355aaf, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: c9d6c46234469eb4f93709e1c8e90253, type: 2}
     - target: {fileID: 9170652433872724826, guid: c541a6f2b66d48b44adc7ab83b355aaf, type: 3}
       propertyPath: unitManager
       value: 

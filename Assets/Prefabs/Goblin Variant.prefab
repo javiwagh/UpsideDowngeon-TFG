@@ -71,6 +71,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Goblin Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 6325745782556809240, guid: 7502603f1aca0e1409e958c12a8cf693, type: 3}
+      propertyPath: m_Pitch
+      value: 1.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7502603f1aca0e1409e958c12a8cf693, type: 3}
 --- !u!4 &1947875153510759848 stripped
@@ -170,7 +174,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &5039077835056313077
 Animator:
-  serializedVersion: 3
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -183,6 +187,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1

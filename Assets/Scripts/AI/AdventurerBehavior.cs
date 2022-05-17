@@ -5,7 +5,9 @@ using UnityEngine;
 public class AdventurerBehavior : MonoBehaviour
 {
     [SerializeField]
-    private float WAITING_TIME = 0.5f;
+    private float TILE_SELECT_WAITING_TIME = 0.5f;
+    [SerializeField]
+    private float CHARACTER_SELECT_WAITING_TIME = 1.0f;
     public UnitManager unitManager;
     private Unit unit;
     private Character character;
@@ -18,6 +20,7 @@ public class AdventurerBehavior : MonoBehaviour
     public bool characterSelected;
     public bool tileSelected;
     private bool attacking;
+    private bool firstSelection = true;
 
     private List<Room> visitedRooms;
     private void Start() {
@@ -109,7 +112,7 @@ public class AdventurerBehavior : MonoBehaviour
             if (targetTile == targetTileInRange) targetTile = null;
         }
         while (unit.isMoving) yield return null;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(CHARACTER_SELECT_WAITING_TIME);
         Performing = false;
     }
 
@@ -283,7 +286,14 @@ public class AdventurerBehavior : MonoBehaviour
     IEnumerator selectCharacter() {
         characterSelected = false;
         unitManager.handleUnitSelection(this.gameObject);
-        yield return new WaitForSeconds(WAITING_TIME);
+        if (firstSelection){
+            yield return new WaitForSeconds(CHARACTER_SELECT_WAITING_TIME*2);
+            firstSelection = false;
+        } 
+        else {
+            yield return new WaitForSeconds(CHARACTER_SELECT_WAITING_TIME/2);
+            firstSelection = true;
+        }
         characterSelected = true;
     }
 
@@ -291,7 +301,7 @@ public class AdventurerBehavior : MonoBehaviour
         tileSelected = false;
         if (targetTile.hasPickUp() || targetTile.isOccupied() && notWalkableTargetTileInRange()) targetTileInRange = targetTile;
         unitManager.handleTileSelection(targetTileInRange.gameObject);
-        yield return new WaitForSeconds(WAITING_TIME);
+        yield return new WaitForSeconds(TILE_SELECT_WAITING_TIME);
         tileSelected = true;
     }
 

@@ -1,10 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 [SelectionBase]
 public class Unit : MonoBehaviour
 {
+    private AudioSource audioSource;
+    [SerializeField] public List<AudioClip> spawnSounds = new List<AudioClip>();
+    [SerializeField] public List<AudioClip> selectionSounds = new List<AudioClip>();
+    [SerializeField] public List<AudioClip> attackSounds = new List<AudioClip>();
+    [SerializeField] public List<AudioClip> damageSounds = new List<AudioClip>();
+    [SerializeField] public AudioClip deathSound;
+    
+    private int soundIndex = 0;
+    private bool playSound = true;
     [SerializeField]
     private float MOVEMENT_DURATION = 0.5f, ROTATION_DURATION = 0.1f;
     private const int POISON_DURATION = 3;
@@ -42,7 +52,16 @@ public class Unit : MonoBehaviour
         character = GetComponent<Character>();
         gameManager = FindObjectOfType<GameManager>();
         movementPoints = character.speed;
+        audioSource = this.GetComponent<AudioSource>();
         actionPoints = 0;
+        selectionSounds = Shuffle(selectionSounds);
+        attackSounds = Shuffle(attackSounds);
+        damageSounds = Shuffle(damageSounds);
+
+        if (this.character.side == Side.Monsters) {
+            spawnSounds = Shuffle(spawnSounds);
+            PlaySound(spawnSounds);
+        }
     }
 
     internal void Deselect() {
@@ -50,6 +69,19 @@ public class Unit : MonoBehaviour
     }
 
     internal void Select() {
+        if (this.character.side == Side.Monsters) PlaySound(selectionSounds);
+        else {
+            if (playSound) {
+                playSound = false;
+                PlaySound(selectionSounds);
+            }
+            else playSound = true;
+        }
+
+        glowHighlight.ToggleGlow(true);
+    }
+
+    internal void Highlight() {
         glowHighlight.ToggleGlow(true);
     }
 
@@ -67,6 +99,32 @@ public class Unit : MonoBehaviour
         pathPositions = new Queue<Vector3>(currentPath);
         Vector3 firstTarget = pathPositions.Dequeue();
         StartCoroutine(movingRotationCoroutine(firstTarget, ROTATION_DURATION));
+    }
+
+    private void updateSoundIndex() {
+        ++soundIndex;
+        if (soundIndex > 3) soundIndex = 0;
+    }
+
+    private List<AudioClip> Shuffle(List<AudioClip> audioList) {
+        for (int i = 0; i < audioList.Count; i++) {
+            AudioClip temp = audioList[i];
+            int randomIndex = Random.Range(i, audioList.Count);
+            audioList[i] = audioList[randomIndex];
+            audioList[randomIndex] = temp;
+        }
+        return audioList;
+    }
+
+    private void PlaySound(List<AudioClip> clips){
+        updateSoundIndex();
+        audioSource.clip = clips[soundIndex];
+        audioSource.Play(0);
+    }
+
+    private void PlayDeathSound(){
+        audioSource.clip = deathSound;
+        audioSource.Play(0);
     }
 
     public bool isBard() {
@@ -120,17 +178,40 @@ public class Unit : MonoBehaviour
     }
 
     public void recieveDamage(int damage, Unit attacker, int mode){
+        
         this.character.healthPoints -= damage;
         popup("-" + damage, mode);
         
         if (this.character.healthPoints <= 0) {
             this.character.healthPoints = 0;
+            character.toolTip.updateHealth(character.healthPoints);
             onTile.resetTileType();
+
+            this.keyInstance.SetActive(false);
             if (hasKey) attacker.GiveKey();
-            this.gameObject.SetActive(false);
+
             gameManager.RemoveUnit(this.gameObject);
+            StartCoroutine(animateDeath());
         }
-        else character.toolTip.updateHealth(character.healthPoints);
+        else  {
+            PlaySound(damageSounds);
+            character.toolTip.updateHealth(character.healthPoints); 
+        }
+    }
+
+    private IEnumerator animateDeath() {
+        this.HighlightTarget();
+        float waitingTime = 0f;
+        if (this.character.side == Side.Monsters) {
+            PlaySound(damageSounds);
+            waitingTime = 1.5f;
+        }
+        else {
+            PlayDeathSound();
+            waitingTime = 2.5f;
+        }
+        yield return new WaitForSeconds(waitingTime);
+        this.gameObject.SetActive(false);
     }
 
     private void popup(string text, int mode) {
@@ -239,6 +320,7 @@ public class Unit : MonoBehaviour
 
     private IEnumerator attackingCoroutine(Unit target, float rotationDuration) {
         while(isMoving) yield return null;
+        PlaySound(attackSounds);
         Quaternion startRotation = transform.rotation;
         Vector3 targetPosition = target.transform.position;
         targetPosition.y = transform.position.y;

@@ -7,10 +7,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2017105835894196860, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
+      propertyPath: m_AdditionalLightsShadowResolutionTier
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2019758094659598145, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
+      propertyPath: m_Pitch
+      value: 1.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2019758094659598145, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5de6c11dc36a19048ac0640335c16733, type: 3}
     - target: {fileID: 3066637455061927772, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 97374922c84215341bd874c8efcf3c5f, type: 2}
+      objectReference: {fileID: 2100000, guid: c9d6c46234469eb4f93709e1c8e90253, type: 2}
     - target: {fileID: 3066637455061927772, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
       propertyPath: m_Materials.Array.data[2]
       value: 
@@ -84,9 +96,73 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4319466905522402842, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
+      propertyPath: deathSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 950fc8dcdac5f7f4682f7371fc4e85fd, type: 3}
+    - target: {fileID: 4319466905522402842, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
       propertyPath: damagePopup
       value: 
       objectReference: {fileID: 2920851808372281093, guid: a03b1d6e741d5c94f8ac16df35939609, type: 3}
+    - target: {fileID: 4319466905522402842, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
+      propertyPath: attackSounds.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4319466905522402842, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
+      propertyPath: damageSounds.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4319466905522402842, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
+      propertyPath: attackSounds.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 03aff24258bb8984a8623e660d72c0ab, type: 3}
+    - target: {fileID: 4319466905522402842, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
+      propertyPath: attackSounds.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 6700189430db0474bbcd5ba73b77d9fb, type: 3}
+    - target: {fileID: 4319466905522402842, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
+      propertyPath: attackSounds.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: e34b8473cb84e0843aee9448c4902afe, type: 3}
+    - target: {fileID: 4319466905522402842, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
+      propertyPath: attackSounds.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: 7f91187ddc998b04ab5a3b79a8f4db5a, type: 3}
+    - target: {fileID: 4319466905522402842, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
+      propertyPath: damageSounds.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 72d0c4784582c004795b61687d0cbb29, type: 3}
+    - target: {fileID: 4319466905522402842, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
+      propertyPath: damageSounds.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: ea9d2d201f03d094c87ab985fee02017, type: 3}
+    - target: {fileID: 4319466905522402842, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
+      propertyPath: damageSounds.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 2db5ccc619da83649a6cebe44731762a, type: 3}
+    - target: {fileID: 4319466905522402842, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
+      propertyPath: damageSounds.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: a8701a6a4e82ccd4f8d25fef752cde7b, type: 3}
+    - target: {fileID: 4319466905522402842, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
+      propertyPath: selectionSounds.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4319466905522402842, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
+      propertyPath: selectionSounds.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 5de6c11dc36a19048ac0640335c16733, type: 3}
+    - target: {fileID: 4319466905522402842, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
+      propertyPath: selectionSounds.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 85b92a5a30a1ca34f9cc6c624a7771d3, type: 3}
+    - target: {fileID: 4319466905522402842, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
+      propertyPath: selectionSounds.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 2878c96498d1e694e86302bee7150a4a, type: 3}
+    - target: {fileID: 4319466905522402842, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
+      propertyPath: selectionSounds.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: 1d5b6a68750a0524fa336122b5b41aef, type: 3}
     - target: {fileID: 4319466905522402843, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
       propertyPath: m_Height
       value: 2
@@ -105,7 +181,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4859387226602070904, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
       propertyPath: m_Shadows.m_Type
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8434858739608576457, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -206,7 +282,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &4181572042823629200
 Animator:
-  serializedVersion: 3
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -219,6 +295,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1

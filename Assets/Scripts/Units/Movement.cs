@@ -51,7 +51,7 @@ public class Movement : MonoBehaviour{
 
         foreach(Vector3Int tilePosition in movementRange.getUnitsPositions()) {
             if (unitPosition != tilePosition)
-                hexGrid.getTileAt(tilePosition).unitOn.Select();
+                hexGrid.getTileAt(tilePosition).unitOn.Highlight();
         }
 
         foreach(Vector3Int tilePosition in movementRange.getPickUpsPositions()) {
