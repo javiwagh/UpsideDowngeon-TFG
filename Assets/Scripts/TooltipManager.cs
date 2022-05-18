@@ -10,6 +10,9 @@ public class TooltipManager : MonoBehaviour
     public TextMeshProUGUI sideText;
     //public TextMeshProUGUI statsText;
 
+    //[SerializeField]
+    //private AudioSource SFX;
+
     [SerializeField]
     private Animator animator;
 
@@ -60,7 +63,8 @@ public class TooltipManager : MonoBehaviour
         if (!paused) {
             gameObject.SetActive(true);
             animator.SetBool("Show", true);
-        }        
+            //SFX.Play();  
+        }            
     }
 
     public void Set(string name, string side, Dictionary<string, string> stats, int actions) {

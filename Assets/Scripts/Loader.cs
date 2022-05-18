@@ -19,7 +19,7 @@ public class Loader : MonoBehaviour
 
     private IEnumerator LoadGame(int level) {
         blackFadeAnimator.SetTrigger("Out");
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(2.5f);
         switch (level) {
             case 1:
                 SceneManager.LoadScene("Level_1");
@@ -32,7 +32,7 @@ public class Loader : MonoBehaviour
 
     private IEnumerator QuitGame() {
         blackFadeAnimator.SetTrigger("Out");
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(2.5f);
         Application.Quit();
     }
 }

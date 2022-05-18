@@ -2,10 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 public class GameManager : MonoBehaviour
 {
     public GameState gameState;
     public Player player;
+    public AudioSource monsterTheme;
+    public AudioSource adventurerTheme;
+    public AudioSource endTurnSFX;
     [SerializeField]
     private HexGrid hexGrid;
     [SerializeField]
@@ -37,6 +41,10 @@ public class GameManager : MonoBehaviour
         monstersTurn = !monstersTurn;
         if(monstersTurn) {
             Debug.Log("It's monster's turn!");
+            endTurnSFX.Play();
+            adventurerTheme.Stop();
+            monsterTheme.Play();
+
             endTurnButton.interactable = true;
             player.manaPoints += 5;
             if (player.manaPoints > 10) player.manaPoints = 10;
@@ -45,6 +53,10 @@ public class GameManager : MonoBehaviour
         }
         else {
             Debug.Log("It's adventurer's turn!");
+            endTurnSFX.Play();
+            monsterTheme.Stop();
+            adventurerTheme.Play();
+
             endTurnButton.interactable = false;
             //player.manaPoints = 0;
             //player.updateMana();

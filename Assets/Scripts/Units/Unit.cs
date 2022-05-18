@@ -10,8 +10,13 @@ public class Unit : MonoBehaviour
     [SerializeField] public List<AudioClip> spawnSounds = new List<AudioClip>();
     [SerializeField] public List<AudioClip> selectionSounds = new List<AudioClip>();
     [SerializeField] public List<AudioClip> attackSounds = new List<AudioClip>();
+    [SerializeField] public List<AudioClip> strikeSounds = new List<AudioClip>();
     [SerializeField] public List<AudioClip> damageSounds = new List<AudioClip>();
     [SerializeField] public AudioClip deathSound;
+    [SerializeField] public AudioClip keySound;
+    [SerializeField] public AudioClip knockSound;
+    [SerializeField] public AudioSource secondaryAudioSource;
+    [SerializeField] public AudioSource strikeSoundSource;
     
     private int soundIndex = 0;
     private bool playSound = true;
@@ -56,6 +61,7 @@ public class Unit : MonoBehaviour
         actionPoints = 0;
         selectionSounds = Shuffle(selectionSounds);
         attackSounds = Shuffle(attackSounds);
+        strikeSounds = Shuffle(strikeSounds);
         damageSounds = Shuffle(damageSounds);
 
         if (this.character.side == Side.Monsters) {
@@ -127,6 +133,22 @@ public class Unit : MonoBehaviour
         audioSource.Play(0);
     }
 
+    private void PlayStrikeSound(){
+        updateSoundIndex();
+        strikeSoundSource.clip = strikeSounds[soundIndex];
+        strikeSoundSource.Play(0);
+    }
+
+    private void PlayKnock(){
+        secondaryAudioSource.clip = knockSound;
+        secondaryAudioSource.Play();
+    }
+
+    private void PlayKey(){
+        secondaryAudioSource.clip = keySound;
+        secondaryAudioSource.Play();
+    }
+
     public bool isBard() {
         return (this.character.unitType == UnitType.Adventurer && this.character.adventurerType == AdventurerType.Bard);
     }
@@ -142,6 +164,7 @@ public class Unit : MonoBehaviour
         StartCoroutine(Pick(key));
     }
     IEnumerator Pick(Key key) {
+        PlayKey();
         while (isMoving) yield return null;
         hasKey = true;
         key.Pick();
@@ -153,6 +176,7 @@ public class Unit : MonoBehaviour
     }
 
     public void GiveKey() {
+        PlayKey();
         hasKey = true;
         keyInstance.SetActive(true);
         Debug.Log("YAY! Got the key!");
@@ -304,6 +328,7 @@ public class Unit : MonoBehaviour
         endPosition.y = transform.position.y;
         Vector3 direction = endPosition - transform.position;
         Quaternion endRotation = Quaternion.LookRotation(direction, Vector3.up);
+        //PlayKnock();
 
         if (Mathf.Approximately(Mathf.Abs(Quaternion.Dot(startRotation, endRotation)), 1.0f) == false) {
             float timeElapsed = 0;
@@ -321,6 +346,7 @@ public class Unit : MonoBehaviour
     private IEnumerator attackingCoroutine(Unit target, float rotationDuration) {
         while(isMoving) yield return null;
         PlaySound(attackSounds);
+        PlayStrikeSound();
         Quaternion startRotation = transform.rotation;
         Vector3 targetPosition = target.transform.position;
         targetPosition.y = transform.position.y;
@@ -376,6 +402,7 @@ public class Unit : MonoBehaviour
         Vector3 startPosition = transform.position;
         endPosition.y = startPosition.y;
         float timeElapsed = 0;
+        PlayKnock();
 
         while (timeElapsed < MOVEMENT_DURATION) {
             timeElapsed += Time.deltaTime;
@@ -395,6 +422,7 @@ public class Unit : MonoBehaviour
             if (this.hasKey && this.onTile.isEnd()) gameManager.AdventurersWin();
             gameManager.Wait();
             this.isMoving = false;
+            //PlayKnock();
         }
     }    
 }
