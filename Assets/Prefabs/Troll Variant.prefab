@@ -223,7 +223,7 @@ Animator:
   m_GameObject: {fileID: 4209445806344529625}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 463ba79ed6cd55649968a8c598b8a86b, type: 2}
+  m_Controller: {fileID: 9100000, guid: a1a0cae48b091984294042a49f5112aa, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -249,6 +249,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3325981499527651416, guid: 7502603f1aca0e1409e958c12a8cf693, type: 3}
+      propertyPath: toolTip
+      value: 
+      objectReference: {fileID: 133804529356979815}
+    - target: {fileID: 3325981499527651416, guid: 7502603f1aca0e1409e958c12a8cf693, type: 3}
       propertyPath: meleeDamage
       value: 2
       objectReference: {fileID: 0}
@@ -260,6 +264,10 @@ PrefabInstance:
       propertyPath: characterName
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3325981499527651419, guid: 7502603f1aca0e1409e958c12a8cf693, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 7204445361275549104}
     - target: {fileID: 3325981499527651419, guid: 7502603f1aca0e1409e958c12a8cf693, type: 3}
       propertyPath: spawnSounds.Array.data[0]
       value: 
@@ -410,6 +418,17 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 1eac5016ee3f4fc499bdf0c3c3abd0cf, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7502603f1aca0e1409e958c12a8cf693, type: 3}
+--- !u!114 &133804529356979815 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8277038815338564845, guid: 7502603f1aca0e1409e958c12a8cf693, type: 3}
+  m_PrefabInstance: {fileID: 8288501762831757962}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59e00f5ab882a5749bc94e99666fc015, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6714566865069593302 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3325981499527651420, guid: 7502603f1aca0e1409e958c12a8cf693, type: 3}

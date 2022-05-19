@@ -6,6 +6,8 @@ using UnityEngine.Audio;
 [SelectionBase]
 public class Unit : MonoBehaviour
 {
+    public Animator animator;
+
     private AudioSource audioSource;
     [SerializeField] public List<AudioClip> spawnSounds = new List<AudioClip>();
     [SerializeField] public List<AudioClip> selectionSounds = new List<AudioClip>();
@@ -71,6 +73,7 @@ public class Unit : MonoBehaviour
     }
 
     internal void Deselect() {
+        animator.SetBool("Selected", false);
         glowHighlight.ToggleGlow(false);
     }
 
@@ -83,7 +86,7 @@ public class Unit : MonoBehaviour
             }
             else playSound = true;
         }
-
+        animator.SetBool("Selected", true);
         glowHighlight.ToggleGlow(true);
     }
 
@@ -219,12 +222,15 @@ public class Unit : MonoBehaviour
         }
         else  {
             PlaySound(damageSounds);
+            animator.SetTrigger("Strike");
             character.toolTip.updateHealth(character.healthPoints); 
         }
     }
 
     private IEnumerator animateDeath() {
         this.HighlightTarget();
+        animator.SetTrigger("Die");
+        
         float waitingTime = 0f;
         if (this.character.side == Side.Monsters) {
             PlaySound(damageSounds);
@@ -346,6 +352,7 @@ public class Unit : MonoBehaviour
     private IEnumerator attackingCoroutine(Unit target, float rotationDuration) {
         while(isMoving) yield return null;
         PlaySound(attackSounds);
+        animator.SetTrigger("Attack");
         PlayStrikeSound();
         Quaternion startRotation = transform.rotation;
         Vector3 targetPosition = target.transform.position;

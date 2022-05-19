@@ -257,6 +257,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3325981499527651419, guid: 7502603f1aca0e1409e958c12a8cf693, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 3852054514536307614}
+    - target: {fileID: 3325981499527651419, guid: 7502603f1aca0e1409e958c12a8cf693, type: 3}
       propertyPath: spawnSounds.Array.data[0]
       value: 
       objectReference: {fileID: 8300000, guid: c107144e2c2d5904ca26d589d95d4a9f, type: 3}

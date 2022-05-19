@@ -3706,6 +3706,42 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1511149081}
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1349244081}
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: Stop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 371957608}
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: Stop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &691100929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4176,14 +4212,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1833580412}
     m_Modifications:
-    - target: {fileID: 2142130216226544171, guid: 99c5807ecd170f34d9e7f1228fa15a0d, type: 3}
-      propertyPath: m_Pitch
-      value: 0.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 2142130216226544171, guid: 99c5807ecd170f34d9e7f1228fa15a0d, type: 3}
-      propertyPath: m_Volume
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 4200779968432577392, guid: 99c5807ecd170f34d9e7f1228fa15a0d, type: 3}
       propertyPath: gameManager
       value: 
@@ -4235,14 +4263,6 @@ PrefabInstance:
     - target: {fileID: 4200779968432577397, guid: 99c5807ecd170f34d9e7f1228fa15a0d, type: 3}
       propertyPath: m_Name
       value: Rogue
-      objectReference: {fileID: 0}
-    - target: {fileID: 8094791929551718816, guid: 99c5807ecd170f34d9e7f1228fa15a0d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8094791929551718816, guid: 99c5807ecd170f34d9e7f1228fa15a0d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99c5807ecd170f34d9e7f1228fa15a0d, type: 3}
@@ -5170,6 +5190,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 1581941516998515135, guid: b68a9aaf8070a0946b5b3081df1288e6, type: 3}
   m_PrefabInstance: {fileID: 1053579216}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1053924264 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4181572042823629200, guid: c541a6f2b66d48b44adc7ab83b355aaf, type: 3}
+  m_PrefabInstance: {fileID: 8246286515120223695}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1054650498 stripped
 GameObject:
@@ -12764,34 +12789,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1833580412}
     m_Modifications:
-    - target: {fileID: 1171329183923392133, guid: e2f23569fe17aee418ba8d9c884d691a, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1171329183923392133, guid: e2f23569fe17aee418ba8d9c884d691a, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3442973796509665722, guid: e2f23569fe17aee418ba8d9c884d691a, type: 3}
-      propertyPath: unitManager
-      value: 
-      objectReference: {fileID: 161426598}
-    - target: {fileID: 5890043035326836205, guid: e2f23569fe17aee418ba8d9c884d691a, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 987d817d9fde86a478cc3b5585816afe, type: 2}
     - target: {fileID: 6510855887520554064, guid: e2f23569fe17aee418ba8d9c884d691a, type: 3}
       propertyPath: m_Name
       value: Warrior
       objectReference: {fileID: 0}
-    - target: {fileID: 6510855887520554068, guid: e2f23569fe17aee418ba8d9c884d691a, type: 3}
-      propertyPath: m_Center.y
-      value: 0.85
-      objectReference: {fileID: 0}
-    - target: {fileID: 6510855887520554069, guid: e2f23569fe17aee418ba8d9c884d691a, type: 3}
-      propertyPath: gameManager
-      value: 
-      objectReference: {fileID: 705070424}
     - target: {fileID: 6510855887520554071, guid: e2f23569fe17aee418ba8d9c884d691a, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -12836,14 +12837,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9056035051157593358, guid: e2f23569fe17aee418ba8d9c884d691a, type: 3}
-      propertyPath: m_Pitch
-      value: 0.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 9056035051157593358, guid: e2f23569fe17aee418ba8d9c884d691a, type: 3}
-      propertyPath: m_Volume
-      value: 0.5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2f23569fe17aee418ba8d9c884d691a, type: 3}
 --- !u!1001 &8246286515120223695
@@ -12857,6 +12850,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bard
       objectReference: {fileID: 0}
+    - target: {fileID: 781481527263213237, guid: c541a6f2b66d48b44adc7ab83b355aaf, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1053924264}
     - target: {fileID: 781481527263213237, guid: c541a6f2b66d48b44adc7ab83b355aaf, type: 3}
       propertyPath: gameManager
       value: 

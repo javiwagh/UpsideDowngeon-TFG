@@ -12,8 +12,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2019758094659598145, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
-      propertyPath: m_Volume
+      propertyPath: m_Pitch
       value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2019758094659598145, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
+      propertyPath: m_Volume
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3066637455061927772, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
       propertyPath: m_Materials.Array.data[2]
@@ -63,6 +67,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4319466905522402842, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 868566323}
     - target: {fileID: 4319466905522402842, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
       propertyPath: deathSound
       value: 
@@ -146,6 +154,14 @@ PrefabInstance:
     - target: {fileID: 4859387226602070904, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
       propertyPath: m_Range
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8208800993997415626, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8208800993997415626, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
@@ -254,7 +270,7 @@ Animator:
   m_GameObject: {fileID: 4160568055871488931}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: bfeee1eaaae59e542a202e55d73e5d92, type: 2}
+  m_Controller: {fileID: 9100000, guid: f848eff443ff03e4fb5ba8b8514432c2, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

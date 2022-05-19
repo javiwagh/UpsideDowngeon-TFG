@@ -96,6 +96,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4319466905522402842, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 4181572042823629200}
+    - target: {fileID: 4319466905522402842, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
       propertyPath: deathSound
       value: 
       objectReference: {fileID: 8300000, guid: 950fc8dcdac5f7f4682f7371fc4e85fd, type: 3}
@@ -177,7 +181,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4319466905522402847, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
       propertyPath: m_Name
-      value: Bard
+      value: Bard Variant
       objectReference: {fileID: 0}
     - target: {fileID: 4859387226602070904, guid: 9afd10178682dfa47a194fd8db61d124, type: 3}
       propertyPath: m_Range
@@ -294,7 +298,7 @@ Animator:
   m_GameObject: {fileID: 4098699512697300803}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 76182f2d634cc1445bf2df569dc1c835, type: 2}
+  m_Controller: {fileID: 9100000, guid: a331f69c7c433bf44b36346c95fce087, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
