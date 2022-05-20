@@ -37,6 +37,16 @@ public class GameManager : MonoBehaviour
         StartCoroutine(GameStartCoroutine());
         Wait();
     }
+
+    void Update() {
+        if (gameState == GameState.MonstersWin) {
+            endStage(true);
+        }
+        else if (gameState == GameState.AdventurersWin) {
+            endStage(false);
+        }
+    }
+
     public void endTurn() {
         monstersTurn = !monstersTurn;
         if(monstersTurn) {
@@ -100,8 +110,8 @@ public class GameManager : MonoBehaviour
 
     public void endStage(bool monstersWin) {
         Debug.Log("ENDING STAGE");
-        endedStage = true;
-        blackFadeAnimator.SetTrigger("EndStage");
+        //endedStage = true;
+        //blackFadeAnimator.SetTrigger("EndStage");
         if (monstersWin) blackFadeAnimator.SetTrigger("MonsterWin");
         else blackFadeAnimator.SetTrigger("AdventurerWin");
     }

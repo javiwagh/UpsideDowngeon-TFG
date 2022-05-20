@@ -58,6 +58,10 @@ public class PauseMenu : MonoBehaviour
         StartCoroutine(LoadMenu());
     }
 
+    public void Quit() {
+        StartCoroutine(QuitGame());
+    }
+
     private IEnumerator ReloadGame() {
         blackFadeAnimator.SetTrigger("EndStage");
         yield return new WaitForSeconds(1.5f);
@@ -68,5 +72,11 @@ public class PauseMenu : MonoBehaviour
         blackFadeAnimator.SetTrigger("EndStage");
         yield return new WaitForSeconds(1.5f);
         SceneManager.LoadScene("Menu");
+    }
+
+    private IEnumerator QuitGame() {
+        blackFadeAnimator.SetTrigger("EndStage");
+        yield return new WaitForSeconds(2.5f);
+        Application.Quit();
     }
 }
