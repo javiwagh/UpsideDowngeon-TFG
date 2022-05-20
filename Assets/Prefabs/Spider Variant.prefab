@@ -147,6 +147,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3325981499527651419, guid: 7502603f1aca0e1409e958c12a8cf693, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 2283367467509534325}
+    - target: {fileID: 3325981499527651419, guid: 7502603f1aca0e1409e958c12a8cf693, type: 3}
       propertyPath: spawnSounds.Array.data[0]
       value: 
       objectReference: {fileID: 8300000, guid: 0e6dff12c78d33c468e316eee25483b3, type: 3}
@@ -397,7 +401,7 @@ Animator:
   m_GameObject: {fileID: 3812496970081156566}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 78922aa081ffdac4886b680438da811d, type: 2}
+  m_Controller: {fileID: 9100000, guid: 15800105cc08c894cadc030319f2c657, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

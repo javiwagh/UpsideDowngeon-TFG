@@ -126,6 +126,10 @@ PrefabInstance:
       propertyPath: cost
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 3325981499527651419, guid: 7502603f1aca0e1409e958c12a8cf693, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 5039077835056313077}
     - target: {fileID: 3325981499527651420, guid: 7502603f1aca0e1409e958c12a8cf693, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -301,7 +305,7 @@ Animator:
   m_GameObject: {fileID: 8449614036296507112}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b221215f00136c248b6d09d678d38ee5, type: 2}
+  m_Controller: {fileID: 9100000, guid: 15dfbb2f155f44d44a9ab7326a33bb95, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
