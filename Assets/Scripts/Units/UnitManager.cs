@@ -327,6 +327,7 @@ public class UnitManager : MonoBehaviour
                 behavior.Perform();
                 while (behavior.Performing) yield return null;
                 ClearSelection();
+                while (gameManager.gameState == GameManager.GameState.Moving) yield return null;
             }
             if (gameManager.isStageEnded()) break;
         }

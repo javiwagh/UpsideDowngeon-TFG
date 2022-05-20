@@ -228,20 +228,27 @@ public class Unit : MonoBehaviour
     }
 
     private IEnumerator animateDeath() {
+        gameManager.followAdventurer(gameObject);
+        gameManager.Move();
+
         this.HighlightTarget();
         animator.SetTrigger("Die");
         
         float waitingTime = 0f;
         if (this.character.side == Side.Monsters) {
             PlaySound(damageSounds);
-            waitingTime = 1.5f;
+            waitingTime = 2.5f;
         }
         else {
             PlayDeathSound();
-            waitingTime = 2.5f;
+            waitingTime = 3.5f;
         }
         yield return new WaitForSeconds(waitingTime);
         this.gameObject.SetActive(false);
+
+        if (gameManager.monstersTurn) gameManager.freeCamera();
+        
+        gameManager.Wait();
     }
 
     private void popup(string text, int mode) {
@@ -353,7 +360,7 @@ public class Unit : MonoBehaviour
         while(isMoving) yield return null;
         PlaySound(attackSounds);
         animator.SetTrigger("Attack");
-        PlayStrikeSound();
+    
         Quaternion startRotation = transform.rotation;
         Vector3 targetPosition = target.transform.position;
         targetPosition.y = transform.position.y;
@@ -371,6 +378,7 @@ public class Unit : MonoBehaviour
             transform.rotation = endRotation;
         }
 
+        yield return new WaitForSeconds(0.5f);
         if (this.character.unitType == UnitType.Monster) {
             switch (this.character.monsterType){
                 case MonsterType.Goblin:
@@ -393,6 +401,7 @@ public class Unit : MonoBehaviour
         else {
             switch (this.character.adventurerType){
                 case AdventurerType.Warrior:
+                    
                     target.recieveDamage(this.character.meleeDamage, this, BASE_POPUP_MODE);
                 break;
                 case AdventurerType.Rogue:
@@ -403,6 +412,7 @@ public class Unit : MonoBehaviour
                 break;
             }
         }
+        PlayStrikeSound();
     }
 
     private IEnumerator MovementCoroutine(Vector3 endPosition) {
@@ -427,8 +437,8 @@ public class Unit : MonoBehaviour
             HexGrid hexGrid = FindObjectOfType<HexGrid>();
             hexGrid.getTileAt(hexGrid.GetClosestTile(this.transform.position)).stepOnTile(this);
             if (this.hasKey && this.onTile.isEnd()) gameManager.AdventurersWin();
-            gameManager.Wait();
             this.isMoving = false;
+            gameManager.Wait();
             //PlayKnock();
         }
     }    
