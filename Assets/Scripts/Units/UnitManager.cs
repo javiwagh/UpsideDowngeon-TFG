@@ -221,9 +221,9 @@ public class UnitManager : MonoBehaviour
                 if (previouslySelectedTile.unitOn != null) previouslySelectedTile.unitOn.ResetHighlight();
             }
             previouslySelectedTile = selectedTile;
-            if (!(selectedTile.hasPickUp() || selectedTile.isOccupied())) movementManager.ShowPath(selectedTile.HexagonCoordinates, this.hexGrid);
+            if (!(selectedTile.hasPickUp() || selectedTile.isOccupied())) movementManager.ShowPath(selectedTile.HexagonCoordinates, selectedUnit.onTile.transform.position, hexGrid);
             else {
-                if (!Neighbours(selectedUnit.onTile, selectedTile)) movementManager.ShowPath(selectedTile.HexagonCoordinates, this.hexGrid);
+                if (!Neighbours(selectedUnit.onTile, selectedTile)) movementManager.ShowPath(selectedTile.HexagonCoordinates, selectedUnit.onTile.transform.position, hexGrid);
                 if(selectedTile.isOccupied()) selectedTile.unitOn.HighlightTarget();
                 else selectedTile.HighlightTarget();
             }

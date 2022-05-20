@@ -24,7 +24,7 @@ public class Unit : MonoBehaviour
     private bool playSound = true;
     [SerializeField]
     private float MOVEMENT_DURATION = 0.5f, ROTATION_DURATION = 0.1f;
-    private const int POISON_DURATION = 3;
+    private const int POISON_DURATION = 2;
     private const int PARALYSE_DURATION = 2;
     private const int BASE_ADVENTURER_ACTION_POINTS = 2;
     private const int BASE_MONSTER_ACTION_POINTS = 2;
@@ -48,7 +48,7 @@ public class Unit : MonoBehaviour
     public bool isMoving = false;
     public int poisonCounter = 0;
     public bool paralysed = false;
-    private int poisonTimer = 0;
+    public int poisonTimer = 0;
     private int paralysedTimer = 0;
     public GameObject keyInstance;
     [SerializeField] 

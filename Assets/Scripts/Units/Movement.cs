@@ -77,13 +77,13 @@ public class Movement : MonoBehaviour{
         movementRange = GraphSearch.BFSGetRange(hexGrid, hexGrid.GetClosestTile(selectedUnit.transform.position), selectedUnit.MovementPoints, selectedUnit.GetComponent<Character>().side == Side.Monsters);
     }
 
-    public void ShowPath(Vector3Int selectedTilePosition, HexGrid hexGrid) {
+    public void ShowPath(Vector3Int selectedTilePosition, Vector3 origin, HexGrid hexGrid) {
         Vector3Int targetTilePosition = new Vector3Int();
         IEnumerable<Vector3Int> unitsPositions = movementRange.getUnitsPositions();
         IEnumerable<Vector3Int> pickUpsPositions = movementRange.getPickUpsPositions();
         
         if(unitsPositions != null && unitsPositions.Contains(selectedTilePosition) 
-        || pickUpsPositions != null && movementRange.getPickUpsPositions().Contains(selectedTilePosition)) targetTilePosition = getClosestNeighbor(selectedTilePosition, hexGrid);
+        || pickUpsPositions != null && movementRange.getPickUpsPositions().Contains(selectedTilePosition)) targetTilePosition = getClosestNeighbor(selectedTilePosition, origin, hexGrid);
         else if (movementRange.getRangePositions().Contains(selectedTilePosition)) targetTilePosition = selectedTilePosition;
 
         
@@ -99,12 +99,19 @@ public class Movement : MonoBehaviour{
         else Debug.Log("Something went wrong");
     }
 
-    public Vector3Int getClosestNeighbor(Vector3Int selectedTilePosition, HexGrid hexGrid) {
+    public Vector3Int getClosestNeighbor(Vector3Int selectedTilePosition, Vector3 origin, HexGrid hexGrid) {
         IEnumerable<Vector3Int> rangePositions = movementRange.getRangePositions();
+        float minDistance = float.PositiveInfinity;
+        Vector3Int closestNeighbor = new Vector3Int();
         foreach(Vector3Int position in hexGrid.getNeightbours(selectedTilePosition)) {
-            if (rangePositions.Contains(position)) return position;
+            if (rangePositions.Contains(position)){
+                //return position;
+                float distance = Mathf.Abs(Vector3.Distance(origin, hexGrid.getTileAt(position).transform.position));
+                if (distance < minDistance) minDistance = distance;
+                closestNeighbor = position;
+            } 
         }
-        return new Vector3Int();
+        return closestNeighbor;
     }
 
     public void moveUnit (Unit selectedUnit, HexGrid hexGrid) {
@@ -122,7 +129,7 @@ public class Movement : MonoBehaviour{
         IEnumerable<Vector3Int> pickUpsPositions = movementRange.getPickUpsPositions();
 
         if(unitsPositions != null && unitsPositions.Contains(target) 
-        || pickUpsPositions != null && movementRange.getPickUpsPositions().Contains(target)) targetTilePosition = getClosestNeighbor(target, hexGrid);
+        || pickUpsPositions != null && movementRange.getPickUpsPositions().Contains(target)) targetTilePosition = getClosestNeighbor(target, selectedUnit.onTile.HexagonCoordinates, hexGrid);
 
         //Debug.LogWarning(selectedUnit);
         BFSearch fullRange = GraphSearch.BFSGetRange(hexGrid, hexGrid.GetClosestTile(selectedUnit.transform.position), 100, selectedUnit.GetComponent<Character>().side == Side.Monsters);

@@ -124,7 +124,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3325981499527651416, guid: 7502603f1aca0e1409e958c12a8cf693, type: 3}
       propertyPath: cost
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3325981499527651419, guid: 7502603f1aca0e1409e958c12a8cf693, type: 3}
       propertyPath: animator
