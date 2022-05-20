@@ -8,6 +8,11 @@ public class TipPanel : MonoBehaviour
     public List<string> Tips;
     public TextMeshProUGUI tipBox;
     public int tipIndex;
+    private bool show = true;
+    private bool changeState = true;
+
+    public Animator animator;
+    public Animator tipBoxAnimator;
 
     public float time = 5f;
 
@@ -24,17 +29,33 @@ public class TipPanel : MonoBehaviour
         time = 0.2f * Tips[tipIndex].Length;
     }
 
+    public void Toggle() {
+        show = !show;
+        animator.SetBool("Show", show);
+    }
+
     public void nextTip() {
-        if (tipIndex == Tips.Count - 1) tipIndex = 0;
-        else ++tipIndex;
-        time = 0.2f * Tips[tipIndex].Length;
-        tipBox.text = Tips[tipIndex];
+        if (show) {
+            if (tipIndex == Tips.Count - 1) tipIndex = 0;
+            else ++tipIndex;
+            time = 0.2f * Tips[tipIndex].Length;
+            StartCoroutine(changeTipCoroutine(tipIndex));
+        }
     }
 
     public void prevTip() {
-        if (tipIndex == 0) tipIndex = Tips.Count - 1;
-        else --tipIndex;
-        time = 0.2f * Tips[tipIndex].Length;
+        if (show) {
+            if (tipIndex == 0) tipIndex = Tips.Count - 1;
+            else --tipIndex;
+            time = 0.2f * Tips[tipIndex].Length;
+            StartCoroutine(changeTipCoroutine(tipIndex));
+        }
+    }
+
+    private IEnumerator changeTipCoroutine(int index) {
+        changeState = !changeState;
+        tipBoxAnimator.SetBool("Change", changeState);
+        yield return new WaitForSeconds(0.2f);
         tipBox.text = Tips[tipIndex];
     }
 }
