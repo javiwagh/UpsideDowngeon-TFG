@@ -110,8 +110,7 @@ public class GameManager : MonoBehaviour
 
     public void endStage(bool monstersWin) {
         Debug.Log("ENDING STAGE");
-        //endedStage = true;
-        //blackFadeAnimator.SetTrigger("EndStage");
+        endedStage = true;
         if (monstersWin) blackFadeAnimator.SetTrigger("MonsterWin");
         else blackFadeAnimator.SetTrigger("AdventurerWin");
     }

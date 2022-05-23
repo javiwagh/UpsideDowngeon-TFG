@@ -48,9 +48,6 @@ public class HexagonTile : MonoBehaviour
             case TileType.Default:
                 cost = 1;
                 break;
-            case TileType.Start:
-                cost = 1;
-                break;
             case TileType.Door:
                 cost = 2;
                 break;
@@ -66,7 +63,7 @@ public class HexagonTile : MonoBehaviour
     }
 
     public bool isWalkable() {
-        return !(this.tileType == TileType.Obstacle || this.tileType == TileType.Occupied || this.tileType == TileType.Key || this.tileType == TileType.End);
+        return !(this.tileType == TileType.Obstacle || this.tileType == TileType.Occupied || this.tileType == TileType.Key || this.tileType == TileType.End || this.tileType == TileType.Start);
     }
 
     public bool IsSpawn() {

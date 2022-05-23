@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class UnitManager : MonoBehaviour
 {
+    public Tutorial tutorial;
     const float UNITPOSITION_Y = 0.5411864f;
     
     [SerializeField]
@@ -209,6 +210,7 @@ public class UnitManager : MonoBehaviour
              new Quaternion(selectedTile.transform.rotation.x, selectedTile.transform.rotation.y, selectedTile.transform.rotation.z, selectedTile.transform.rotation.w));
             newUnit.transform.RotateAround(newUnit.transform.position, Vector3.up, 150f);
             newUnit.GetComponent<Unit>().gameManager = gameManager;
+            if (tutorial != null) tutorial.Spawned(newUnit.transform);
             ClearSelection();
             addUnit(newUnit);
             spendMana(newUnit.GetComponent<Character>().cost);

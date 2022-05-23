@@ -24,7 +24,7 @@ public class CameraController : MonoBehaviour
     private Vector3 cameraOffset;
     public Vector2 followingCameraOffset;
 
-    private GameObject target;
+    private Transform target;
 
     private void Awake() {
         playerInput.GetComponent<PlayerInput>();
@@ -70,7 +70,12 @@ public class CameraController : MonoBehaviour
     }
 
     public void followAdventurer(GameObject adventurer) {
-        target = adventurer;
+        target = adventurer.GetComponent<Transform>();
+        playerPanControl = false;
+    }
+
+    public void focusOn(Transform focus) {
+        target = focus;
         playerPanControl = false;
     }
 
