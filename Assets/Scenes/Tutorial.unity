@@ -3940,6 +3940,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1581941516998515135, guid: b68a9aaf8070a0946b5b3081df1288e6, type: 3}
   m_PrefabInstance: {fileID: 686569422}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &689706221
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 689706223}
+  - component: {fileID: 689706222}
+  m_Layer: 0
+  m_Name: Parameters
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &689706222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 689706221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ffe4ba51e055d5479f8b432b5b9dcdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  espanol: 1
+--- !u!4 &689706223
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 689706221}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &691100926
 GameObject:
   m_ObjectHideFlags: 0
@@ -4383,6 +4428,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 814721952}
   m_CullTransparentMesh: 1
+--- !u!1 &830205948 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3965902693271723888, guid: 6b9502a92f3f4c342b9f4e1f83f20885, type: 3}
+  m_PrefabInstance: {fileID: 2076839600}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &830205952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 830205948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 953ddfeebbc2fde4aa329b6e53da94d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastEspanolValue: 0
+  stringInSpanish: "Ara\xF1a"
+  stringInEnglish: Spider
+  Text: {fileID: 0}
+  parameters: {fileID: 0}
 --- !u!114 &834822010 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6400186018496149608, guid: 04ac8b7afe4b8a741aabc0d62fba069d, type: 3}
@@ -5326,6 +5393,28 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1581941516998515135, guid: b68a9aaf8070a0946b5b3081df1288e6, type: 3}
   m_PrefabInstance: {fileID: 975208864}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &994333580 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3965902693271723888, guid: 6b9502a92f3f4c342b9f4e1f83f20885, type: 3}
+  m_PrefabInstance: {fileID: 878846413}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &994333584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 994333580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 953ddfeebbc2fde4aa329b6e53da94d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastEspanolValue: 0
+  stringInSpanish: Trasgo
+  stringInEnglish: Goblin
+  Text: {fileID: 0}
+  parameters: {fileID: 0}
 --- !u!1 &995523493
 GameObject:
   m_ObjectHideFlags: 0
@@ -7544,6 +7633,28 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &1351294332 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7669575781251169096, guid: e619fb849f57ad3428f32ec99b91d6cd, type: 3}
+  m_PrefabInstance: {fileID: 1645665059}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1351294336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1351294332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 953ddfeebbc2fde4aa329b6e53da94d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastEspanolValue: 0
+  stringInSpanish: TURNO
+  stringInEnglish: TURN
+  Text: {fileID: 0}
+  parameters: {fileID: 0}
 --- !u!114 &1360485188 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6104050833207403438, guid: e1d4bbc570dc06c44afeaf3ed6083c2d, type: 3}
@@ -9418,7 +9529,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4263094441218409062, guid: e619fb849f57ad3428f32ec99b91d6cd, type: 3}
       propertyPath: m_text
-      value: END TURN
+      value: TURN
       objectReference: {fileID: 0}
     - target: {fileID: 4263094441218409062, guid: e619fb849f57ad3428f32ec99b91d6cd, type: 3}
       propertyPath: m_fontColor.b
@@ -9598,6 +9709,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1658206697}
   m_CullTransparentMesh: 1
+--- !u!1 &1671094310 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3965902693271723888, guid: 6b9502a92f3f4c342b9f4e1f83f20885, type: 3}
+  m_PrefabInstance: {fileID: 1547830644}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1671094314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1671094310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 953ddfeebbc2fde4aa329b6e53da94d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastEspanolValue: 0
+  stringInSpanish: Rata
+  stringInEnglish: Rat
+  Text: {fileID: 0}
+  parameters: {fileID: 0}
 --- !u!1 &1713840776 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 877038349540787350, guid: 0d3eba22631bb11438aea57b41ec92e5, type: 3}

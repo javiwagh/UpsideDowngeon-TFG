@@ -76,7 +76,6 @@ public class UnitManager : MonoBehaviour
         if (logicalUnit.actionPoints > 0 && !gameManager.isStageEnded() 
             && (gameManager.monstersTurn && unit.GetComponent<Character>().unitType == UnitType.Monster 
             || !gameManager.monstersTurn && unit.GetComponent<Character>().unitType == UnitType.Adventurer)) {
-            if (movementTutorial != null && movementTutorial.gameObject.activeInHierarchy && runningMovementTutorial && !listenUnitMovement) movementTutorial.PlayerActionDone(unit.gameObject.transform);        
             showActions(logicalUnit);
             if (gameManager.monstersTurn) {
                 Cursor.SetCursor(cursorGlow, hotSpot, cursorMode);

@@ -7,6 +7,9 @@ public class Loader : MonoBehaviour
 {
     [SerializeField]
     private Animator blackFadeAnimator;
+    [SerializeField]
+    private Animator menuAnimator;
+    
     public void StartGame() {
         StartCoroutine(LoadGame(1));
     }
@@ -15,6 +18,14 @@ public class Loader : MonoBehaviour
     }
     public void Quit() {
         StartCoroutine(QuitGame());
+    }
+
+    public void Options() {
+        menuAnimator.SetTrigger("Options");
+    }
+
+    public void Back() {
+        menuAnimator.SetTrigger("Back");
     }
 
     private IEnumerator LoadGame(int level) {

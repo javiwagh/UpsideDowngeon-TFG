@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8205290865402461124}
   - component: {fileID: 7475400255609695137}
   - component: {fileID: 2074143039891833437}
+  - component: {fileID: 8880120273681644676}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -135,6 +136,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8880120273681644676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3669423978532381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 953ddfeebbc2fde4aa329b6e53da94d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastEspanolValue: 0
+  stringInSpanish: "PULSA EL BOT\xD3N.PARA PASAR DE TURNO"
+  stringInEnglish: CLICK ON THE.END TURN BUTTON
+  Text: {fileID: 0}
+  parameters: {fileID: 0}
 --- !u!1 &184044265988700305
 GameObject:
   m_ObjectHideFlags: 0
@@ -146,6 +164,7 @@ GameObject:
   - component: {fileID: 6735338128086173760}
   - component: {fileID: 8827994547624282421}
   - component: {fileID: 3029153604538843310}
+  - component: {fileID: 7602300609368443855}
   m_Layer: 5
   m_Name: Text (TMP) (1)
   m_TagString: Untagged
@@ -270,6 +289,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &7602300609368443855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 184044265988700305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 953ddfeebbc2fde4aa329b6e53da94d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastEspanolValue: 0
+  stringInSpanish: "SOLO PODR\xC1S.COLOCAR MONSTRUOS"
+  stringInEnglish: 'YOU CAN ONLY.PLACE MONSTERS '
+  Text: {fileID: 0}
+  parameters: {fileID: 0}
 --- !u!1 &354463388767113125
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,6 +317,7 @@ GameObject:
   - component: {fileID: 3579627521499189601}
   - component: {fileID: 138076432767703351}
   - component: {fileID: 7794953425993357546}
+  - component: {fileID: 4750035231866152962}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -407,6 +444,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &4750035231866152962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 354463388767113125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 953ddfeebbc2fde4aa329b6e53da94d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastEspanolValue: 0
+  stringInSpanish: "PRUBA A PULSAR.SOBRE EL NOMBRE.DE ALG\xDAN MONSTRUO"
+  stringInEnglish: TRY CLICKING ON A.MONSTER NAME
+  Text: {fileID: 0}
+  parameters: {fileID: 0}
 --- !u!1 &453923257140934853
 GameObject:
   m_ObjectHideFlags: 0
@@ -418,6 +472,7 @@ GameObject:
   - component: {fileID: 911736214760553461}
   - component: {fileID: 6539418818335739657}
   - component: {fileID: 3305794333141383924}
+  - component: {fileID: 1302361308522004394}
   m_Layer: 5
   m_Name: Text (TMP) (1)
   m_TagString: Untagged
@@ -542,6 +597,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1302361308522004394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 453923257140934853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 953ddfeebbc2fde4aa329b6e53da94d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastEspanolValue: 0
+  stringInSpanish: "CUANDO EST\xC9S LISTO"
+  stringInEnglish: WHENEVER YOU FEEL READY
+  Text: {fileID: 0}
+  parameters: {fileID: 0}
 --- !u!1 &461999210665239101
 GameObject:
   m_ObjectHideFlags: 0
@@ -650,6 +722,7 @@ GameObject:
   - component: {fileID: 8071252795956761534}
   - component: {fileID: 7616187958186828989}
   - component: {fileID: 1800390030072470003}
+  - component: {fileID: 6644833118831700772}
   m_Layer: 5
   m_Name: Text (TMP) (1)
   m_TagString: Untagged
@@ -774,6 +847,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6644833118831700772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 468245445524454312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 953ddfeebbc2fde4aa329b6e53da94d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastEspanolValue: 0
+  stringInSpanish: COLOCA EL MONSTRUO.PULSANDO SOBRE UNA
+  stringInEnglish: PLACE THE MONSTER.BY CLICKING ON A
+  Text: {fileID: 0}
+  parameters: {fileID: 0}
 --- !u!1 &472547219184839982
 GameObject:
   m_ObjectHideFlags: 0
@@ -1034,6 +1124,7 @@ GameObject:
   - component: {fileID: 7777863018748644131}
   - component: {fileID: 5868181655299852670}
   - component: {fileID: 1020744110198889385}
+  - component: {fileID: 3352789698748561296}
   m_Layer: 5
   m_Name: Text (TMP) (1)
   m_TagString: Untagged
@@ -1158,6 +1249,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3352789698748561296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 825936816937932916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 953ddfeebbc2fde4aa329b6e53da94d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastEspanolValue: 0
+  stringInSpanish: BIENVENIDO A TU MAZMORRA
+  stringInEnglish: WELCOME TO YOUR DUNGEON
+  Text: {fileID: 0}
+  parameters: {fileID: 0}
 --- !u!1 &860666969080691499
 GameObject:
   m_ObjectHideFlags: 0
@@ -1194,7 +1302,7 @@ RectTransform:
   - {fileID: 6735338128086173760}
   - {fileID: 1828848187238660907}
   m_Father: {fileID: 6104050833207403425}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1266,6 +1374,7 @@ GameObject:
   - component: {fileID: 8219164351548013001}
   - component: {fileID: 5933052627139173786}
   - component: {fileID: 8216703824359468000}
+  - component: {fileID: 885783971566736382}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -1390,6 +1499,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &885783971566736382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 897135766206323332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 953ddfeebbc2fde4aa329b6e53da94d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastEspanolValue: 0
+  stringInSpanish: LOS MONSTRUOS PUEDEN.MOVERSE DOS VECES.POR TURNO
+  stringInEnglish: MONSTERS CAN MOVE.TWICE PER TURN
+  Text: {fileID: 0}
+  parameters: {fileID: 0}
 --- !u!1 &1174071279150602546
 GameObject:
   m_ObjectHideFlags: 0
@@ -1401,6 +1527,7 @@ GameObject:
   - component: {fileID: 7588620545396634765}
   - component: {fileID: 5658306870998684661}
   - component: {fileID: 3219730795133566365}
+  - component: {fileID: 3010012664802994354}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -1527,6 +1654,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3010012664802994354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1174071279150602546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 953ddfeebbc2fde4aa329b6e53da94d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastEspanolValue: 0
+  stringInSpanish: PRUBA A COLOCAR.OTRO MONSTRUO
+  stringInEnglish: TRY PLACING.ONE MORE MONSTER
+  Text: {fileID: 0}
+  parameters: {fileID: 0}
 --- !u!1 &1182369320505638818
 GameObject:
   m_ObjectHideFlags: 0
@@ -1635,6 +1779,7 @@ GameObject:
   - component: {fileID: 4737522927775935348}
   - component: {fileID: 4520014881872015063}
   - component: {fileID: 9003761535918021704}
+  - component: {fileID: 948356536238281924}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -1763,6 +1908,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &948356536238281924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1258428610454539274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 953ddfeebbc2fde4aa329b6e53da94d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastEspanolValue: 0
+  stringInSpanish: LA PUERTA QUE LLEVA.A TU TESORO
+  stringInEnglish: REACH THE DOOR.THAT LEADS TO.YOUR TREASURE
+  Text: {fileID: 0}
+  parameters: {fileID: 0}
 --- !u!1 &1967669843267534946
 GameObject:
   m_ObjectHideFlags: 0
@@ -1850,6 +2012,7 @@ GameObject:
   - component: {fileID: 2616507749679982814}
   - component: {fileID: 8558353221190551654}
   - component: {fileID: 4821965619588398389}
+  - component: {fileID: 2285606051474932786}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -1976,6 +2139,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &2285606051474932786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2004898104044516603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 953ddfeebbc2fde4aa329b6e53da94d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastEspanolValue: 0
+  stringInSpanish: "AS\xCD QUE ENCARNAR\xC1S.AL MALVADO HECHICERO"
+  stringInEnglish: SO YOU WILL PLAY.AS THE EVIL WARLOCK
+  Text: {fileID: 0}
+  parameters: {fileID: 0}
 --- !u!1 &2074630801160084652
 GameObject:
   m_ObjectHideFlags: 0
@@ -2015,7 +2195,7 @@ RectTransform:
   - {fileID: 2209597017132828975}
   - {fileID: 1173155428165834043}
   m_Father: {fileID: 6104050833207403425}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2112,7 +2292,7 @@ RectTransform:
   - {fileID: 433654538731685627}
   - {fileID: 2616507749679982814}
   m_Father: {fileID: 6104050833207403425}
-  m_RootOrder: 16
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2249,6 +2429,143 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &3186977697126609384
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4578910383272234234}
+  - component: {fileID: 4203476712892646623}
+  - component: {fileID: 5083007624135475575}
+  m_Layer: 5
+  m_Name: Text (TMP)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4578910383272234234
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3186977697126609384}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6104050832709827215}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &4203476712892646623
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3186977697126609384}
+  m_CullTransparentMesh: 1
+--- !u!114 &5083007624135475575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3186977697126609384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: '
+
+'
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 36
+  m_fontSizeBase: 36
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &3342762296030681173
 GameObject:
   m_ObjectHideFlags: 0
@@ -2260,6 +2577,7 @@ GameObject:
   - component: {fileID: 4484304837435065316}
   - component: {fileID: 1347790289932716755}
   - component: {fileID: 5939165786678686554}
+  - component: {fileID: 13698328619911302}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -2384,6 +2702,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &13698328619911302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3342762296030681173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 953ddfeebbc2fde4aa329b6e53da94d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastEspanolValue: 0
+  stringInSpanish: COGER LA LLAVE
+  stringInEnglish: PICK THE KEY
+  Text: {fileID: 0}
+  parameters: {fileID: 0}
 --- !u!1 &3395407707815954978
 GameObject:
   m_ObjectHideFlags: 0
@@ -2471,6 +2806,7 @@ GameObject:
   - component: {fileID: 6584719899873285550}
   - component: {fileID: 6964009801607781756}
   - component: {fileID: 5972737903315344237}
+  - component: {fileID: 6562642436854487746}
   m_Layer: 5
   m_Name: Text (TMP) (1)
   m_TagString: Untagged
@@ -2595,6 +2931,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6562642436854487746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3555606283592562868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 953ddfeebbc2fde4aa329b6e53da94d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastEspanolValue: 0
+  stringInSpanish: "PERO PRIMERO DEBER\xC1N"
+  stringInEnglish: BUT FIRST THEY MUST
+  Text: {fileID: 0}
+  parameters: {fileID: 0}
 --- !u!1 &3629266947723462637
 GameObject:
   m_ObjectHideFlags: 0
@@ -3150,7 +3503,7 @@ RectTransform:
   - {fileID: 5510451225166006114}
   - {fileID: 7777863018748644131}
   m_Father: {fileID: 6104050833207403425}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -3222,6 +3575,7 @@ GameObject:
   - component: {fileID: 433654538731685627}
   - component: {fileID: 6547905846186848548}
   - component: {fileID: 7185553808381777100}
+  - component: {fileID: 3315084021787660010}
   m_Layer: 5
   m_Name: Text (TMP) (1)
   m_TagString: Untagged
@@ -3348,6 +3702,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3315084021787660010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4746633139016505427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 953ddfeebbc2fde4aa329b6e53da94d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastEspanolValue: 0
+  stringInSpanish: "ESTE JUEGO DE MAZMORRAS.EST\xC1 PATAS ARRIBA"
+  stringInEnglish: THIS DUNGEON CRAWLER.IS UPSIDE DOWN
+  Text: {fileID: 0}
+  parameters: {fileID: 0}
 --- !u!1 &4849534576928756698
 GameObject:
   m_ObjectHideFlags: 0
@@ -3383,7 +3754,7 @@ RectTransform:
   - {fileID: 8997930924403952742}
   - {fileID: 8219164351548013001}
   m_Father: {fileID: 6104050833207403425}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -3607,6 +3978,7 @@ GameObject:
   - component: {fileID: 1601479812861590849}
   - component: {fileID: 5989410818153462390}
   - component: {fileID: 4594644743686520641}
+  - component: {fileID: 4405338541719612514}
   m_Layer: 5
   m_Name: Text (TMP) (1)
   m_TagString: Untagged
@@ -3731,6 +4103,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &4405338541719612514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5208244791062993576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 953ddfeebbc2fde4aa329b6e53da94d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastEspanolValue: 0
+  stringInSpanish: "ESTOS DE AQU\xCD SON"
+  stringInEnglish: THESE ARE THE
+  Text: {fileID: 0}
+  parameters: {fileID: 0}
 --- !u!1 &5457788372906712527
 GameObject:
   m_ObjectHideFlags: 0
@@ -3918,7 +4307,7 @@ RectTransform:
   - {fileID: 7052636143706209138}
   - {fileID: 555282982942670678}
   m_Father: {fileID: 6104050833207403425}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -4015,7 +4404,7 @@ RectTransform:
   - {fileID: 2500811938727830767}
   - {fileID: 4737522927775935348}
   m_Father: {fileID: 6104050833207403425}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -4087,6 +4476,7 @@ GameObject:
   - component: {fileID: 9106156499419401881}
   - component: {fileID: 2207048846531988298}
   - component: {fileID: 120591215857225080}
+  - component: {fileID: 9110306904438110757}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -4211,6 +4601,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &9110306904438110757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6086182051901507323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 953ddfeebbc2fde4aa329b6e53da94d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastEspanolValue: 0
+  stringInSpanish: BIENVENIDO A.TU PROPIA MAZMORRA
+  stringInEnglish: WELCOME.TO YOUR DUNGEON
+  Text: {fileID: 0}
+  parameters: {fileID: 0}
 --- !u!1 &6104050831779705949
 GameObject:
   m_ObjectHideFlags: 0
@@ -4222,6 +4629,7 @@ GameObject:
   - component: {fileID: 6104050831779705946}
   - component: {fileID: 6104050831779705944}
   - component: {fileID: 6104050831779705947}
+  - component: {fileID: 4260723640675421229}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -4277,7 +4685,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: SKIP TUTORIAL
+  m_text: SKIP
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: baa3eeedbb1908f4c9feaf0d4a6a7d5e, type: 2}
   m_sharedMaterial: {fileID: -7091395558808950963, guid: baa3eeedbb1908f4c9feaf0d4a6a7d5e, type: 2}
@@ -4346,6 +4754,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &4260723640675421229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6104050831779705949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 953ddfeebbc2fde4aa329b6e53da94d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastEspanolValue: 0
+  stringInSpanish: SALTAR
+  stringInEnglish: SKIP
+  Text: {fileID: 0}
+  parameters: {fileID: 0}
 --- !u!1 &6104050832226990792
 GameObject:
   m_ObjectHideFlags: 0
@@ -4379,7 +4804,7 @@ RectTransform:
   m_Children:
   - {fileID: 6104050831779705946}
   m_Father: {fileID: 6104050833207403425}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.407, y: 0.8815556}
   m_AnchorMax: {x: 0.59300005, y: 0.9878519}
@@ -4491,6 +4916,7 @@ GameObject:
   - component: {fileID: 6104050832479611491}
   - component: {fileID: 6104050832479611489}
   - component: {fileID: 6104050832479611488}
+  - component: {fileID: 8089052612672840879}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -4617,6 +5043,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8089052612672840879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6104050832479611490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 953ddfeebbc2fde4aa329b6e53da94d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastEspanolValue: 0
+  stringInSpanish: LOS ODIOSOS.AVENTUREROS
+  stringInEnglish: DREADFUL.ADVENTURERS
+  Text: {fileID: 0}
+  parameters: {fileID: 0}
 --- !u!1 &6104050832709827214
 GameObject:
   m_ObjectHideFlags: 0
@@ -4647,9 +5090,9 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6104050832860210278}
+  - {fileID: 4578910383272234234}
   m_Father: {fileID: 6104050833207403425}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -4720,141 +5163,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!1 &6104050832860210297
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6104050832860210278}
-  - component: {fileID: 6104050832860210276}
-  - component: {fileID: 6104050832860210279}
-  m_Layer: 5
-  m_Name: Text (TMP)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &6104050832860210278
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6104050832860210297}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6104050832709827215}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &6104050832860210276
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6104050832860210297}
-  m_CullTransparentMesh: 1
---- !u!114 &6104050832860210279
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6104050832860210297}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_text: 
-  m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
-  m_fontMaterial: {fileID: 0}
-  m_fontMaterials: []
-  m_fontColor32:
-    serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_enableVertexGradient: 0
-  m_colorMode: 3
-  m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
-  m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
-  m_tintAllSprites: 0
-  m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
-  m_overrideHtmlColors: 0
-  m_faceColor:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
-  m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
-  m_fontStyle: 0
-  m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
-  m_textAlignment: 65535
-  m_characterSpacing: 0
-  m_wordSpacing: 0
-  m_lineSpacing: 0
-  m_lineSpacingMax: 0
-  m_paragraphSpacing: 0
-  m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
-  m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
-  m_linkedTextComponent: {fileID: 0}
-  parentLinkedComponent: {fileID: 0}
-  m_enableKerning: 1
-  m_enableExtraPadding: 0
-  checkPaddingRequired: 0
-  m_isRichText: 1
-  m_parseCtrlCharacters: 1
-  m_isOrthographic: 1
-  m_isCullingEnabled: 0
-  m_horizontalMapping: 0
-  m_verticalMapping: 0
-  m_uvLineOffset: 0
-  m_geometrySortingOrder: 0
-  m_IsTextObjectScaleStatic: 0
-  m_VertexBufferAutoSizeReduction: 0
-  m_useMaxVisibleDescender: 1
-  m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
-  m_isUsingLegacyAnimationComponent: 0
-  m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_baseMaterial: {fileID: 0}
-  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &6104050832911064227
 GameObject:
   m_ObjectHideFlags: 0
@@ -4891,7 +5199,7 @@ RectTransform:
   - {fileID: 1601479812861590849}
   - {fileID: 6104050832479611491}
   m_Father: {fileID: 6104050833207403425}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -4986,6 +5294,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 914174379971254900}
+  - {fileID: 3002847171769044008}
   - {fileID: 6104050832911064224}
   - {fileID: 8193809294472900788}
   - {fileID: 3014724484094559906}
@@ -5001,7 +5310,6 @@ RectTransform:
   - {fileID: 2916471107010520223}
   - {fileID: 6104050832709827215}
   - {fileID: 6104050832226990793}
-  - {fileID: 3002847171769044008}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5164,7 +5472,7 @@ RectTransform:
   - {fileID: 6584719899873285550}
   - {fileID: 4484304837435065316}
   m_Father: {fileID: 6104050833207403425}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -5236,6 +5544,7 @@ GameObject:
   - component: {fileID: 4695470175676953090}
   - component: {fileID: 4912004288058220154}
   - component: {fileID: 579820347010885353}
+  - component: {fileID: 6619110317026924295}
   m_Layer: 5
   m_Name: Text (TMP) (1)
   m_TagString: Untagged
@@ -5360,6 +5669,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6619110317026924295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6371429890936799925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 953ddfeebbc2fde4aa329b6e53da94d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastEspanolValue: 0
+  stringInSpanish: "EST\xC1S A PUNTO DE ENFRENTARTE.A TU PRIMERA INCURSI\xD3N"
+  stringInEnglish: YOU ARE ABOUT TO FACE.YOUR FIRST RAID
+  Text: {fileID: 0}
+  parameters: {fileID: 0}
 --- !u!1 &6431977475780816194
 GameObject:
   m_ObjectHideFlags: 0
@@ -5544,6 +5870,7 @@ GameObject:
   - component: {fileID: 555282982942670678}
   - component: {fileID: 6274635874584706181}
   - component: {fileID: 9117860875000451552}
+  - component: {fileID: 1108459643078597586}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -5670,6 +5997,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1108459643078597586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6497327311648528936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 953ddfeebbc2fde4aa329b6e53da94d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastEspanolValue: 0
+  stringInSpanish: "PERO NO PODR\xC1N MOVERSE.DURANTE SU PRIMER TURNO"
+  stringInEnglish: BUT THEY CAN NOT MOVE.DURING THEIR FIRST TURN
+  Text: {fileID: 0}
+  parameters: {fileID: 0}
 --- !u!1 &6633259788976454803
 GameObject:
   m_ObjectHideFlags: 0
@@ -5681,6 +6025,7 @@ GameObject:
   - component: {fileID: 5510451225166006114}
   - component: {fileID: 4041220106842544563}
   - component: {fileID: 1947953024921192736}
+  - component: {fileID: 7885023094523313181}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -5805,6 +6150,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &7885023094523313181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6633259788976454803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 953ddfeebbc2fde4aa329b6e53da94d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastEspanolValue: 0
+  stringInSpanish: "QUE COMIENCE LA INCURSI\xD3N"
+  stringInEnglish: LET THE RAID BEGIN
+  Text: {fileID: 0}
+  parameters: {fileID: 0}
 --- !u!1 &7058627163318038713
 GameObject:
   m_ObjectHideFlags: 0
@@ -5938,7 +6300,7 @@ RectTransform:
   - {fileID: 8071252795956761534}
   - {fileID: 5785844603703945400}
   m_Father: {fileID: 6104050833207403425}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -6010,6 +6372,7 @@ GameObject:
   - component: {fileID: 2828602937463836630}
   - component: {fileID: 6163121212266932186}
   - component: {fileID: 7677689605978375868}
+  - component: {fileID: 6995555100111508264}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -6134,6 +6497,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6995555100111508264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7581189567452472593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 953ddfeebbc2fde4aa329b6e53da94d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastEspanolValue: 0
+  stringInSpanish: "CONSUME MAN\xC1"
+  stringInEnglish: CONSUMES YOUR MANA
+  Text: {fileID: 0}
+  parameters: {fileID: 0}
 --- !u!1 &7607724174648812729
 GameObject:
   m_ObjectHideFlags: 0
@@ -6145,6 +6525,7 @@ GameObject:
   - component: {fileID: 2500811938727830767}
   - component: {fileID: 1168136228728065765}
   - component: {fileID: 428722126628660749}
+  - component: {fileID: 6688069911536053586}
   m_Layer: 5
   m_Name: Text (TMP) (1)
   m_TagString: Untagged
@@ -6269,6 +6650,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6688069911536053586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7607724174648812729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 953ddfeebbc2fde4aa329b6e53da94d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastEspanolValue: 0
+  stringInSpanish: "INTENTAR\xC1N ALCANZAR"
+  stringInEnglish: THEY WILL TRY TO
+  Text: {fileID: 0}
+  parameters: {fileID: 0}
 --- !u!1 &7850526411487131628
 GameObject:
   m_ObjectHideFlags: 0
@@ -6384,7 +6782,7 @@ RectTransform:
   - {fileID: 2505694670493671051}
   - {fileID: 4079973940556414231}
   m_Father: {fileID: 6104050833207403425}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -6578,7 +6976,7 @@ RectTransform:
   - {fileID: 261943482007643494}
   - {fileID: 4887729134109328468}
   m_Father: {fileID: 6104050833207403425}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -6844,6 +7242,7 @@ GameObject:
   - component: {fileID: 7070162201787116282}
   - component: {fileID: 8016146050682751415}
   - component: {fileID: 760650081032407398}
+  - component: {fileID: 8326991519431909470}
   m_Layer: 5
   m_Name: Text (TMP) (1)
   m_TagString: Untagged
@@ -6968,6 +7367,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8326991519431909470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8576720875761472600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 953ddfeebbc2fde4aa329b6e53da94d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastEspanolValue: 0
+  stringInSpanish: INVOCAR MONSTRUOS
+  stringInEnglish: SPAWNING MONSTERS
+  Text: {fileID: 0}
+  parameters: {fileID: 0}
 --- !u!1 &8601684872682970764
 GameObject:
   m_ObjectHideFlags: 0
@@ -6979,6 +7395,7 @@ GameObject:
   - component: {fileID: 4887729134109328468}
   - component: {fileID: 4696725283713712789}
   - component: {fileID: 4176772051494931395}
+  - component: {fileID: 8288987351227564077}
   m_Layer: 5
   m_Name: Text (TMP) (1)
   m_TagString: Untagged
@@ -7103,6 +7520,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8288987351227564077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8601684872682970764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 953ddfeebbc2fde4aa329b6e53da94d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastEspanolValue: 0
+  stringInSpanish: "LIDERAR\xC1S"
+  stringInEnglish: YOU WILL LEAD THE
+  Text: {fileID: 0}
+  parameters: {fileID: 0}
 --- !u!1 &8602773974239313662
 GameObject:
   m_ObjectHideFlags: 0
@@ -7140,7 +7574,7 @@ RectTransform:
   - {fileID: 2828602937463836630}
   - {fileID: 5183985698125578791}
   m_Father: {fileID: 6104050833207403425}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -7288,6 +7722,7 @@ GameObject:
   - component: {fileID: 261943482007643494}
   - component: {fileID: 6360937514859613880}
   - component: {fileID: 4971309660712898144}
+  - component: {fileID: 809564122381975621}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -7412,6 +7847,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &809564122381975621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8882473588458498016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 953ddfeebbc2fde4aa329b6e53da94d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastEspanolValue: 0
+  stringInSpanish: UNA HORDA DE MONSTRUOS
+  stringInEnglish: HORDE OF MONSTERS
+  Text: {fileID: 0}
+  parameters: {fileID: 0}
 --- !u!1 &9105026671401358170
 GameObject:
   m_ObjectHideFlags: 0
@@ -7449,7 +7901,7 @@ RectTransform:
   - {fileID: 8205290865402461124}
   - {fileID: 1319324226105495194}
   m_Father: {fileID: 6104050833207403425}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -7521,6 +7973,7 @@ GameObject:
   - component: {fileID: 5785844603703945400}
   - component: {fileID: 6537989381198964401}
   - component: {fileID: 6375765211091488946}
+  - component: {fileID: 2712185479773061998}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -7645,6 +8098,23 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &2712185479773061998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9205794671306243763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 953ddfeebbc2fde4aa329b6e53da94d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastEspanolValue: 0
+  stringInSpanish: CASILLA RESALTADA
+  stringInEnglish: GLOWING TILE
+  Text: {fileID: 0}
+  parameters: {fileID: 0}
 --- !u!1 &9208594109236569364
 GameObject:
   m_ObjectHideFlags: 0
@@ -7656,6 +8126,7 @@ GameObject:
   - component: {fileID: 1828848187238660907}
   - component: {fileID: 3524358348758822514}
   - component: {fileID: 6736422624539856712}
+  - component: {fileID: 6839523122306463041}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -7780,3 +8251,20 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6839523122306463041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9208594109236569364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 953ddfeebbc2fde4aa329b6e53da94d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastEspanolValue: 0
+  stringInSpanish: EN HABITACIONES.EN LAS QUE NO HAYA.AVENTUREROS
+  stringInEnglish: IN ROOMS WITH.NO ADVENTURERS IN IT
+  Text: {fileID: 0}
+  parameters: {fileID: 0}
