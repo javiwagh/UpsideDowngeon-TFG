@@ -11,11 +11,59 @@ public class ToolTip : MonoBehaviour
     private string side;
     private int actions;
     Dictionary<string, string> stats = new Dictionary<string, string>();
+    public bool lastEspanolValue;
+    public Parameters parameters;
+    void SetLanguage() {
+        parameters = FindObjectOfType<Parameters>();
+        changeLanguage(parameters.espanol);
+    }
+
+    public void changeLanguage(bool espanol)
+    {
+        if (espanol != lastEspanolValue) lastEspanolValue = espanol;
+    }
 
     public void setInfo(Character character) {
+        SetLanguage();
         if (character.unitType != UnitType.Nest) {
-            unitName = character.characterName.ToString();
-            side = character.unitType.ToString();
+            if (!lastEspanolValue) unitName = character.characterName.ToString();
+            else {
+                switch(character.characterName) {
+                    case(CharacterName.Goblin):
+                        unitName = "Trasgo";
+                    break;
+                    case(CharacterName.Troll):
+                        unitName = "Troll";
+                    break;
+                    case(CharacterName.Spider):
+                        unitName = "Araña";
+                    break;
+                    case(CharacterName.Rat):
+                        unitName = "Rata";
+                    break;
+                    case(CharacterName.Rogue):
+                        unitName = "Pícaro";
+                    break;
+                    case(CharacterName.Warrior):
+                        unitName = "Guerrera";
+                    break;
+                    case(CharacterName.Bard):
+                        unitName = "Bardo";
+                    break;
+                }
+            }
+            if (!lastEspanolValue) side = character.unitType.ToString();
+            else {
+                switch(character.side) {
+                    case(Side.Adventurers):
+                        side = "Aventureros";
+                    break;
+                    case(Side.Monsters):
+                        side = "Monstruos";
+                    break;
+                }
+            }
+            
             stats.Add("HP", character.healthPoints.ToString());
             stats.Add("SPEED", character.speed.ToString());
             stats.Add("ATK", character.meleeDamage.ToString());
@@ -23,11 +71,7 @@ public class ToolTip : MonoBehaviour
             if (this.GetComponent<Unit>().poisonCounter > 0) stats.Add("POISON", "Poisoned");
             if (this.GetComponent<Unit>().paralysed) stats.Add("PARALYSE", "Paralysed");
             actions = character.GetComponent<Unit>().actionPoints;
-        }
-        else {
-            unitName = character.unitType.ToString();
-            side = character.nestType.ToString();
-        }        
+        }   
     }
 
     public void updateHealth(int HP) {

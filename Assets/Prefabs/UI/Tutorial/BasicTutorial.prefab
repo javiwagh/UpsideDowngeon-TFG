@@ -457,7 +457,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lastEspanolValue: 0
-  stringInSpanish: "PRUBA A PULSAR.SOBRE EL NOMBRE.DE ALG\xDAN MONSTRUO"
+  stringInSpanish: PRUBA A PULSAR.SOBRE UN NOMBRE.DE MONSTRUO
   stringInEnglish: TRY CLICKING ON A.MONSTER NAME
   Text: {fileID: 0}
   parameters: {fileID: 0}
@@ -6762,7 +6762,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &948225624437940337
 RectTransform:
   m_ObjectHideFlags: 0
