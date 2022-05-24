@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private SpawnButtonManager spawnPannel;
 
+    public Tutorial basicTutorial;
+
     public bool monstersTurn {get; private set;} = true;
     public bool endedStage {get; private set;} = false;
     private void Start() {
@@ -121,8 +123,13 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator GameStartCoroutine() {
         hexGrid.UpdateTiles();
+        yield return new WaitForSeconds(0.1f);
         unitManager.updateUnits();
-        yield return null;
+        yield return new WaitForSeconds(0.1f);
+        if (basicTutorial != null) {
+            basicTutorial.StartTutorial();
+            unitManager.runningBasicTutorial = true;
+        }        
     } 
 
     public void RemoveUnit(GameObject unit) {

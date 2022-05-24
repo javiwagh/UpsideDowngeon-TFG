@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class UnitManager : MonoBehaviour
 {
-    public Tutorial tutorial;
     const float UNITPOSITION_Y = 0.5411864f;
     
     [SerializeField]
@@ -34,6 +33,13 @@ public class UnitManager : MonoBehaviour
     public Texture2D cursorGlow;
     public CursorMode cursorMode = CursorMode.Auto;
     public Vector2 hotSpot = Vector2.zero;
+
+    public bool runningTutorial = false;
+    public Tutorial basicTutorial;
+    public bool runningBasicTutorial = false;
+    public Tutorial movementTutorial;
+    public bool runningMovementTutorial = false;
+    public bool listenUnitMovement = false;
 
     public void updateUnits() {
         Unit[] units = FindObjectsOfType<Unit>();
@@ -69,9 +75,13 @@ public class UnitManager : MonoBehaviour
 
         if (logicalUnit.actionPoints > 0 && !gameManager.isStageEnded() 
             && (gameManager.monstersTurn && unit.GetComponent<Character>().unitType == UnitType.Monster 
-            || !gameManager.monstersTurn && unit.GetComponent<Character>().unitType == UnitType.Adventurer)) {           
+            || !gameManager.monstersTurn && unit.GetComponent<Character>().unitType == UnitType.Adventurer)) {
+            if (movementTutorial != null && movementTutorial.gameObject.activeInHierarchy && runningMovementTutorial && !listenUnitMovement) movementTutorial.PlayerActionDone(unit.gameObject.transform);        
             showActions(logicalUnit);
-            if (gameManager.monstersTurn) Cursor.SetCursor(cursorGlow, hotSpot, cursorMode);
+            if (gameManager.monstersTurn) {
+                Cursor.SetCursor(cursorGlow, hotSpot, cursorMode);
+                if (movementTutorial != null && movementTutorial.gameObject.activeInHierarchy && runningMovementTutorial) movementTutorial.PlayerActionDone(unit.transform);
+            }
             //checkAvailableActions(logicalUnit);
             return;
         }
@@ -186,21 +196,23 @@ public class UnitManager : MonoBehaviour
         movementManager.ShowRange(this.selectedUnit, this.hexGrid);
     }
 
-    private void ClearSelection() {
-        previouslySelectedTile = null;
-        if (unitToSpawn != null) {
-            movementManager.HideSpawnRange(hexGrid);
-            this.unitToSpawn = null;
+    public void ClearSelection() {
+        if (!runningMovementTutorial) {
+            previouslySelectedTile = null;
+            if (unitToSpawn != null) {
+                movementManager.HideSpawnRange(hexGrid);
+                this.unitToSpawn = null;
+            }
+            if (this.selectedUnit != null) {
+                this.selectedUnit.ResetHighlight();
+                this.selectedUnit.Deselect();
+                this.selectedUnit = null;
+            }
+            movementManager.HideRange(this.hexGrid);
+            if (gameManager.monstersTurn) Cursor.SetCursor(cursorRest, hotSpot, cursorMode);
+            clearTargets();
+            clearPickUps();
         }
-        if (this.selectedUnit != null) {
-            this.selectedUnit.ResetHighlight();
-            this.selectedUnit.Deselect();
-            this.selectedUnit = null;
-        }
-        movementManager.HideRange(this.hexGrid);
-        if (gameManager.monstersTurn) Cursor.SetCursor(cursorRest, hotSpot, cursorMode);
-        clearTargets();
-        clearPickUps();
     }
 
     private void handleTileSelected(HexagonTile selectedTile) {  
@@ -210,19 +222,21 @@ public class UnitManager : MonoBehaviour
              new Quaternion(selectedTile.transform.rotation.x, selectedTile.transform.rotation.y, selectedTile.transform.rotation.z, selectedTile.transform.rotation.w));
             newUnit.transform.RotateAround(newUnit.transform.position, Vector3.up, 150f);
             newUnit.GetComponent<Unit>().gameManager = gameManager;
-            if (tutorial != null) tutorial.Spawned(newUnit.transform);
+            
             ClearSelection();
             addUnit(newUnit);
             spendMana(newUnit.GetComponent<Character>().cost);
+            if (basicTutorial != null && basicTutorial.gameObject.activeInHierarchy && runningBasicTutorial) basicTutorial.PlayerActionDone(newUnit.transform);
             return;
-        }      
-        
+        }
+        if (movementTutorial != null && movementTutorial.gameObject.activeInHierarchy && runningMovementTutorial && !listenUnitMovement) movementTutorial.PlayerActionDone(selectedTile.gameObject.transform);
         if (previouslySelectedTile == null || previouslySelectedTile != selectedTile) {
             if (previouslySelectedTile != null) {
                 previouslySelectedTile.ResetHighlight();
                 if (previouslySelectedTile.unitOn != null) previouslySelectedTile.unitOn.ResetHighlight();
             }
             previouslySelectedTile = selectedTile;
+            
             if (!(selectedTile.hasPickUp() || selectedTile.isOccupied())) movementManager.ShowPath(selectedTile.HexagonCoordinates, selectedUnit.onTile.transform.position, hexGrid);
             else {
                 if (!Neighbours(selectedUnit.onTile, selectedTile)) movementManager.ShowPath(selectedTile.HexagonCoordinates, selectedUnit.onTile.transform.position, hexGrid);
@@ -232,7 +246,8 @@ public class UnitManager : MonoBehaviour
         }
         else {
             bool selectedTileIsNeighbor = Neighbours(selectedUnit.onTile, selectedTile);
-            
+            if (movementTutorial != null && movementTutorial.gameObject.activeInHierarchy && runningMovementTutorial && listenUnitMovement) movementTutorial.PlayerActionDone(selectedTile.gameObject.transform);
+
             if (selectedTile.hasPickUp()) {
                 if (!selectedTileIsNeighbor) moveUnit(selectedTile);
                 selectedUnit.PickKey(selectedTile.GetComponent<Key>(), selectedTileIsNeighbor);
@@ -335,6 +350,10 @@ public class UnitManager : MonoBehaviour
         }
         gameManager.freeCamera();
         tooltipManager.paused = false;
+        if (runningTutorial && movementTutorial != null && movementTutorial.gameObject.activeInHierarchy && monstersOnBoard.Count != 0) {
+            movementTutorial.StartTutorial();
+            runningMovementTutorial = true;
+        }
         endTurn();
     }
 

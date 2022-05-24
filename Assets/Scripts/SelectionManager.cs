@@ -18,20 +18,24 @@ public class SelectionManager : MonoBehaviour
     public UnityEvent<GameObject> onUnitSelected;
     public UnityEvent<GameObject> onTileSelected;
 
+    public bool allowSelection = true;
+    public bool allowUnitSelection = true;
+    public bool allowTileSelection = true;
+
     private void Awake() {
         cam = playerInput.camera;
         gameManager = FindObjectOfType<GameManager>();
     }
 
     public void HandleClick(InputAction.CallbackContext context) {
-        if (gameManager.gameState == GameManager.GameState.Waiting && gameManager.monstersTurn && context.canceled) {
+        if (allowSelection && gameManager.gameState == GameManager.GameState.Waiting && gameManager.monstersTurn && context.canceled) {
             Vector3 mousePosition = Input.mousePosition;
             GameObject result;
             if (findRayTarget(mousePosition, out result)) {
-                if (UnitSelected(result)) {
+                if (allowUnitSelection && UnitSelected(result)) {
                     onUnitSelected?.Invoke(result);
                 }
-                else if (TileSelected(result)){
+                else if (allowTileSelection && TileSelected(result)){
                     onTileSelected?.Invoke(result);
                 }
                 
