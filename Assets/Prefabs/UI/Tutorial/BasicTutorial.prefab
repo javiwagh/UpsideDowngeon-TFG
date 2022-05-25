@@ -457,7 +457,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lastEspanolValue: 0
-  stringInSpanish: PRUBA A PULSAR.SOBRE UN NOMBRE.DE MONSTRUO
+  stringInSpanish: PRUEBA A PULSAR.SOBRE UN NOMBRE.DE MONSTRUO
   stringInEnglish: TRY CLICKING ON A.MONSTER NAME
   Text: {fileID: 0}
   parameters: {fileID: 0}
@@ -1667,7 +1667,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lastEspanolValue: 0
-  stringInSpanish: PRUBA A COLOCAR.OTRO MONSTRUO
+  stringInSpanish: PRUEBA A COLOCAR.OTRO MONSTRUO
   stringInEnglish: TRY PLACING.ONE MORE MONSTER
   Text: {fileID: 0}
   parameters: {fileID: 0}
@@ -4655,7 +4655,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -20, y: -20}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6104050831779705944
 CanvasRenderer:
@@ -4685,7 +4685,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: SKIP
+  m_text: ' SKIP'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: baa3eeedbb1908f4c9feaf0d4a6a7d5e, type: 2}
   m_sharedMaterial: {fileID: -7091395558808950963, guid: baa3eeedbb1908f4c9feaf0d4a6a7d5e, type: 2}
@@ -4767,8 +4767,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lastEspanolValue: 0
-  stringInSpanish: SALTAR
-  stringInEnglish: SKIP
+  stringInSpanish: ' SALTAR'
+  stringInEnglish: ' SKIP'
   Text: {fileID: 0}
   parameters: {fileID: 0}
 --- !u!1 &6104050832226990792
@@ -5406,7 +5406,6 @@ MonoBehaviour:
   - {fileID: 4849534576928756698}
   - {fileID: 5571708377248374915}
   - {fileID: 9105026671401358170}
-  - {fileID: 4456459105947396989}
   UIElements:
   - {fileID: 0}
   - {fileID: 0}
@@ -6762,7 +6761,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &948225624437940337
 RectTransform:
   m_ObjectHideFlags: 0

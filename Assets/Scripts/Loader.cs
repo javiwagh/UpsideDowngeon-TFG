@@ -36,7 +36,7 @@ public class Loader : MonoBehaviour
                 SceneManager.LoadScene("Level_1");
                 break;
             default:
-                SceneManager.LoadScene("tutorial");
+                SceneManager.LoadScene("Tutorial");
                 break;
         }
     }

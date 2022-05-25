@@ -20,7 +20,6 @@ public class Languages : MonoBehaviour
     }
     public void changeLanguage(bool espanol)
     {
-
         if (espanol != lastEspanolValue) {
             lastEspanolValue = espanol;
             if (espanol) Text.text = stringInSpanish.Replace(".", "\n");

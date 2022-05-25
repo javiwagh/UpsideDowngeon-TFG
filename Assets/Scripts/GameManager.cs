@@ -40,15 +40,6 @@ public class GameManager : MonoBehaviour
         Wait();
     }
 
-    void Update() {
-        if (gameState == GameState.MonstersWin) {
-            endStage(true);
-        }
-        else if (gameState == GameState.AdventurersWin) {
-            endStage(false);
-        }
-    }
-
     public void endTurn() {
         monstersTurn = !monstersTurn;
         if(monstersTurn) {
@@ -99,20 +90,21 @@ public class GameManager : MonoBehaviour
     }
 
     public void AdventurersWin() {
-        gameState = GameState.AdventurersWin;
-        endStage(false);
+        endedStage = true;
+        StartCoroutine(endStage(false));
         Debug.Log("*ominous* Adventurers have won ò^ó");
     }
 
     public void MonstersWin() {
-        gameState = GameState.MonstersWin;
-        endStage(true);
+        endedStage = true;
+        StartCoroutine(endStage(true));
         Debug.Log("*ominous* Monsters have won O·O");
     }
 
-    public void endStage(bool monstersWin) {
+    public IEnumerator endStage(bool monstersWin) {
+        yield return new WaitForSeconds(0.5f);
         Debug.Log("ENDING STAGE");
-        endedStage = true;
+        while (gameState != GameState.Waiting) yield return null;
         if (monstersWin) blackFadeAnimator.SetTrigger("MonsterWin");
         else blackFadeAnimator.SetTrigger("AdventurerWin");
     }
@@ -153,8 +145,6 @@ public class GameManager : MonoBehaviour
 
     public enum GameState {
         Moving,
-        Waiting,
-        MonstersWin,
-        AdventurersWin
+        Waiting
     }
 }

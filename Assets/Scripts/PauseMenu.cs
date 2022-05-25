@@ -71,6 +71,7 @@ public class PauseMenu : MonoBehaviour
     private IEnumerator LoadMenu() {
         blackFadeAnimator.SetTrigger("EndStage");
         yield return new WaitForSeconds(1.5f);
+        Destroy(FindObjectOfType<Parameters>().gameObject);
         SceneManager.LoadScene("Menu");
     }
 
