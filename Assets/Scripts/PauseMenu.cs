@@ -61,6 +61,9 @@ public class PauseMenu : MonoBehaviour
     public void Quit() {
         StartCoroutine(QuitGame());
     }
+    public void Continue() {
+        StartCoroutine(NextLevel());
+    }
 
     private IEnumerator ReloadGame() {
         blackFadeAnimator.SetTrigger("EndStage");
@@ -79,5 +82,11 @@ public class PauseMenu : MonoBehaviour
         blackFadeAnimator.SetTrigger("EndStage");
         yield return new WaitForSeconds(2.5f);
         Application.Quit();
+    }
+
+    private IEnumerator NextLevel() {
+        blackFadeAnimator.SetTrigger("EndStage");
+        yield return new WaitForSeconds(2.5f);
+        SceneManager.LoadScene("Level_1");
     }
 }

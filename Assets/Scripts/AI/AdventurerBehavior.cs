@@ -173,13 +173,13 @@ public class AdventurerBehavior : MonoBehaviour
     private HexagonTile lookForKeyMonstersInRoom() {
         if (unit.onTile.originalTileType == TileType.Door) {
             foreach (Room room in unit.onTile.GetComponent<Door>().roomsAvailable) {
-                foreach (HexagonTile tile in room.monstersInRoom()) {
+                if (room.monstersInRoom().Count > 0) foreach (HexagonTile tile in room.monstersInRoom()) {
                     if (tile.unitOn.hasKey) return tile;
                 }
             } 
         }
         else {
-            foreach (HexagonTile tile in unit.onTile.room.monstersInRoom()) {
+            if (unit.onTile.room.monstersInRoom().Count > 0) foreach (HexagonTile tile in unit.onTile.room.monstersInRoom()) {
                 if (tile.unitOn.hasKey) return tile;
             }
         }

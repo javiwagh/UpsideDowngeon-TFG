@@ -5,7 +5,7 @@ using UnityEngine;
 public class Room : MonoBehaviour
 {
     public List<Door> doors;
-    public HexagonTile[] tilesInRoom;
+    public List<HexagonTile> tilesInRoom = new List<HexagonTile>();
     public bool hasEndTile;
     public bool hasKeyTile;
     public HexagonTile endTile;
@@ -15,7 +15,10 @@ public class Room : MonoBehaviour
     }*/
 
     public void UpdateTiles() {
-        tilesInRoom = GetComponentsInChildren<HexagonTile>();
+        foreach (HexagonTile tile in GetComponentsInChildren<HexagonTile>()) {
+            if (!tilesInRoom.Contains(tile)) tilesInRoom.Add(tile);
+        }
+        
         foreach (HexagonTile tile in tilesInRoom) {
             if (tile.originalTileType == TileType.End) {
                 hasEndTile = true;
@@ -26,6 +29,13 @@ public class Room : MonoBehaviour
                 keyTile = tile;
             }
             tile.room = this;
+        }
+    }
+
+    public void PickKey() {
+        if (hasKeyTile) {
+            hasKeyTile = false;
+            keyTile = null;
         }
     }
 

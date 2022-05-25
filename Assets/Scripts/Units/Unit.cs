@@ -167,15 +167,15 @@ public class Unit : MonoBehaviour
         StartCoroutine(Pick(key));
     }
     IEnumerator Pick(Key key) {
-        PlayKey();
         while (isMoving) yield return null;
+        PlayKey();
         hasKey = true;
+        
         key.Pick();
-        key.GetComponent<HexagonTile>().room.hasKeyTile = false;
-        key.GetComponent<HexagonTile>().room.keyTile = null;
         keyInstance.SetActive(true);
         Debug.Log("YAY! Got the key!");
         gameManager.KeyPicked();
+        key.GetComponent<HexagonTile>().room.PickKey();
     }
 
     public void GiveKey() {
@@ -183,7 +183,7 @@ public class Unit : MonoBehaviour
         hasKey = true;
         keyInstance.SetActive(true);
         Debug.Log("YAY! Got the key!");
-        gameManager.KeyPicked();
+        //gameManager.KeyPicked();
     }
 
     public bool spendActionPoint() {
