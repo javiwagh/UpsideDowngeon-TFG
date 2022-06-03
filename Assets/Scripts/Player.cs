@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private SpawnButtonManager spawnPannel;
     private void Awake() {
-        manaPoints = 10;
+        //manaPoints = 10;
         updateMana();
     }
 

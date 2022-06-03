@@ -93,6 +93,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6510855887520554075, guid: e2f23569fe17aee418ba8d9c884d691a, type: 3}
+      propertyPath: healthPoints
+      value: 40
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2f23569fe17aee418ba8d9c884d691a, type: 3}
 --- !u!4 &8304696346809845238 stripped
@@ -158,6 +162,14 @@ PrefabInstance:
     - target: {fileID: 781481527263213239, guid: c541a6f2b66d48b44adc7ab83b355aaf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 781481527263213243, guid: c541a6f2b66d48b44adc7ab83b355aaf, type: 3}
+      propertyPath: meleeDamage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 781481527263213243, guid: c541a6f2b66d48b44adc7ab83b355aaf, type: 3}
+      propertyPath: healthPoints
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 9170652433872724826, guid: c541a6f2b66d48b44adc7ab83b355aaf, type: 3}
       propertyPath: unitManager
@@ -228,6 +240,10 @@ PrefabInstance:
     - target: {fileID: 4200779968432577397, guid: 99c5807ecd170f34d9e7f1228fa15a0d, type: 3}
       propertyPath: m_Name
       value: Rogue
+      objectReference: {fileID: 0}
+    - target: {fileID: 4200779968432577406, guid: 99c5807ecd170f34d9e7f1228fa15a0d, type: 3}
+      propertyPath: healthPoints
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99c5807ecd170f34d9e7f1228fa15a0d, type: 3}

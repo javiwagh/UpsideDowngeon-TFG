@@ -233,7 +233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0af442f2229b64f43b6b7f5a83305fc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manaPoints: 10
+  manaPoints: 20
   manaText: {fileID: 0}
   spawnPannel: {fileID: 0}
 --- !u!114 &3840056377173565699
