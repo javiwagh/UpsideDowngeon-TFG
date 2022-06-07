@@ -491,7 +491,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lastEspanolValue: 0
-  stringInSpanish: "VOL\xDAMEN"
+  stringInSpanish: VOLUMEN
   stringInEnglish: VOLUME
   Text: {fileID: 0}
   parameters: {fileID: 0}
